@@ -1,0 +1,6 @@
+# Sao chép thành .dev.vars để chạy MoMo UAT trên máy. Không commit .dev.vars thật.
+SITE_URL=http://localhost:3000
+MOMO_PARTNER_CODE=
+MOMO_ACCESS_KEY=
+MOMO_SECRET_KEY=
+MOVA_ADMIN_EMAIL=

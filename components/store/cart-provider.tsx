@@ -1,0 +1,158 @@
+'use client';
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import type { Product } from '@/lib/catalog';
+
+export type CartItem = {
+  productSlug: string;
+  sku: string;
+  quantity: number;
+};
+
+type CartContextValue = {
+  items: CartItem[];
+  itemCount: number;
+  isCartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
+  addItem: (productSlug: string, sku: string, quantity?: number) => void;
+  updateQuantity: (sku: string, quantity: number) => void;
+  removeItem: (sku: string) => void;
+  clearCart: () => void;
+  catalog: Product[];
+};
+
+type WebMcpTool = {
+  name: string;
+  title?: string;
+  description: string;
+  inputSchema: object;
+  annotations?: { readOnlyHint?: boolean; untrustedContentHint?: boolean };
+  execute: (input: unknown) => Record<string, unknown> | Promise<Record<string, unknown>>;
+};
+
+declare global {
+  interface Document {
+    modelContext?: {
+      registerTool: (tool: WebMcpTool, options?: { signal?: AbortSignal }) => void | Promise<void>;
+    };
+  }
+}
+
+const STORAGE_KEY = 'mova-cart-v1';
+const CartContext = createContext<CartContextValue | null>(null);
+
+function readStoredCart(): CartItem[] {
+  try {
+    const value = window.localStorage.getItem(STORAGE_KEY);
+    if (!value) return [];
+    const parsed = JSON.parse(value) as CartItem[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function CartProvider({ children, catalog }: { children: React.ReactNode; catalog: Product[] }) {
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setItems(readStoredCart());
+      setHydrated(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }, [hydrated, items]);
+
+  const addItem = useCallback((productSlug: string, sku: string, quantity = 1) => {
+    const product = catalog.find((entry) => entry.slug === productSlug);
+    const variant = product?.variants.find((entry) => entry.sku === sku);
+    if (!product || !variant) throw new Error('Sản phẩm hoặc phiên bản không tồn tại.');
+    if (!Number.isInteger(quantity) || quantity < 1) throw new Error('Số lượng phải từ 1 trở lên.');
+
+    setItems((current) => {
+      const existing = current.find((item) => item.sku === sku);
+      const nextQuantity = (existing?.quantity ?? 0) + quantity;
+      if (nextQuantity > variant.stock) throw new Error(`Chỉ còn ${variant.stock} sản phẩm trong kho.`);
+      return existing
+        ? current.map((item) => item.sku === sku ? { ...item, quantity: nextQuantity } : item)
+        : [...current, { productSlug, sku, quantity }];
+    });
+    setCartOpen(true);
+  }, [catalog]);
+
+  const updateQuantity = useCallback((sku: string, quantity: number) => {
+    if (quantity <= 0) {
+      setItems((current) => current.filter((item) => item.sku !== sku));
+      return;
+    }
+    const variant = catalog.flatMap((product) => product.variants).find((entry) => entry.sku === sku);
+    if (!variant || quantity > variant.stock) return;
+    setItems((current) => current.map((item) => item.sku === sku ? { ...item, quantity } : item));
+  }, [catalog]);
+
+  const removeItem = useCallback((sku: string) => setItems((current) => current.filter((item) => item.sku !== sku)), []);
+  const clearCart = useCallback(() => setItems([]), []);
+  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
+
+  useEffect(() => {
+    const context = document.modelContext;
+    if (!context?.registerTool) return;
+    const lifecycle = new AbortController();
+
+    const register = async () => {
+      await context.registerTool({
+        name: 'add_product_to_cart',
+        title: 'Thêm sản phẩm vào giỏ MOVA',
+        description: 'Thêm một phiên bản sản phẩm MOVA vào giỏ hàng hiện tại và mở giỏ hàng.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            productSlug: { type: 'string', description: 'Slug sản phẩm trong danh mục MOVA.' },
+            sku: { type: 'string', description: 'Mã SKU của màu và size đã chọn.' },
+            quantity: { type: 'integer', minimum: 1, maximum: 20 },
+          },
+          required: ['productSlug', 'sku'],
+          additionalProperties: false,
+        },
+        annotations: { readOnlyHint: false, untrustedContentHint: false },
+        execute(input) {
+          const value = input as { productSlug?: string; sku?: string; quantity?: number };
+          if (!value.productSlug || !value.sku) throw new Error('Thiếu productSlug hoặc sku.');
+          const quantity = value.quantity ?? 1;
+          addItem(value.productSlug, value.sku, quantity);
+          return { status: 'added', productSlug: value.productSlug, sku: value.sku, quantity };
+        },
+      }, { signal: lifecycle.signal });
+
+      await context.registerTool({
+        name: 'read_cart',
+        title: 'Xem giỏ hàng MOVA',
+        description: 'Đọc các SKU, số lượng và tổng số sản phẩm trong giỏ MOVA hiện tại.',
+        inputSchema: { type: 'object', properties: {}, additionalProperties: false },
+        annotations: { readOnlyHint: true, untrustedContentHint: false },
+        execute() {
+          const storedItems = readStoredCart();
+          return { items: storedItems, itemCount: storedItems.reduce((sum, item) => sum + item.quantity, 0) };
+        },
+      }, { signal: lifecycle.signal });
+    };
+
+    void register().catch(() => undefined);
+    return () => lifecycle.abort();
+  }, [addItem]);
+
+  const value = useMemo(() => ({ items, itemCount, isCartOpen, setCartOpen, addItem, updateQuantity, removeItem, clearCart, catalog }), [items, itemCount, isCartOpen, addItem, updateQuantity, removeItem, clearCart, catalog]);
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  if (!context) throw new Error('useCart phải được dùng bên trong CartProvider.');
+  return context;
+}
