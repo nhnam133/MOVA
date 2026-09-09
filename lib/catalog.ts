@@ -1,17 +1,21 @@
 export type ProductVariant = {
+  id?: string;
   sku: string;
-  size: 'S' | 'M' | 'L' | 'XL';
+  size: string;
   color: string;
   stock: number;
 };
 
 export type Product = {
+  id?: string;
   code: string;
   slug: string;
   name: string;
   category: string;
   categorySlug: string;
   price: number;
+  compareAtPrice?: number | null;
+  gender: 'female' | 'male' | 'unisex';
   image: string;
   gallery: string[];
   badge: string | null;
@@ -36,6 +40,7 @@ export const products: Product[] = [
     category: 'Áo thun thể thao',
     categorySlug: 'ao-thun-the-thao',
     price: 329_000,
+    gender: 'female',
     image: '/products/atg01-1.avif',
     gallery: ['/products/atg01-1.avif'],
     badge: 'Mới',
@@ -50,6 +55,7 @@ export const products: Product[] = [
     category: 'Áo chạy bộ',
     categorySlug: 'ao-chay-bo',
     price: 359_000,
+    gender: 'female',
     image: '/products/atg02-1.avif',
     gallery: ['/products/atg02-1.avif'],
     badge: 'Bán chạy',
@@ -64,6 +70,7 @@ export const products: Product[] = [
     category: 'Quần short',
     categorySlug: 'quan-short',
     price: 389_000,
+    gender: 'female',
     image: '/products/qsg01-1.avif',
     gallery: ['/products/qsg01-1.avif'],
     badge: null,
@@ -78,6 +85,7 @@ export const products: Product[] = [
     category: 'Áo thun thể thao',
     categorySlug: 'ao-thun-the-thao',
     price: 349_000,
+    gender: 'female',
     image: '/products/atg03-1.avif',
     gallery: ['/products/atg03-1.avif'],
     badge: 'Mới',
@@ -92,6 +100,7 @@ export const products: Product[] = [
     category: 'Quần short',
     categorySlug: 'quan-short',
     price: 419_000,
+    gender: 'female',
     image: '/products/qsg02-1.avif',
     gallery: ['/products/qsg02-1.avif'],
     badge: 'Bán chạy',

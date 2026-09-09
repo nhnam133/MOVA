@@ -17,13 +17,15 @@ export async function POST(request: Request) {
   const name = field('name').trim();
   const categoryId = field('categoryId').trim();
   const price = Number(data.get('price'));
+  const compareAtPrice = field('compareAtPrice') ? Number(data.get('compareAtPrice')) : null;
+  const gender = field('gender') as 'female' | 'male' | 'unisex';
   const color = field('color').trim();
   const material = field('material').trim();
   const description = field('description').trim();
   const stock = Number(data.get('stock'));
-  const sizes = field('sizes').split(',').map((size) => size.trim().toUpperCase()).filter((size) => ['S', 'M', 'L', 'XL'].includes(size));
+  const sizes = field('sizes').split(',').map((size) => size.trim().toUpperCase()).filter((size) => ['S', 'M', 'L', 'XL', 'XXL'].includes(size));
   const file = data.get('image');
-  if (!/^[A-Z0-9-]{3,20}$/.test(code) || name.length < 3 || !categoryId || !Number.isInteger(price) || price < 1_000 || !color || !Number.isInteger(stock) || stock < 0 || sizes.length === 0 || !(file instanceof File) || file.size === 0) {
+  if (!/^[A-Z0-9-]{3,20}$/.test(code) || name.length < 3 || !categoryId || !['female', 'male', 'unisex'].includes(gender) || !Number.isInteger(price) || price < 1_000 || (compareAtPrice !== null && (!Number.isInteger(compareAtPrice) || compareAtPrice <= price)) || !color || !Number.isInteger(stock) || stock < 0 || sizes.length === 0 || !(file instanceof File) || file.size === 0) {
     return Response.json({ error: 'Thông tin sản phẩm chưa hợp lệ.' }, { status: 400 });
   }
   if (!['image/avif', 'image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) return Response.json({ error: 'Ảnh phải là AVIF/JPG/PNG/WebP và không quá 5MB.' }, { status: 400 });
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
   const objectKey = `products/${productId}-${safeFileName}`;
   await env.FILES.put(objectKey, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
   try {
-    await db.insert(products).values({ id: productId, categoryId, code, slug, name, description, material, price, status: 'active', featured: data.get('featured') === 'on', createdAt: now, updatedAt: now });
+    await db.insert(products).values({ id: productId, categoryId, code, slug, name, description, material, price, compareAtPrice, gender, status: 'active', featured: data.get('featured') === 'on', createdAt: now, updatedAt: now });
     await db.insert(productImages).values({ id: crypto.randomUUID(), productId, objectKey, altText: name, sortOrder: 0, createdAt: now });
     for (const size of new Set(sizes)) {
       await db.insert(productVariants).values({ id: crypto.randomUUID(), productId, sku: `${code}-${makeSlug(color).toUpperCase()}-${size}`, color, size, stock, active: true, createdAt: now, updatedAt: now });

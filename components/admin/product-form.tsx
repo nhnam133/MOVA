@@ -20,9 +20,11 @@ export function ProductForm({ categories }: { categories: { id: string; name: st
       <label className="text-xs font-bold uppercase tracking-wider">Mã sản phẩm<input name="code" required placeholder="VD: ATN01" className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider">Tên sản phẩm<input name="name" required className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider">Danh mục<select name="categoryId" required className={input}>{categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}</select></label>
+      <label className="text-xs font-bold uppercase tracking-wider">Đối tượng<select name="gender" required className={input}><option value="female">Nữ</option><option value="male">Nam</option><option value="unisex">Unisex</option></select></label>
       <label className="text-xs font-bold uppercase tracking-wider">Giá bán (VND)<input name="price" required type="number" min="1000" step="1000" className={input} /></label>
+      <label className="text-xs font-bold uppercase tracking-wider">Giá gốc (nếu có)<input name="compareAtPrice" type="number" min="1000" step="1000" className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider">Màu<input name="color" required placeholder="Đen" className={input} /></label>
-      <label className="text-xs font-bold uppercase tracking-wider">Size, cách nhau bằng dấu phẩy<input name="sizes" required defaultValue="S,M,L,XL" className={input} /></label>
+      <label className="text-xs font-bold uppercase tracking-wider">Size, cách nhau bằng dấu phẩy<input name="sizes" required defaultValue="S,M,L,XL,XXL" className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider">Tồn kho mỗi size<input name="stock" required type="number" min="0" defaultValue="10" className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider">Chất liệu<input name="material" className={input} /></label>
       <label className="text-xs font-bold uppercase tracking-wider sm:col-span-2">Mô tả<textarea name="description" rows={3} className="mt-2 w-full border border-black/25 bg-white p-3 text-sm outline-none focus:border-black" /></label>

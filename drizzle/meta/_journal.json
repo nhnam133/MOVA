@@ -15,6 +15,13 @@
       "when": 1788956372752,
       "tag": "0001_seed_catalog",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788978846296,
+      "tag": "0002_groovy_captain_cross",
+      "breakpoints": true
     }
   ]
 }

@@ -13,7 +13,7 @@ export async function getCatalogProducts(): Promise<Product[]> {
     const db = getDb();
     const rows = await db.select({
       id: productTable.id, code: productTable.code, slug: productTable.slug, name: productTable.name,
-      description: productTable.description, material: productTable.material, price: productTable.price,
+      description: productTable.description, material: productTable.material, price: productTable.price, compareAtPrice: productTable.compareAtPrice, gender: productTable.gender,
       featured: productTable.featured, category: categoryTable.name, categorySlug: categoryTable.slug,
     }).from(productTable).innerJoin(categoryTable, eq(productTable.categoryId, categoryTable.id))
       .where(eq(productTable.status, 'active')).orderBy(asc(productTable.createdAt));
@@ -24,11 +24,11 @@ export async function getCatalogProducts(): Promise<Product[]> {
     return rows.map((row) => {
       const gallery = images.filter((image) => image.productId === row.id).map((image) => imageUrl(image.objectKey));
       return {
-        code: row.code, slug: row.slug, name: row.name, category: row.category, categorySlug: row.categorySlug,
-        price: row.price, image: gallery[0] ?? '/products/atg01-1.avif', gallery, badge: row.featured ? 'Nổi bật' : null,
+        id: row.id, code: row.code, slug: row.slug, name: row.name, category: row.category, categorySlug: row.categorySlug,
+        price: row.price, compareAtPrice: row.compareAtPrice, gender: row.gender, image: gallery[0] ?? '/products/atg01-1.avif', gallery, badge: row.featured ? 'Nổi bật' : null,
         description: row.description, material: row.material,
         variants: variants.filter((variant) => variant.productId === row.id && variant.active).map((variant) => ({
-          sku: variant.sku, size: variant.size as 'S' | 'M' | 'L' | 'XL', color: variant.color, stock: variant.stock,
+          id: variant.id, sku: variant.sku, size: variant.size, color: variant.color, stock: Math.max(0, variant.stock - variant.reservedStock),
         })),
       };
     });

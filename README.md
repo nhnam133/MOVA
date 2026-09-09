@@ -4,14 +4,16 @@ MOVA được xây mới hoàn toàn. TechVie chỉ được dùng để tham kh
 
 ## Chức năng đã có
 
-- Trang chủ responsive theo nhận diện trắng–đen–xanh lime.
-- Danh mục và danh sách sản phẩm; trang chi tiết chọn size/số lượng.
+- Trang chủ responsive theo nhận diện trắng–đen–xanh lime, tham khảo cấu trúc bán lẻ của ND Style nhưng dùng thiết kế MOVA riêng.
+- Tìm kiếm và kết hợp bộ lọc danh mục, đối tượng, khoảng giá, màu, size; sắp xếp mới nhất/giá tăng/giá giảm.
+- Danh sách và chi tiết sản phẩm; bộ ảnh, chọn màu–size–số lượng, bảng size mẫu và chính sách liên quan.
 - Giỏ hàng lưu trên trình duyệt, kiểm tra số lượng theo tồn kho.
 - Đăng nhập trước khi đặt hàng.
 - Thanh toán COD và khung tích hợp MoMo UAT có ký HMAC-SHA256.
-- Cơ sở dữ liệu đơn hàng, điểm, voucher và yêu cầu đổi size.
-- Trang tài khoản và lịch sử đơn.
-- Trang quản trị thêm sản phẩm, biến thể và ảnh vào kho lưu trữ.
+- Cơ sở dữ liệu đơn hàng, giữ tồn kho, điểm, voucher cá nhân và yêu cầu đổi hàng có ảnh minh chứng riêng tư.
+- Trang tài khoản, chi tiết đơn, tự hủy COD chờ xác nhận, xác nhận nhận hàng, đổi 100 điểm lấy voucher 20.000đ.
+- Liên hệ lưu dữ liệu, bản đồ UTH minh họa, đánh giá sau mua, chính sách vận chuyển/đổi hàng/bảo mật.
+- Trang quản trị thêm sản phẩm/biến thể/ảnh, xử lý trạng thái đơn và COD, liên hệ và kiểm duyệt đánh giá.
 
 ## Công nghệ
 
@@ -35,6 +37,7 @@ Các lệnh kiểm tra:
 
 ```bash
 pnpm lint
+pnpm test
 pnpm build
 ```
 

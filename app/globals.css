@@ -36,7 +36,7 @@
 }
 
 :root {
-  --background: #f7f7f2;
+  --background: #f6f6f2;
   --foreground: #0b0b0b;
   --card: #ffffff;
   --card-foreground: #0b0b0b;
@@ -44,17 +44,17 @@
   --popover-foreground: #0b0b0b;
   --primary: #0b0b0b;
   --primary-foreground: #ffffff;
-  --secondary: #eaff2f;
+  --secondary: #dfff00;
   --secondary-foreground: #0b0b0b;
   --muted: #ecece6;
   --muted-foreground: #66665e;
-  --accent: #eaff2f;
+  --accent: #dfff00;
   --accent-foreground: #0b0b0b;
   --destructive: #d73535;
   --border: #d9d9d1;
   --input: #d9d9d1;
   --ring: #0b0b0b;
-  --radius: 0.25rem;
+  --radius: 0.75rem;
 }
 
 * { border-color: var(--border); }
@@ -65,12 +65,29 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
-::selection { background: #eaff2f; color: #0b0b0b; }
+::selection { background: #dfff00; color: #0b0b0b; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline-color: #0b0b0b; }
 .mova-grid {
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+.section-kicker {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #686862;
+}
+.section-title {
+  margin-top: 0.75rem;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
 }
 .marquee-track { animation: marquee 20s linear infinite; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
