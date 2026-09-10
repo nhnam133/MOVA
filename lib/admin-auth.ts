@@ -1,16 +1,11 @@
 import { env } from 'cloudflare:workers';
 import { redirect } from 'next/navigation';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 
 export async function getAdminUser() {
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   if (!user) return null;
-  const configuredEmail = env.MOVA_ADMIN_EMAIL?.trim().toLowerCase();
-  const isLocalAdmin =
-    env.SITE_URL?.startsWith('http://localhost:') &&
-    user.email.toLowerCase() === 'seedy@sites.test';
-  return isLocalAdmin ||
-    (configuredEmail && user.email.toLowerCase() === configuredEmail)
+  return env.MOVA_ADMIN_AUTH_ID && user.authId === env.MOVA_ADMIN_AUTH_ID
     ? user
     : null;
 }

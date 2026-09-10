@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { CartProvider } from '@/components/store/cart-provider';
 import { getCatalogProducts } from '@/lib/catalog-server';
 import './globals.css';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,7 +23,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const catalog = await getCatalogProducts();
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   return (
     <html lang="vi">
       <body

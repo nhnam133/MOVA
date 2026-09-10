@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { eq } from 'drizzle-orm';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { getDb } from '@/db';
 import { exchangeEvidence, exchangeRequests } from '@/db/schema';
 import { getAdminUser } from '@/lib/admin-auth';
@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     return new Response('Invalid key', { status: 400 });
   const isPublicProduct = key.startsWith('products/');
   if (!isPublicProduct) {
-    const user = await getChatGPTUser();
+    const user = await getMovaUser();
     if (!user) return new Response('Unauthorized', { status: 401 });
     const admin = await getAdminUser();
     if (!admin) {

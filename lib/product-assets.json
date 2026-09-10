@@ -1,0 +1,935 @@
+[
+  {
+    "code": "PLN01",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo polo nam",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nam MOVA PLN01",
+    "price": 399000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/pln01-1.avif",
+        "sha256": "396055a0519ae19ad828f6dc8475498d22f6724936bc5bd97cb85711abe312a4"
+      },
+      {
+        "url": "/products/catalog-20260910/pln01-2.avif",
+        "sha256": "784219414a393cb8c716ae55daf2b6837b230921060d6ff4c6b7161e100d893d"
+      }
+    ]
+  },
+  {
+    "code": "PLN02",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo polo nam",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nam MOVA PLN02",
+    "price": 399000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/pln02-1.avif",
+        "sha256": "5c4422f1413810f6f748591d2e681c9cf08225abdec2dd6bbd5f279b9f153761"
+      },
+      {
+        "url": "/products/catalog-20260910/pln02-2.avif",
+        "sha256": "49bc3e7a3a60bc9a91ca90d017304bff729b6f89867756096208b82d264dbafd"
+      }
+    ]
+  },
+  {
+    "code": "PLN03",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo polo nam",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nam MOVA PLN03",
+    "price": 399000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/pln03-1.avif",
+        "sha256": "3d3e900a5a3bb103af2bf383d44961b91a97c38ee463e595b762ee60a9d26be7"
+      },
+      {
+        "url": "/products/catalog-20260910/pln03-2.avif",
+        "sha256": "d05be1cc563aad9a92fc10e7ea1a00fdb80c808819e22fb9ec18bca502f96cbe"
+      }
+    ]
+  },
+  {
+    "code": "SMN01",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo sơ mi",
+    "category": {
+      "id": "cat-shirt",
+      "slug": "ao-so-mi",
+      "name": "Áo sơ mi"
+    },
+    "existingCategory": false,
+    "name": "Áo sơ mi nam MOVA SMN01",
+    "price": 429000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/smn01-1.avif",
+        "sha256": "07f384ab5a981a016b1121d5f1c1eb1d1b11aeae79ed8937b8d8823332011ef8"
+      },
+      {
+        "url": "/products/catalog-20260910/smn01-2.avif",
+        "sha256": "16ddc50871718575fb3c048a0d8055613eff0053dae3bb78670cf34bc74ffde2"
+      }
+    ]
+  },
+  {
+    "code": "SMN02",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo sơ mi",
+    "category": {
+      "id": "cat-shirt",
+      "slug": "ao-so-mi",
+      "name": "Áo sơ mi"
+    },
+    "existingCategory": false,
+    "name": "Áo sơ mi nam MOVA SMN02",
+    "price": 429000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/smn02-1.avif",
+        "sha256": "581f67057744a15fe2ceb5188e414bd2b5ad9f632d8dad61ea5081f8cf2d3329"
+      },
+      {
+        "url": "/products/catalog-20260910/smn02-2.avif",
+        "sha256": "949ccbbab038594a4777cdd29f95d95364f885c793028e4c15a9f0ca9baa0eb7"
+      }
+    ]
+  },
+  {
+    "code": "SMN03",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo sơ mi",
+    "category": {
+      "id": "cat-shirt",
+      "slug": "ao-so-mi",
+      "name": "Áo sơ mi"
+    },
+    "existingCategory": false,
+    "name": "Áo sơ mi nam MOVA SMN03",
+    "price": 429000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/smn03-1.avif",
+        "sha256": "beb9c4bdae8200574355e06fcbac24d0c4fb7612edc51b2d63147576cb3e1ac7"
+      },
+      {
+        "url": "/products/catalog-20260910/smn03-2.avif",
+        "sha256": "9b7a82f74931aec995cc10e0dfb6c0a023ba61a0e7036ccd436d7adaf2385f8d"
+      }
+    ]
+  },
+  {
+    "code": "ATN01",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nam MOVA ATN01",
+    "price": 329000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atn01-1.avif",
+        "sha256": "ae3ef03dafea339e2ea55881c020e8a6e7689137e003e1d11258919d270136f9"
+      },
+      {
+        "url": "/products/catalog-20260910/atn01-2.avif",
+        "sha256": "2a9afe512f7cd74d054035fa4dd0c86d917fb106b3b8328df5ad93f6d5d71991"
+      }
+    ]
+  },
+  {
+    "code": "ATN02",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nam MOVA ATN02",
+    "price": 329000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atn02-1.avif",
+        "sha256": "413bcf877148e57f316d82e1ba0db54b3790247fe17d24296acc298ac4088b73"
+      },
+      {
+        "url": "/products/catalog-20260910/atn02-2.avif",
+        "sha256": "3b1e2eb214eac8e4742ef143c949c757dea23bae305cc22255a747d0c1224332"
+      }
+    ]
+  },
+  {
+    "code": "ATN03",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nam MOVA ATN03",
+    "price": 329000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atn03-1.avif",
+        "sha256": "df9992312f27c6a678cf4b9b9c4b14cfa7ed2b6af207cb7d54aa219829d5da48"
+      },
+      {
+        "url": "/products/catalog-20260910/atn03-2.avif",
+        "sha256": "e66cbfb44e682c46a0c95f5c3bfe1bec909f672ed5e1c05ed56b715661a02ced"
+      }
+    ]
+  },
+  {
+    "code": "QN01",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Quần",
+    "category": {
+      "id": "cat-short",
+      "slug": "quan-short",
+      "name": "Quần short"
+    },
+    "existingCategory": true,
+    "name": "Quần short nam MOVA QN01",
+    "price": 389000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/qn01-1.avif",
+        "sha256": "53f05d19037ce39f611d2f795b698c058a906804fcc3953a38591603ec591c48"
+      },
+      {
+        "url": "/products/catalog-20260910/qn01-2.avif",
+        "sha256": "9691fad899b81e5359e1b7f5eac6b535aa00ad93c5c1b318d8b39995ce79d103"
+      }
+    ]
+  },
+  {
+    "code": "QN02",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Quần",
+    "category": {
+      "id": "cat-short",
+      "slug": "quan-short",
+      "name": "Quần short"
+    },
+    "existingCategory": true,
+    "name": "Quần short nam MOVA QN02",
+    "price": 389000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/qn02-1.avif",
+        "sha256": "7d74f412c208a64a8a951fb214a9fccdf9c9ce2a64828adb2b4d38c0082a33ef"
+      },
+      {
+        "url": "/products/catalog-20260910/qn02-2.avif",
+        "sha256": "cfa190fed03105e343b1a551da77347906b9ee70f623de1d6c6ffa204e45d7b0"
+      }
+    ]
+  },
+  {
+    "code": "QN03",
+    "sourceGroup": "Nam",
+    "sourceCategory": "Quần",
+    "category": {
+      "id": "cat-short",
+      "slug": "quan-short",
+      "name": "Quần short"
+    },
+    "existingCategory": true,
+    "name": "Quần short nam MOVA QN03",
+    "price": 389000,
+    "gender": "male",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/qn03-1.avif",
+        "sha256": "ab35f39e53a0d1b739cf4e8e91002860f5950d79ac1ca421753b30714ab9b674"
+      },
+      {
+        "url": "/products/catalog-20260910/qn03-2.avif",
+        "sha256": "3985c56d57cd60ea9dce4c1ffb27702163684da1b0a98426b538e2c6558ff74d"
+      }
+    ]
+  },
+  {
+    "code": "DTG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo dài tay",
+    "category": {
+      "id": "cat-long",
+      "slug": "ao-dai-tay",
+      "name": "Áo dài tay"
+    },
+    "existingCategory": false,
+    "name": "Áo dài tay nữ MOVA DTG01",
+    "price": 449000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/dtg01-1.avif",
+        "sha256": "2259e587142e7dd5bcf8543f91189d09a84505994a8b104c81faaf15cb737c27"
+      },
+      {
+        "url": "/products/catalog-20260910/dtg01-2.avif",
+        "sha256": "f63dcb9d735f908d1f964f7d92196ea94b75409dffdcfa382543464d967f4424"
+      },
+      {
+        "url": "/products/catalog-20260910/dtg01-3.avif",
+        "sha256": "e0e0b630345d791d6bc18138dfcc973e65330c2f0a3551b5a18e36fb25f7e109"
+      }
+    ]
+  },
+  {
+    "code": "DTG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo dài tay",
+    "category": {
+      "id": "cat-long",
+      "slug": "ao-dai-tay",
+      "name": "Áo dài tay"
+    },
+    "existingCategory": false,
+    "name": "Áo dài tay nữ MOVA DTG02",
+    "price": 449000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/dtg02-1.avif",
+        "sha256": "3df99b6d7404d2c31c2e4df3caecfb300f06f4d8dddb0384f73cb455c7687129"
+      },
+      {
+        "url": "/products/catalog-20260910/dtg02-2.avif",
+        "sha256": "ec39fca88b2443c0f690c9da95368bf47db35b09743dfbc06c2e5ba92ef9ef60"
+      },
+      {
+        "url": "/products/catalog-20260910/dtg02-3.avif",
+        "sha256": "a193f5fbb85ec78e37f96e339277c4520c1c3d7d65a3792d26f1af61cbabce15"
+      }
+    ]
+  },
+  {
+    "code": "PLG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo polo",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nữ MOVA PLG01",
+    "price": 379000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/plg01-1.avif",
+        "sha256": "d1d8e09f64af55679a77a70b0ccf897821657b30db554b99b2468dc777b9118f"
+      },
+      {
+        "url": "/products/catalog-20260910/plg01-2.avif",
+        "sha256": "8cfe7b7e40f9ee82ab2346c41505e6eea84e8687378fd40c9709505808293bed"
+      }
+    ]
+  },
+  {
+    "code": "PLG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo polo",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nữ MOVA PLG02",
+    "price": 379000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/plg02-1.avif",
+        "sha256": "16b3360df01aad60fcc5a67a1a26e083e1c7ac5c87e10fea80ab68c0242ae240"
+      },
+      {
+        "url": "/products/catalog-20260910/plg02-2.avif",
+        "sha256": "8cd143fe665571e79e6b887d55fbc9153a5b6147865469324ba63bd497c2ccfb"
+      }
+    ]
+  },
+  {
+    "code": "PLG03",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo polo",
+    "category": {
+      "id": "cat-polo",
+      "slug": "ao-polo",
+      "name": "Áo polo"
+    },
+    "existingCategory": false,
+    "name": "Áo polo nữ MOVA PLG03",
+    "price": 379000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/plg03-1.avif",
+        "sha256": "2012127f03055778ce21ecf1ebcfbc54c26ff4d8fca36dfa5e3030ab5c26715e"
+      },
+      {
+        "url": "/products/catalog-20260910/plg03-2.avif",
+        "sha256": "46cbeb56a2062fe63087614fddd9b76ebf66a8dc7e58924093be5599aab5c35b"
+      }
+    ]
+  },
+  {
+    "code": "ATG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nữ MOVA ATG01",
+    "price": 329000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atg01-1.avif",
+        "sha256": "0d30a1085a55c159522b35550fca2852b3555df42cbc8112c0c7522e4714c49d"
+      },
+      {
+        "url": "/products/catalog-20260910/atg01-2.avif",
+        "sha256": "4dec392e90dee9b4364553bdbdf6188a32a384bbbbcf8b837a37bf7d6cb928f0"
+      }
+    ]
+  },
+  {
+    "code": "ATG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nữ MOVA ATG02",
+    "price": 329000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atg02-1.avif",
+        "sha256": "6123540254793fd49b63544cb346497d49c59e59d4593fc0449ebc2c42bb0606"
+      },
+      {
+        "url": "/products/catalog-20260910/atg02-2.avif",
+        "sha256": "116485f95692a49a7b69b259a6ada1a08b851b924b529019d018d6d684ad5e8d"
+      }
+    ]
+  },
+  {
+    "code": "ATG03",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Áo thun",
+    "category": {
+      "id": "cat-tee",
+      "slug": "ao-thun-the-thao",
+      "name": "Áo thun thể thao"
+    },
+    "existingCategory": true,
+    "name": "Áo thun nữ MOVA ATG03",
+    "price": 329000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/atg03-1.avif",
+        "sha256": "2285536f934696b14042b29bf3afc2dd711957ed6d8946d6045a0c364340bcc4"
+      },
+      {
+        "url": "/products/catalog-20260910/atg03-2.avif",
+        "sha256": "7c5b3a7eab6176b4ab511991e535b069fa2bbab1fe010d4b79464edad6b43849"
+      }
+    ]
+  },
+  {
+    "code": "LGG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Quần legging",
+    "category": {
+      "id": "cat-legging",
+      "slug": "quan-legging",
+      "name": "Quần legging"
+    },
+    "existingCategory": false,
+    "name": "Quần legging nữ MOVA LGG01",
+    "price": 399000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/lgg01-1.avif",
+        "sha256": "21940b5c2b85f7e9383281ef464369bbc10a07ab4529b1c51ea69615a8222a41"
+      },
+      {
+        "url": "/products/catalog-20260910/lgg01-2.avif",
+        "sha256": "8702a546e4ac0e7a583f3050caff31ba60855e5a1b366284a7abd646b0732c6f"
+      }
+    ]
+  },
+  {
+    "code": "LGG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Quần legging",
+    "category": {
+      "id": "cat-legging",
+      "slug": "quan-legging",
+      "name": "Quần legging"
+    },
+    "existingCategory": false,
+    "name": "Quần legging nữ MOVA LGG02",
+    "price": 399000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/lgg02-1.avif",
+        "sha256": "cf5e144dd454a680095a7fa9a4a85d0b803b33c40a5cea8b632114f4443e0dd2"
+      },
+      {
+        "url": "/products/catalog-20260910/lgg02-2.avif",
+        "sha256": "cac7f51d4e4a53ee46140fa9c4f136439297960cb084a0cc89525c5b755acdbe"
+      }
+    ]
+  },
+  {
+    "code": "QSG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Quần short",
+    "category": {
+      "id": "cat-short",
+      "slug": "quan-short",
+      "name": "Quần short"
+    },
+    "existingCategory": true,
+    "name": "Quần short nữ MOVA QSG01",
+    "price": 389000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/qsg01-1.avif",
+        "sha256": "daca499cbd4a074148109b697874fe2a1e14197d9264f6d1a8578030a66c50ca"
+      },
+      {
+        "url": "/products/catalog-20260910/qsg01-2.avif",
+        "sha256": "50e25ce3be34ad7180084eb43b446fbd28c3946e8557012f9749ad3386245d81"
+      }
+    ]
+  },
+  {
+    "code": "QSG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Quần short",
+    "category": {
+      "id": "cat-short",
+      "slug": "quan-short",
+      "name": "Quần short"
+    },
+    "existingCategory": true,
+    "name": "Quần short nữ MOVA QSG02",
+    "price": 389000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/qsg02-1.avif",
+        "sha256": "3e96d8959d35b6d8fb98b16d40aa075255e7ad6cf5d5cd0b4c0ee94d044c7820"
+      },
+      {
+        "url": "/products/catalog-20260910/qsg02-2.avif",
+        "sha256": "0f098b83e347f228a63155823d0a5d482c72e4c6ef25d5d59c1ec55b826bc022"
+      }
+    ]
+  },
+  {
+    "code": "VG01",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Váy",
+    "category": {
+      "id": "cat-skirt",
+      "slug": "vay-the-thao",
+      "name": "Váy thể thao"
+    },
+    "existingCategory": false,
+    "name": "Váy thể thao nữ MOVA VG01",
+    "price": 359000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/vg01-1.avif",
+        "sha256": "df2bc8d452868048be0ac5ca464927e51aa7524245f61b4acd4aa2eaaafe8eb7"
+      },
+      {
+        "url": "/products/catalog-20260910/vg01-2.avif",
+        "sha256": "c19e936412104bbb0097dfa8a644774dec4877623e72575c823c470d3062ef99"
+      }
+    ]
+  },
+  {
+    "code": "VG02",
+    "sourceGroup": "Nữ",
+    "sourceCategory": "Váy",
+    "category": {
+      "id": "cat-skirt",
+      "slug": "vay-the-thao",
+      "name": "Váy thể thao"
+    },
+    "existingCategory": false,
+    "name": "Váy thể thao nữ MOVA VG02",
+    "price": 359000,
+    "gender": "female",
+    "sizes": ["S", "M", "L", "XL"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/vg02-1.avif",
+        "sha256": "28567031d641662d61a6e1803dd9ce9291768377beab74cb8a473bafae644d41"
+      },
+      {
+        "url": "/products/catalog-20260910/vg02-2.avif",
+        "sha256": "a37345c942f363ba8a65e647fa93cc09133e06fb2f0c9de8372dc340ab8d3868"
+      }
+    ]
+  },
+  {
+    "code": "BAG01",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "bag",
+    "category": {
+      "id": "cat-bag",
+      "slug": "tui",
+      "name": "Túi"
+    },
+    "existingCategory": false,
+    "name": "Túi MOVA BAG01",
+    "price": 299000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/bag01-1.avif",
+        "sha256": "45316955f6165bb19d386221e6b37e5705e1fae372a9f156ad05440c66937692"
+      },
+      {
+        "url": "/products/catalog-20260910/bag01-2.avif",
+        "sha256": "0acf740f5da85e83e2a1e60ddfaa45c4014c657b88b8d654449a5a97225c9659"
+      }
+    ]
+  },
+  {
+    "code": "BAG02",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "bag",
+    "category": {
+      "id": "cat-bag",
+      "slug": "tui",
+      "name": "Túi"
+    },
+    "existingCategory": false,
+    "name": "Túi MOVA BAG02",
+    "price": 299000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/bag02-1.avif",
+        "sha256": "82ed5097dfc7d5ef33cfd6c86cb28e7abbe7ad56ba5b7e8327aa5ccb14e74390"
+      },
+      {
+        "url": "/products/catalog-20260910/bag02-2.avif",
+        "sha256": "70ee2a4b3cf88e6b2809f536b158a2ed460e3c0cd8f3fffbcace3a309a593df9"
+      }
+    ]
+  },
+  {
+    "code": "GTD01",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Găng tay dài",
+    "category": {
+      "id": "cat-sleeves",
+      "slug": "gang-tay-dai",
+      "name": "Găng tay dài"
+    },
+    "existingCategory": false,
+    "name": "Găng tay dài MOVA GTD01",
+    "price": 99000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/gtd01-1.avif",
+        "sha256": "343893ad8394925b71d386ceb462391311805950efb5c793581db04d33be7102"
+      },
+      {
+        "url": "/products/catalog-20260910/gtd01-2.avif",
+        "sha256": "bea71703c6447de6daecbba3889aa472f774e786b1dc22f52fe20ee0aaaf87f6"
+      }
+    ]
+  },
+  {
+    "code": "GTD02",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Găng tay dài",
+    "category": {
+      "id": "cat-sleeves",
+      "slug": "gang-tay-dai",
+      "name": "Găng tay dài"
+    },
+    "existingCategory": false,
+    "name": "Găng tay dài MOVA GTD02",
+    "price": 99000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/gtd02-1.avif",
+        "sha256": "f5a6802f24ab2011662f9b57831e62962cc509abd5456958c5bbcbdc1c4ad86f"
+      },
+      {
+        "url": "/products/catalog-20260910/gtd02-2.avif",
+        "sha256": "1a2060b75cc0b61d44824e37972245c4c43c54c58d939818a625f1573185fddf"
+      }
+    ]
+  },
+  {
+    "code": "GTD03",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Găng tay dài",
+    "category": {
+      "id": "cat-sleeves",
+      "slug": "gang-tay-dai",
+      "name": "Găng tay dài"
+    },
+    "existingCategory": false,
+    "name": "Găng tay dài MOVA GTD03",
+    "price": 99000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/gtd03-1.avif",
+        "sha256": "5414964cf7233289bfc3d64c1fa4aebde9c569f00bf3a616bc0ba8fd6eff6353"
+      },
+      {
+        "url": "/products/catalog-20260910/gtd03-2.avif",
+        "sha256": "1198814fe0cbaa4502e5956e2267af918bd1b7ad6cca56e6a7b296f07ff6fcf8"
+      }
+    ]
+  },
+  {
+    "code": "KT01",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Khẩu trang",
+    "category": {
+      "id": "cat-mask",
+      "slug": "khau-trang",
+      "name": "Khẩu trang"
+    },
+    "existingCategory": false,
+    "name": "Khẩu trang MOVA KT01",
+    "price": 59000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/kt01-1.avif",
+        "sha256": "f1c10fee2c4949d8ae8f34bcc77ef61a31086567f62e7a0d5198974aed38ce88"
+      },
+      {
+        "url": "/products/catalog-20260910/kt01-2.avif",
+        "sha256": "0b5afaa8501d779fe3783a32dbb684d8b48f56481b9a1c24e4e9a1ad5bd68073"
+      }
+    ]
+  },
+  {
+    "code": "KT02",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Khẩu trang",
+    "category": {
+      "id": "cat-mask",
+      "slug": "khau-trang",
+      "name": "Khẩu trang"
+    },
+    "existingCategory": false,
+    "name": "Khẩu trang MOVA KT02",
+    "price": 59000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/kt02-1.avif",
+        "sha256": "922ba23333a58f2bdc9408c5989c6a023e9151554fa4cbe9b96ad90350bd5572"
+      },
+      {
+        "url": "/products/catalog-20260910/kt02-2.avif",
+        "sha256": "bce41ac12d0e5630af40eaf3711d06cf29711a33a0b4c3d33a9d2568101e56ec"
+      }
+    ]
+  },
+  {
+    "code": "KT03",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "Khẩu trang",
+    "category": {
+      "id": "cat-mask",
+      "slug": "khau-trang",
+      "name": "Khẩu trang"
+    },
+    "existingCategory": false,
+    "name": "Khẩu trang MOVA KT03",
+    "price": 59000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/kt03-1.avif",
+        "sha256": "12fd057f2d5a742d340d1d53e6459c01d3f94201c8c4ff205296a30301489c3e"
+      },
+      {
+        "url": "/products/catalog-20260910/kt03-2.avif",
+        "sha256": "e7e164212d76d6e9534df326421150a7838ca8a0516e40d8ee9d2cab583ab96d"
+      }
+    ]
+  },
+  {
+    "code": "SOCKS01",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "socks",
+    "category": {
+      "id": "cat-socks",
+      "slug": "tat",
+      "name": "Tất"
+    },
+    "existingCategory": false,
+    "name": "Tất MOVA SOCKS01",
+    "price": 79000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/socks01-1.avif",
+        "sha256": "70c41b2d0f3a3cd3c4fa6f68159629bca320dcdac17ef261302cd663a597ebe6"
+      },
+      {
+        "url": "/products/catalog-20260910/socks01-2.avif",
+        "sha256": "28373deb78b2b23e524b7e36fd66d168f3d00d77874ec6bb238730ab35c2a249"
+      }
+    ]
+  },
+  {
+    "code": "SOCKS02",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "socks",
+    "category": {
+      "id": "cat-socks",
+      "slug": "tat",
+      "name": "Tất"
+    },
+    "existingCategory": false,
+    "name": "Tất MOVA SOCKS02",
+    "price": 79000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/socks02-1.avif",
+        "sha256": "733743458bfafcf1209d08872cf7b84af72b336448950d11b0a89d66fd5e4533"
+      },
+      {
+        "url": "/products/catalog-20260910/socks02-2.avif",
+        "sha256": "fdd85da1c8f1d154741e2528dc2d092d9d916428a4c5250c9e00ecfe2da91bab"
+      }
+    ]
+  },
+  {
+    "code": "SOCKS03",
+    "sourceGroup": "Phụ kiện",
+    "sourceCategory": "socks",
+    "category": {
+      "id": "cat-socks",
+      "slug": "tat",
+      "name": "Tất"
+    },
+    "existingCategory": false,
+    "name": "Tất MOVA SOCKS03",
+    "price": 79000,
+    "gender": "unisex",
+    "sizes": ["Free size"],
+    "images": [
+      {
+        "url": "/products/catalog-20260910/socks03-1.avif",
+        "sha256": "86e3b7027682edc4b5957f782ffa40a8221053fc6cadd9c8f29f22e08e577ed4"
+      },
+      {
+        "url": "/products/catalog-20260910/socks03-2.avif",
+        "sha256": "1416da04efa8e0f44f5bf9f7bbb944194f0b24858f32ddf7d3302efc645f0176"
+      }
+    ]
+  }
+]

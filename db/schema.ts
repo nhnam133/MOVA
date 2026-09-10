@@ -8,6 +8,16 @@ import {
 } from 'drizzle-orm/sqlite-core';
 import { sql } from 'drizzle-orm';
 
+export const authRateLimits = sqliteTable(
+  'auth_rate_limits',
+  {
+    id: text('id').primaryKey(),
+    attempts: integer('attempts').notNull(),
+    expiresAt: integer('expires_at').notNull(),
+  },
+  (table) => [index('auth_rate_limits_expiry_index').on(table.expiresAt)],
+);
+
 export const transactionGuards = sqliteTable(
   'transaction_guards',
   {

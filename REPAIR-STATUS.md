@@ -1,5 +1,11 @@
 # MOVA — bản sửa ngày 10/09/2026
 
+## Bản đang làm tiếp: tài khoản MOVA và bộ ảnh mới
+
+- Đã viết form đăng nhập/đăng ký email và mật khẩu, dùng Supabase Auth thay ChatGPT trong mã nguồn. Chưa có cấu hình Supabase/UID quản trị để kiểm tra thật và phát hành.
+- Đã thêm 76 ảnh AVIF cho 37 mã từ D:\Product vào mã nguồn, kèm manifest và thao tác nhập dữ liệu trong quản trị. Chưa nhập catalog mới vào D1 cloud; đang chờ quyết định các nhóm mới.
+- Các thay đổi bên dưới vẫn mô tả bản công khai trước đó. Xem AUTH-AND-PRODUCTS-SETUP.md để tiếp tục; không coi mã nguồn mới là đã hoạt động trên cloud.
+
 ## Thay đổi đã triển khai trong mã nguồn
 
 - Liên kết dùng điều hướng gốc của trình duyệt, tránh lỗi Vinext client router được ghi nhận trên bản cloud cũ.

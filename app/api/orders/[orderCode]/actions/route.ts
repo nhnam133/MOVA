@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:workers';
 import { and, eq, inArray } from 'drizzle-orm';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { getDb } from '@/db';
 import {
   exchangeItems,
@@ -27,7 +27,7 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ orderCode: string }> },
 ) {
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   if (!user)
     return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
   const { orderCode } = await params;

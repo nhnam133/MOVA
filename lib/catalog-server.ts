@@ -83,3 +83,11 @@ export const getCatalogProducts = cache(async (): Promise<Product[]> => {
 export async function findCatalogProduct(slug: string) {
   return (await getCatalogProducts()).find((product) => product.slug === slug);
 }
+
+export const getCatalogCategories = cache(async () =>
+  getDb()
+    .select({ name: categoryTable.name, slug: categoryTable.slug })
+    .from(categoryTable)
+    .where(eq(categoryTable.isVisible, true))
+    .orderBy(asc(categoryTable.sortOrder)),
+);

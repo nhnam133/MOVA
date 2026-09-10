@@ -1,6 +1,6 @@
 import Link from '@/components/store/link';
 import { ArrowLeft, LockKeyhole } from 'lucide-react';
-import { requireChatGPTUser } from '@/app/chatgpt-auth';
+import { requireMovaUser } from '@/lib/auth';
 import { CheckoutForm } from '@/components/store/checkout-form';
 import { SiteHeader } from '@/components/store/site-header';
 import { isMomoConfigured } from '@/lib/momo';
@@ -8,7 +8,7 @@ import { isMomoConfigured } from '@/lib/momo';
 export const dynamic = 'force-dynamic';
 
 export default async function CheckoutPage() {
-  const user = await requireChatGPTUser('/thanh-toan');
+  const user = await requireMovaUser('/thanh-toan');
   return (
     <main className="min-h-screen bg-[#f7f7f2]">
       <div className="bg-[#eaff2f] px-4 py-2 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-black sm:text-xs">

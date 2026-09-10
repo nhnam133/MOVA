@@ -2,7 +2,7 @@ import { and, desc, eq, sql } from 'drizzle-orm';
 import Link from '@/components/store/link';
 import { ArrowLeft, Package } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { requireChatGPTUser } from '@/app/chatgpt-auth';
+import { requireMovaUser } from '@/lib/auth';
 import { OrderActions } from '@/components/store/order-actions';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
 import { SiteFooter } from '@/components/store/site-footer';
@@ -31,7 +31,7 @@ export default async function OrderDetailPage({
   params: Promise<{ orderCode: string }>;
 }) {
   const { orderCode } = await params;
-  const user = await requireChatGPTUser(`/tai-khoan/don-hang/${orderCode}`);
+  const user = await requireMovaUser(`/tai-khoan/don-hang/${orderCode}`);
   const db = getDb();
   const [order] = await db
     .select()

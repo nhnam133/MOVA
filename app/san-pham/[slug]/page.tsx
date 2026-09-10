@@ -10,7 +10,7 @@ import {
   Truck,
 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { ProductBuyBox } from '@/components/store/product-buy-box';
 import { ReviewForm } from '@/components/store/review-form';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
@@ -31,7 +31,7 @@ export default async function ProductDetailPage({
 }) {
   const product = await findCatalogProduct((await params).slug);
   if (!product) notFound();
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   const reviewRows = product.id
     ? await getDb()
         .select({

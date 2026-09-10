@@ -1,11 +1,11 @@
 import { and, eq, gt } from 'drizzle-orm';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { getDb } from '@/db';
 import { customerVouchers, vouchers } from '@/db/schema';
 import { calculateOrderTotals } from '@/lib/business-rules';
 
 export async function GET(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   if (!user)
     return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
   const url = new URL(request.url);

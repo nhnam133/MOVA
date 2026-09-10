@@ -3,8 +3,7 @@ import { Filter, Search, SlidersHorizontal, X } from 'lucide-react';
 import { ProductCard } from '@/components/store/product-card';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
 import { SiteFooter } from '@/components/store/site-footer';
-import { categories } from '@/lib/catalog';
-import { getCatalogProducts } from '@/lib/catalog-server';
+import { getCatalogProducts, getCatalogCategories } from '@/lib/catalog-server';
 import {
   Pagination,
   PaginationContent,
@@ -37,7 +36,10 @@ export default async function ProductsPage({
 }: {
   searchParams: Promise<Params>;
 }) {
-  const products = await getCatalogProducts();
+  const [products, categories] = await Promise.all([
+    getCatalogProducts(),
+    getCatalogCategories(),
+  ]);
   const params = await searchParams;
   const q = params.q?.trim() ?? '';
   const min = Number(params.min) || 0;

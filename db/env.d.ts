@@ -7,5 +7,8 @@ declare namespace Cloudflare {
     MOMO_ACCESS_KEY?: string;
     MOMO_SECRET_KEY?: string;
     MOVA_ADMIN_EMAIL?: string;
+    SUPABASE_URL?: string;
+    SUPABASE_PUBLISHABLE_KEY?: string;
+    MOVA_ADMIN_AUTH_ID?: string;
   }
 }

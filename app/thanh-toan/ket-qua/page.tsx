@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import Link from '@/components/store/link';
 import { Check, Clock3, X } from 'lucide-react';
-import { requireChatGPTUser } from '@/app/chatgpt-auth';
+import { requireMovaUser } from '@/lib/auth';
 import { SiteHeader } from '@/components/store/site-header';
 import { getDb } from '@/db';
 import { orders } from '@/db/schema';
@@ -12,7 +12,7 @@ export default async function CheckoutResultPage({
 }: {
   searchParams: Promise<{ orderCode?: string }>;
 }) {
-  const user = await requireChatGPTUser('/thanh-toan/ket-qua');
+  const user = await requireMovaUser('/thanh-toan/ket-qua');
   const orderCode = (await searchParams).orderCode;
   const [order] = orderCode
     ? await getDb()

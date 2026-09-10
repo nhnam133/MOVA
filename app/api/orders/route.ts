@@ -1,4 +1,4 @@
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { and, eq, gt } from 'drizzle-orm';
 import { getDb } from '@/db';
 import { customerVouchers, orders, vouchers } from '@/db/schema';
@@ -21,7 +21,7 @@ type CheckoutBody = {
 };
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   if (!user)
     return Response.json(
       { error: 'Bạn cần đăng nhập để đặt hàng.' },

@@ -1,11 +1,11 @@
 import { and, eq } from 'drizzle-orm';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getMovaUser } from '@/lib/auth';
 import { getDb } from '@/db';
 import { pointTransactions } from '@/db/schema';
 import { atomicBatch, guard } from '@/lib/atomic-db';
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getMovaUser();
   if (!user)
     return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
   const key = request.headers.get('idempotency-key');

@@ -6,6 +6,8 @@ import { getDb } from '@/db';
 import { categories, products } from '@/db/schema';
 import { formatMoney } from '@/lib/catalog';
 import { requireAdmin } from '@/lib/admin-auth';
+import { productAssetCatalog } from '@/lib/product-import';
+import { ProductImportPanel } from '@/components/admin/product-import-panel';
 
 export default async function AdminProductsPage() {
   const admin = await requireAdmin();
@@ -67,6 +69,9 @@ export default async function AdminProductsPage() {
             {productRows.length} sản phẩm
           </span>
         </div>
+        <ProductImportPanel
+          codes={productAssetCatalog.map((product) => product.code)}
+        />
         <div className="mt-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
           <section className="h-fit border border-black bg-[#eaff2f] p-6 sm:p-8">
             <div className="mb-7 flex items-center gap-3">

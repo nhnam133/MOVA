@@ -1,18 +1,10 @@
 import { desc, eq } from 'drizzle-orm';
 import Link from '@/components/store/link';
-import {
-  ArrowUpRight,
-  Gift,
-  LogOut,
-  PackageCheck,
-  Settings,
-  UserRound,
-} from 'lucide-react';
-import {
-  chatGPTSignInPath,
-  chatGPTSignOutPath,
-  getChatGPTUser,
-} from '@/app/chatgpt-auth';
+import { ArrowUpRight, Gift, PackageCheck, Settings } from 'lucide-react';
+import { getMovaUser } from '@/lib/auth';
+import { authConfigured } from '@/lib/supabase-server';
+import { AuthForm } from '@/components/store/auth-form';
+import { LogoutButton } from '@/components/store/logout-button';
 import { SiteHeader } from '@/components/store/site-header';
 import { getDb } from '@/db';
 import {
@@ -26,28 +18,26 @@ import { getAdminUser } from '@/lib/admin-auth';
 import { formatMoney } from '@/lib/catalog';
 import { LoyaltyRedeem } from '@/components/store/loyalty-redeem';
 
-export default async function AccountPage() {
-  const user = await getChatGPTUser();
+export const dynamic = 'force-dynamic';
+
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ return_to?: string; confirmation?: string }>;
+}) {
+  const query = await searchParams;
+  const user = await getMovaUser();
   if (!user) {
     return (
       <main className="min-h-screen bg-[#f7f7f2]">
         <SiteHeader />
-        <section className="mx-auto max-w-2xl px-4 py-24 text-center">
-          <UserRound className="mx-auto h-12 w-12" />
-          <h1 className="mt-7 text-5xl font-black uppercase tracking-[-0.06em]">
-            Tài khoản MOVA
-          </h1>
-          <p className="mx-auto mt-5 max-w-lg text-sm leading-7 text-neutral-600">
-            Đăng nhập để đặt hàng, theo dõi đơn, tích điểm và gửi yêu cầu đổi
-            size.
-          </p>
-          <Link
-            href={chatGPTSignInPath('/tai-khoan')}
-            className="mt-8 inline-flex bg-black px-7 py-4 text-xs font-black uppercase tracking-wider text-white"
-          >
-            Đăng nhập bằng ChatGPT
-          </Link>
-        </section>
+        {query.confirmation === 'check' && (
+          <output className="mx-auto block max-w-xl px-4 pt-8 text-base">
+            Nếu bạn đã xác nhận email, hãy đăng nhập bên dưới. Nếu liên kết đã
+            hết hạn, vui lòng liên hệ MOVA.
+          </output>
+        )}
+        <AuthForm ready={authConfigured()} returnTo={query.return_to} />
       </main>
     );
   }
@@ -108,13 +98,7 @@ export default async function AccountPage() {
                 Quản trị
               </Link>
             )}
-            <Link
-              href={chatGPTSignOutPath('/')}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
-            >
-              <LogOut className="h-4 w-4" />
-              Đăng xuất
-            </Link>
+            <LogoutButton />
           </div>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
