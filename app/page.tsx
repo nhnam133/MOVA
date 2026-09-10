@@ -12,11 +12,19 @@ import {
 import { ProductCard } from '@/components/store/product-card';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
 import { SiteFooter } from '@/components/store/site-footer';
-import { categories } from '@/lib/catalog';
-import { getCatalogProducts } from '@/lib/catalog-server';
+import {
+  getCatalogCategories,
+  getCatalogProducts,
+} from '@/lib/catalog-server';
 
 export default async function Home() {
-  const products = await getCatalogProducts();
+  const [products, visibleCategories] = await Promise.all([
+    getCatalogProducts(),
+    getCatalogCategories(),
+  ]);
+  const categories = visibleCategories.filter((category) =>
+    products.some((product) => product.categorySlug === category.slug),
+  );
   return (
     <main className="min-h-screen overflow-hidden bg-[#f6f6f2]">
       <AnnouncementBar />
@@ -54,7 +62,7 @@ export default async function Home() {
               </div>
             </div>
             <p className="mt-10 text-sm text-white/60">
-              Khám phá 5 nhóm trang phục dành cho bạn.
+              Khám phá {categories.length} nhóm sản phẩm dành cho bạn.
             </p>
           </div>
           <div className="relative aspect-[4/3] min-h-0 bg-[#ececea] md:aspect-auto md:min-h-[520px]">
@@ -119,7 +127,7 @@ export default async function Home() {
             Xem tất cả <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 lg:gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5 xl:grid-cols-6">
           {categories.map((category, index) => {
             const sample = products.find(
               (product) => product.categorySlug === category.slug,
