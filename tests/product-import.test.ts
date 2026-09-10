@@ -35,13 +35,13 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
   db.exec(
     "UPDATE products SET price=999000 WHERE code='ATG01'; UPDATE product_variants SET stock=2,reserved_stock=1 WHERE id='var-atg01-s'",
   );
-  function run() {
+  function run(includeNewCategories = false) {
     for (const item of productAssetCatalog) {
       db.exec('BEGIN');
       try {
         for (const command of productImportCommands(
           item.code,
-          false,
+          includeNewCategories,
           1800000000000,
         ))
           db.prepare(command.sql).run(...(command.params ?? []));
@@ -87,6 +87,27 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
   assert.equal(
     db.prepare("SELECT status FROM products WHERE code='QN01'").get()?.status,
     'active',
+  );
+  run(true);
+  assert.equal(
+    db.prepare("SELECT status FROM products WHERE code='PLN01'").get()?.status,
+    'active',
+  );
+  assert.equal(
+    db
+      .prepare("SELECT is_visible FROM categories WHERE slug='ao-polo'")
+      .get()?.is_visible,
+    1,
+  );
+  assert.equal(
+    db.prepare("SELECT price FROM products WHERE code='ATG01'").get()?.price,
+    999000,
+  );
+  assert.equal(
+    db
+      .prepare("SELECT stock FROM product_variants WHERE id='var-atg01-s'")
+      .get()?.stock,
+    2,
   );
   assert.equal(
     db

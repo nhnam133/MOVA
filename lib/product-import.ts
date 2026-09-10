@@ -51,6 +51,18 @@ export function productImportCommands(
       ],
     },
   ];
+  if (active) {
+    commands.push(
+      {
+        sql: 'UPDATE categories SET is_visible=1,updated_at=? WHERE slug=?',
+        params: [now, item.category.slug],
+      },
+      {
+        sql: "UPDATE products SET status='active',updated_at=? WHERE code=?",
+        params: [now, code],
+      },
+    );
+  }
   item.sizes.forEach((size) =>
     commands.push({
       sql: `INSERT INTO product_variants (id,product_id,sku,color,size,stock,reserved_stock,active,created_at,updated_at)
