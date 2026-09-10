@@ -1,5 +1,5 @@
 import { desc } from 'drizzle-orm';
-import Link from 'next/link';
+import Link from '@/components/store/link';
 import { ArrowLeft } from 'lucide-react';
 import {
   ContactStatus,

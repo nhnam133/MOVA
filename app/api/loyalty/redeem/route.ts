@@ -1,18 +1,77 @@
 import { and, eq } from 'drizzle-orm';
 import { getChatGPTUser } from '@/app/chatgpt-auth';
 import { getDb } from '@/db';
-import { customerVouchers, pointTransactions, users, vouchers } from '@/db/schema';
+import { pointTransactions } from '@/db/schema';
+import { atomicBatch, guard } from '@/lib/atomic-db';
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser(); if (!user) return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
-  const requestKey = request.headers.get('idempotency-key'); if (!requestKey || requestKey.length > 100) return Response.json({ error: 'Thiếu khóa xác nhận yêu cầu.' }, { status: 400 });
-  const db = getDb(); const [existing] = await db.select().from(pointTransactions).where(and(eq(pointTransactions.userId, user.userId), eq(pointTransactions.requestKey, requestKey))).limit(1);
-  if (existing) return Response.json({ status: 'already_processed' });
-  const [profile] = await db.select().from(users).where(eq(users.id, user.userId)).limit(1); if (!profile || profile.pointsBalance < 100) return Response.json({ error: 'Bạn cần đủ 100 điểm để đổi voucher.' }, { status: 409 });
-  const now = Date.now(); const voucherId = crypto.randomUUID(); const code = `MOVA${now.toString().slice(-6)}${Math.floor(Math.random() * 90 + 10)}`; const expiresAt = now + 30 * 24 * 60 * 60 * 1000;
-  const changed = await db.update(users).set({ pointsBalance: profile.pointsBalance - 100, updatedAt: now }).where(and(eq(users.id, user.userId), eq(users.pointsBalance, profile.pointsBalance))).returning({ id: users.id });
-  if (!changed.length) return Response.json({ error: 'Số điểm vừa thay đổi, vui lòng thử lại.' }, { status: 409 });
-  try { await db.insert(vouchers).values({ id: voucherId, code, value: 20_000, minimumOrderValue: 200_000, pointsCost: 100, expiresAt, createdAt: now }); await db.insert(customerVouchers).values({ id: crypto.randomUUID(), userId: user.userId, voucherId, expiresAt, createdAt: now }); await db.insert(pointTransactions).values({ id: crypto.randomUUID(), userId: user.userId, type: 'redeem', points: -100, note: `Đổi voucher ${code}`, requestKey, createdAt: now }); }
-  catch { await db.update(users).set({ pointsBalance: profile.pointsBalance, updatedAt: Date.now() }).where(eq(users.id, user.userId)); return Response.json({ error: 'Không thể cấp voucher, điểm của bạn đã được giữ nguyên.' }, { status: 500 }); }
+  const user = await getChatGPTUser();
+  if (!user)
+    return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
+  const key = request.headers.get('idempotency-key');
+  if (!key || key.length > 100)
+    return Response.json(
+      { error: 'Thiếu khóa xác nhận yêu cầu.' },
+      { status: 400 },
+    );
+  const requestKey = user.userId + ':' + key;
+  const existing = async () =>
+    (
+      await getDb()
+        .select()
+        .from(pointTransactions)
+        .where(
+          and(
+            eq(pointTransactions.userId, user.userId),
+            eq(pointTransactions.requestKey, requestKey),
+          ),
+        )
+        .limit(1)
+    )[0];
+  if (await existing()) return Response.json({ status: 'already_processed' });
+  const now = Date.now(),
+    voucherId = crypto.randomUUID(),
+    code =
+      'MOVA' +
+      crypto.randomUUID().replaceAll('-', '').slice(0, 12).toUpperCase();
+  const expiresAt = now + 30 * 24 * 60 * 60 * 1000;
+  try {
+    await atomicBatch([
+      guard('EXISTS (SELECT 1 FROM users WHERE id=? AND points_balance>=100)', [
+        user.userId,
+      ]),
+      {
+        sql: 'UPDATE users SET points_balance=points_balance-100,updated_at=? WHERE id=?',
+        params: [now, user.userId],
+      },
+      {
+        sql: 'INSERT INTO vouchers (id,code,value,minimum_order_value,points_cost,expires_at,created_at) VALUES (?,?,20000,200000,100,?,?)',
+        params: [voucherId, code, expiresAt, now],
+      },
+      {
+        sql: 'INSERT INTO customer_vouchers (id,user_id,voucher_id,expires_at,created_at) VALUES (?,?,?,?,?)',
+        params: [crypto.randomUUID(), user.userId, voucherId, expiresAt, now],
+      },
+      {
+        sql: "INSERT INTO point_transactions (id,user_id,type,points,note,request_key,created_at) VALUES (?,?,'redeem',-100,?,?,?)",
+        params: [
+          crypto.randomUUID(),
+          user.userId,
+          'Đổi voucher ' + code,
+          requestKey,
+          now,
+        ],
+      },
+    ]);
+  } catch {
+    if (await existing()) return Response.json({ status: 'already_processed' });
+    return Response.json(
+      {
+        error:
+          'Cần đủ 100 điểm. Nếu vừa có lỗi kết nối, điểm chưa bị trừ khi cấp voucher không thành công.',
+      },
+      { status: 409 },
+    );
+  }
   return Response.json({ status: 'created', code }, { status: 201 });
 }

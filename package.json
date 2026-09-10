@@ -9,7 +9,8 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json",
-    "lint": "oxlint app components/store lib db",
+    "lint": "oxlint app components/store components/admin lib db",
+    "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "format": "oxfmt",
     "db:generate": "drizzle-kit generate"

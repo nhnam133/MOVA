@@ -2,51 +2,155 @@ import { env } from 'cloudflare:workers';
 import { eq } from 'drizzle-orm';
 import { getAdminUser } from '@/lib/admin-auth';
 import { getDb } from '@/db';
-import { categories, productImages, products, productVariants } from '@/db/schema';
+import {
+  categories,
+  productImages,
+  products,
+  productVariants,
+} from '@/db/schema';
 
 function makeSlug(value: string) {
-  return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replaceAll('đ', 'd').replaceAll('Đ', 'D').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replaceAll('đ', 'd')
+    .replaceAll('Đ', 'D')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 export async function POST(request: Request) {
   const admin = await getAdminUser();
-  if (!admin) return Response.json({ error: 'Bạn không có quyền quản trị.' }, { status: 403 });
+  if (!admin)
+    return Response.json(
+      { error: 'Bạn không có quyền quản trị.' },
+      { status: 403 },
+    );
   const data = await request.formData();
-  const field = (key: string) => { const value = data.get(key); return typeof value === 'string' ? value : ''; };
+  const field = (key: string) => {
+    const value = data.get(key);
+    return typeof value === 'string' ? value : '';
+  };
   const code = field('code').trim().toUpperCase();
   const name = field('name').trim();
   const categoryId = field('categoryId').trim();
   const price = Number(data.get('price'));
-  const compareAtPrice = field('compareAtPrice') ? Number(data.get('compareAtPrice')) : null;
+  const compareAtPrice = field('compareAtPrice')
+    ? Number(data.get('compareAtPrice'))
+    : null;
   const gender = field('gender') as 'female' | 'male' | 'unisex';
   const color = field('color').trim();
   const material = field('material').trim();
   const description = field('description').trim();
   const stock = Number(data.get('stock'));
-  const sizes = field('sizes').split(',').map((size) => size.trim().toUpperCase()).filter((size) => ['S', 'M', 'L', 'XL', 'XXL'].includes(size));
+  const sizes = field('sizes')
+    .split(',')
+    .map((size) => size.trim().toUpperCase())
+    .filter((size) => ['S', 'M', 'L', 'XL', 'XXL'].includes(size));
   const file = data.get('image');
-  if (!/^[A-Z0-9-]{3,20}$/.test(code) || name.length < 3 || !categoryId || !['female', 'male', 'unisex'].includes(gender) || !Number.isInteger(price) || price < 1_000 || (compareAtPrice !== null && (!Number.isInteger(compareAtPrice) || compareAtPrice <= price)) || !color || !Number.isInteger(stock) || stock < 0 || sizes.length === 0 || !(file instanceof File) || file.size === 0) {
-    return Response.json({ error: 'Thông tin sản phẩm chưa hợp lệ.' }, { status: 400 });
+  if (
+    !/^[A-Z0-9-]{3,20}$/.test(code) ||
+    name.length < 3 ||
+    !categoryId ||
+    !['female', 'male', 'unisex'].includes(gender) ||
+    !Number.isInteger(price) ||
+    price < 1_000 ||
+    (compareAtPrice !== null &&
+      (!Number.isInteger(compareAtPrice) || compareAtPrice <= price)) ||
+    !color ||
+    !Number.isInteger(stock) ||
+    stock < 0 ||
+    sizes.length === 0 ||
+    !(file instanceof File) ||
+    file.size === 0
+  ) {
+    return Response.json(
+      { error: 'Thông tin sản phẩm chưa hợp lệ.' },
+      { status: 400 },
+    );
   }
-  if (!['image/avif', 'image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024) return Response.json({ error: 'Ảnh phải là AVIF/JPG/PNG/WebP và không quá 5MB.' }, { status: 400 });
+  if (
+    !['image/avif', 'image/jpeg', 'image/png', 'image/webp'].includes(
+      file.type,
+    ) ||
+    file.size > 5 * 1024 * 1024
+  )
+    return Response.json(
+      { error: 'Ảnh phải là AVIF/JPG/PNG/WebP và không quá 5MB.' },
+      { status: 400 },
+    );
   const db = getDb();
-  const [category] = await db.select({ id: categories.id }).from(categories).where(eq(categories.id, categoryId)).limit(1);
-  if (!category) return Response.json({ error: 'Danh mục không tồn tại.' }, { status: 400 });
+  const [category] = await db
+    .select({ id: categories.id })
+    .from(categories)
+    .where(eq(categories.id, categoryId))
+    .limit(1);
+  if (!category)
+    return Response.json({ error: 'Danh mục không tồn tại.' }, { status: 400 });
   const productId = crypto.randomUUID();
   const now = Date.now();
   const slug = `${makeSlug(name)}-${code.toLowerCase()}`;
   const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
   const objectKey = `products/${productId}-${safeFileName}`;
-  await env.FILES.put(objectKey, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } });
+  await env.FILES.put(objectKey, await file.arrayBuffer(), {
+    httpMetadata: { contentType: file.type },
+  });
   try {
-    await db.insert(products).values({ id: productId, categoryId, code, slug, name, description, material, price, compareAtPrice, gender, status: 'active', featured: data.get('featured') === 'on', createdAt: now, updatedAt: now });
-    await db.insert(productImages).values({ id: crypto.randomUUID(), productId, objectKey, altText: name, sortOrder: 0, createdAt: now });
-    for (const size of new Set(sizes)) {
-      await db.insert(productVariants).values({ id: crypto.randomUUID(), productId, sku: `${code}-${makeSlug(color).toUpperCase()}-${size}`, color, size, stock, active: true, createdAt: now, updatedAt: now });
-    }
+    await db.batch([
+      db
+        .insert(products)
+        .values({
+          id: productId,
+          categoryId,
+          code,
+          slug,
+          name,
+          description,
+          material,
+          price,
+          compareAtPrice,
+          gender,
+          status: 'active',
+          featured: data.get('featured') === 'on',
+          createdAt: now,
+          updatedAt: now,
+        }),
+      db
+        .insert(productImages)
+        .values({
+          id: crypto.randomUUID(),
+          productId,
+          objectKey,
+          altText: name,
+          sortOrder: 0,
+          createdAt: now,
+        }),
+      ...[...new Set(sizes)].map((size) =>
+        db
+          .insert(productVariants)
+          .values({
+            id: crypto.randomUUID(),
+            productId,
+            sku: `${code}-${makeSlug(color).toUpperCase()}-${size}`,
+            color,
+            size,
+            stock,
+            active: true,
+            createdAt: now,
+            updatedAt: now,
+          }),
+      ),
+    ]);
   } catch {
     await env.FILES.delete(objectKey);
-    return Response.json({ error: 'Mã hoặc tên đường dẫn sản phẩm đã tồn tại.' }, { status: 409 });
+    return Response.json(
+      { error: 'Mã hoặc tên đường dẫn sản phẩm đã tồn tại.' },
+      { status: 409 },
+    );
   }
-  return Response.json({ status: 'created', product: { id: productId, code, slug, name } }, { status: 201 });
+  return Response.json(
+    { status: 'created', product: { id: productId, code, slug, name } },
+    { status: 201 },
+  );
 }

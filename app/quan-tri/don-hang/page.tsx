@@ -1,5 +1,5 @@
 import { desc } from 'drizzle-orm';
-import Link from 'next/link';
+import Link from '@/components/store/link';
 import { ArrowLeft, PackageCheck } from 'lucide-react';
 import { AdminOrderActions } from '@/components/admin/order-actions';
 import { getDb } from '@/db';
@@ -22,7 +22,18 @@ export default async function AdminOrdersPage() {
             MOVA<span className="text-[#dfff00]">.</span>
           </Link>
           <div className="flex items-center gap-5">
-            <Link href="/quan-tri/ho-tro" className="text-xs font-bold text-[#dfff00]">Hỗ trợ</Link>
+            <Link
+              href="/quan-tri/doi-hang"
+              className="text-sm font-bold text-[#dfff00]"
+            >
+              Đổi hàng
+            </Link>
+            <Link
+              href="/quan-tri/ho-tro"
+              className="text-xs font-bold text-[#dfff00]"
+            >
+              Hỗ trợ
+            </Link>
             <p className="text-xs text-white/55">{admin.email}</p>
           </div>
         </div>

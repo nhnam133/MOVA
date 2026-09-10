@@ -44,7 +44,8 @@ export const products: Product[] = [
     image: '/products/atg01-1.avif',
     gallery: ['/products/atg01-1.avif'],
     badge: 'Mới',
-    description: 'Phom áo linh hoạt, dễ phối cho buổi tập và sinh hoạt hằng ngày.',
+    description:
+      'Phom áo linh hoạt, dễ phối cho buổi tập và sinh hoạt hằng ngày.',
     material: 'Polyester co giãn, thoáng khí',
     variants: standardSizes('ATG01', 'Đen'),
   },
@@ -74,7 +75,8 @@ export const products: Product[] = [
     image: '/products/qsg01-1.avif',
     gallery: ['/products/qsg01-1.avif'],
     badge: null,
-    description: 'Quần short thể thao phom gọn, cạp chắc và tự do khi vận động.',
+    description:
+      'Quần short thể thao phom gọn, cạp chắc và tự do khi vận động.',
     material: 'Nylon pha spandex',
     variants: standardSizes('QSG01', 'Đen'),
   },
@@ -89,7 +91,8 @@ export const products: Product[] = [
     image: '/products/atg03-1.avif',
     gallery: ['/products/atg03-1.avif'],
     badge: 'Mới',
-    description: 'Thiết kế tối giản với bề mặt vải mềm và độ co giãn thoải mái.',
+    description:
+      'Thiết kế tối giản với bề mặt vải mềm và độ co giãn thoải mái.',
     material: 'Polyester pha elastane',
     variants: standardSizes('ATG03', 'Xám'),
   },
@@ -104,7 +107,8 @@ export const products: Product[] = [
     image: '/products/qsg02-1.avif',
     gallery: ['/products/qsg02-1.avif'],
     badge: 'Bán chạy',
-    description: 'Quần short đa dụng dành cho chạy bộ, gym và luyện tập hằng ngày.',
+    description:
+      'Quần short đa dụng dành cho chạy bộ, gym và luyện tập hằng ngày.',
     material: 'Nylon siêu nhẹ',
     variants: standardSizes('QSG02', 'Đen'),
   },
@@ -123,5 +127,8 @@ export function findProduct(slug: string) {
 }
 
 export function formatMoney(value: number) {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  }).format(value);
 }

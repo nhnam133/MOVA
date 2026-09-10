@@ -1,0 +1,1 @@
+ALTER TABLE `exchange_requests` ADD `admin_note` text;
