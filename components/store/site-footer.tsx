@@ -76,21 +76,24 @@ export function SiteFooter() {
             </div>
             <div className="col-span-2 space-y-3 lg:col-span-1">
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-white/35">
-                Địa điểm minh họa
+                Điểm liên hệ
               </p>
               <p className="flex items-start gap-2 leading-6 text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#dfff00]" />
                 UTH cơ sở 1, số 2 Võ Oanh, TP.HCM
               </p>
-              <p className="text-xs leading-5 text-white/35">
-                Địa điểm phục vụ đồ án, không phải cửa hàng MOVA.
-              </p>
+              <Link
+                href="/lien-he"
+                className="inline-block text-xs font-semibold text-[#dfff00] hover:underline"
+              >
+                Xem bản đồ Google Maps
+              </Link>
             </div>
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/40 sm:flex-row">
           <p>© 2026 MOVA · Đồ án thương mại điện tử</p>
-          <p>COD · MoMo UAT · Dữ liệu demo</p>
+          <p>COD · MoMo UAT · Đổi hàng trong 72 giờ</p>
         </div>
       </div>
     </footer>

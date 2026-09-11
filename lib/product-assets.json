@@ -12,6 +12,7 @@
     "name": "Áo polo nam MOVA PLN01",
     "price": 399000,
     "gender": "male",
+    "color": "Xanh rêu",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -37,6 +38,7 @@
     "name": "Áo polo nam MOVA PLN02",
     "price": 399000,
     "gender": "male",
+    "color": "Xám than",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -62,6 +64,7 @@
     "name": "Áo polo nam MOVA PLN03",
     "price": 399000,
     "gender": "male",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -87,6 +90,7 @@
     "name": "Áo sơ mi nam MOVA SMN01",
     "price": 429000,
     "gender": "male",
+    "color": "Xanh xám",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -112,6 +116,7 @@
     "name": "Áo sơ mi nam MOVA SMN02",
     "price": 429000,
     "gender": "male",
+    "color": "Xanh navy",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -137,6 +142,7 @@
     "name": "Áo sơ mi nam MOVA SMN03",
     "price": 429000,
     "gender": "male",
+    "color": "Xanh than",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -162,6 +168,7 @@
     "name": "Áo thun nam MOVA ATN01",
     "price": 329000,
     "gender": "male",
+    "color": "Trắng",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -187,6 +194,7 @@
     "name": "Áo thun nam MOVA ATN02",
     "price": 329000,
     "gender": "male",
+    "color": "Xanh loang",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -212,6 +220,7 @@
     "name": "Áo thun nam MOVA ATN03",
     "price": 329000,
     "gender": "male",
+    "color": "Hồng pastel",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -237,6 +246,7 @@
     "name": "Quần short nam MOVA QN01",
     "price": 389000,
     "gender": "male",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -262,6 +272,7 @@
     "name": "Quần short nam MOVA QN02",
     "price": 389000,
     "gender": "male",
+    "color": "Be",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -287,6 +298,7 @@
     "name": "Quần short nam MOVA QN03",
     "price": 389000,
     "gender": "male",
+    "color": "Trắng",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -312,6 +324,7 @@
     "name": "Áo dài tay nữ MOVA DTG01",
     "price": 449000,
     "gender": "female",
+    "color": "Trắng kem",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -341,6 +354,7 @@
     "name": "Áo dài tay nữ MOVA DTG02",
     "price": 449000,
     "gender": "female",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -370,6 +384,7 @@
     "name": "Áo polo nữ MOVA PLG01",
     "price": 379000,
     "gender": "female",
+    "color": "Trắng",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -395,6 +410,7 @@
     "name": "Áo polo nữ MOVA PLG02",
     "price": 379000,
     "gender": "female",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -420,6 +436,7 @@
     "name": "Áo polo nữ MOVA PLG03",
     "price": 379000,
     "gender": "female",
+    "color": "Xanh navy",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -445,6 +462,7 @@
     "name": "Áo thun nữ MOVA ATG01",
     "price": 329000,
     "gender": "female",
+    "color": "Tím pastel",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -470,6 +488,7 @@
     "name": "Áo thun nữ MOVA ATG02",
     "price": 329000,
     "gender": "female",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -495,6 +514,7 @@
     "name": "Áo thun nữ MOVA ATG03",
     "price": 329000,
     "gender": "female",
+    "color": "Hồng phấn",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -520,6 +540,7 @@
     "name": "Quần legging nữ MOVA LGG01",
     "price": 399000,
     "gender": "female",
+    "color": "Xanh navy",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -545,6 +566,7 @@
     "name": "Quần legging nữ MOVA LGG02",
     "price": 399000,
     "gender": "female",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -570,6 +592,7 @@
     "name": "Quần short nữ MOVA QSG01",
     "price": 389000,
     "gender": "female",
+    "color": "Đen",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -595,6 +618,7 @@
     "name": "Quần short nữ MOVA QSG02",
     "price": 389000,
     "gender": "female",
+    "color": "Trắng",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -620,6 +644,7 @@
     "name": "Váy thể thao nữ MOVA VG01",
     "price": 359000,
     "gender": "female",
+    "color": "Trắng",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -645,6 +670,7 @@
     "name": "Váy thể thao nữ MOVA VG02",
     "price": 359000,
     "gender": "female",
+    "color": "Xanh pastel",
     "sizes": ["S", "M", "L", "XL"],
     "images": [
       {
@@ -670,6 +696,7 @@
     "name": "Túi MOVA BAG01",
     "price": 299000,
     "gender": "unisex",
+    "color": "Đen",
     "sizes": ["Free size"],
     "images": [
       {
@@ -695,6 +722,7 @@
     "name": "Túi MOVA BAG02",
     "price": 299000,
     "gender": "unisex",
+    "color": "Xám bạc",
     "sizes": ["Free size"],
     "images": [
       {
@@ -720,6 +748,7 @@
     "name": "Găng tay dài MOVA GTD01",
     "price": 99000,
     "gender": "unisex",
+    "color": "Đen",
     "sizes": ["Free size"],
     "images": [
       {
@@ -745,6 +774,7 @@
     "name": "Găng tay dài MOVA GTD02",
     "price": 99000,
     "gender": "unisex",
+    "color": "Trắng",
     "sizes": ["Free size"],
     "images": [
       {
@@ -770,6 +800,7 @@
     "name": "Găng tay dài MOVA GTD03",
     "price": 99000,
     "gender": "unisex",
+    "color": "Xanh pastel",
     "sizes": ["Free size"],
     "images": [
       {
@@ -795,6 +826,7 @@
     "name": "Khẩu trang MOVA KT01",
     "price": 59000,
     "gender": "unisex",
+    "color": "Đen",
     "sizes": ["Free size"],
     "images": [
       {
@@ -820,6 +852,7 @@
     "name": "Khẩu trang MOVA KT02",
     "price": 59000,
     "gender": "unisex",
+    "color": "Xanh bạc hà",
     "sizes": ["Free size"],
     "images": [
       {
@@ -845,6 +878,7 @@
     "name": "Khẩu trang MOVA KT03",
     "price": 59000,
     "gender": "unisex",
+    "color": "Xanh da trời",
     "sizes": ["Free size"],
     "images": [
       {
@@ -870,6 +904,7 @@
     "name": "Tất MOVA SOCKS01",
     "price": 79000,
     "gender": "unisex",
+    "color": "Xám",
     "sizes": ["Free size"],
     "images": [
       {
@@ -895,6 +930,7 @@
     "name": "Tất MOVA SOCKS02",
     "price": 79000,
     "gender": "unisex",
+    "color": "Trắng",
     "sizes": ["Free size"],
     "images": [
       {
@@ -920,6 +956,7 @@
     "name": "Tất MOVA SOCKS03",
     "price": 79000,
     "gender": "unisex",
+    "color": "Trắng phối xanh navy",
     "sizes": ["Free size"],
     "images": [
       {

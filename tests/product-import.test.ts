@@ -74,6 +74,26 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
   );
   assert.equal(
     db
+      .prepare("SELECT color FROM product_variants WHERE id='var-atg01-s'")
+      .get()?.color,
+    'Tím pastel',
+  );
+  assert.equal(
+    db
+      .prepare(
+        "SELECT color FROM product_variants WHERE product_id=(SELECT id FROM products WHERE code='PLN01') LIMIT 1",
+      )
+      .get()?.color,
+    'Xanh rêu',
+  );
+  const importedCopy = db
+    .prepare("SELECT description,material FROM products WHERE code='PLN01'")
+    .get() as { description: string; material: string };
+  assert.match(importedCopy.description, /áo polo nam màu xanh rêu/i);
+  assert.equal(importedCopy.material, 'Vải pique polyester co giãn');
+  assert.doesNotMatch(importedCopy.description, /dữ liệu demo/i);
+  assert.equal(
+    db
       .prepare(
         "SELECT reserved_stock FROM product_variants WHERE id='var-atg01-s'",
       )
@@ -94,9 +114,8 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
     'active',
   );
   assert.equal(
-    db
-      .prepare("SELECT is_visible FROM categories WHERE slug='ao-polo'")
-      .get()?.is_visible,
+    db.prepare("SELECT is_visible FROM categories WHERE slug='ao-polo'").get()
+      ?.is_visible,
     1,
   );
   assert.equal(

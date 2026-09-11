@@ -5,7 +5,7 @@ import { LoaderCircle, Images } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 export function ProductImportPanel({ codes }: { codes: string[] }) {
-  const [includeNew, setIncludeNew] = useState(false);
+  const [includeNew, setIncludeNew] = useState(true);
   const [count, setCount] = useState(0);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
@@ -52,9 +52,8 @@ export function ProductImportPanel({ codes }: { codes: string[] }) {
         Bộ ảnh sản phẩm mới
       </h2>
       <p className="mt-3 text-base text-neutral-600">
-        76 ảnh cho 37 mã đã sẵn sàng. Nhập bổ sung ảnh cho mã có sẵn và tạo sản
-        phẩm mới với dữ liệu demo. Không thay giá hay tồn kho của sản phẩm đang
-        có.
+        Đồng bộ 76 ảnh, màu sắc và mô tả riêng cho 37 sản phẩm. Giá và tồn kho
+        bạn đã chỉnh trong trang quản trị sẽ được giữ nguyên.
       </p>
       <label
         htmlFor="include-new-categories"
@@ -69,8 +68,8 @@ export function ProductImportPanel({ codes }: { codes: string[] }) {
         Đưa cả các nhóm mới (polo, sơ mi, váy, phụ kiện…) lên cửa hàng
       </label>
       <p className="mt-1 text-sm text-neutral-600">
-        Nếu không chọn, sản phẩm ngoài các nhóm đã chốt sẽ được lưu dưới dạng
-        bản nháp.
+        Giữ lựa chọn này để toàn bộ nhóm có sản phẩm được hiển thị trên cửa
+        hàng.
       </p>
       <button
         type="button"
@@ -86,7 +85,7 @@ export function ProductImportPanel({ codes }: { codes: string[] }) {
         )}
         {busy
           ? `Đang nhập ${count}/${codes.length}`
-          : 'Nhập bộ sản phẩm và ảnh'}
+          : 'Đồng bộ sản phẩm và ảnh'}
       </button>
       {message && (
         <p role="alert" className="mt-3 text-sm text-red-700">

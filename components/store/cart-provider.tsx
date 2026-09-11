@@ -52,11 +52,18 @@ declare global {
   }
 }
 
-const STORAGE_KEY = 'mova-cart-v1';
+const STORAGE_KEY = 'mova-cart-v2';
+const LEGACY_STORAGE_KEY = 'mova-cart-v1';
 const CartContext = createContext<CartContextValue | null>(null);
 
 function readStoredCart(): CartItem[] {
   try {
+    // Reset carts created by the former demo/QA build once, then persist only
+    // items that shoppers explicitly add in the current storefront.
+    if (window.localStorage.getItem(LEGACY_STORAGE_KEY)) {
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+      return [];
+    }
     const value = window.localStorage.getItem(STORAGE_KEY);
     if (!value) return [];
     const parsed = JSON.parse(value) as CartItem[];

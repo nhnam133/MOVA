@@ -28,8 +28,8 @@ const navigation = [
   ['Áo thun', '/san-pham?danh-muc=ao-thun-the-thao'],
   ['Áo chạy bộ', '/san-pham?danh-muc=ao-chay-bo'],
   ['Quần short', '/san-pham?danh-muc=quan-short'],
-  ['Quần jogger', '/san-pham?danh-muc=quan-jogger'],
-  ['Set thể thao', '/san-pham?danh-muc=set-the-thao'],
+  ['Áo polo', '/san-pham?danh-muc=ao-polo'],
+  ['Quần legging', '/san-pham?danh-muc=quan-legging'],
   ['MOVA Club', '/#mova-club'],
   ['Liên hệ', '/lien-he'],
 ];
