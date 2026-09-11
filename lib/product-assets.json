@@ -9,7 +9,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nam MOVA PLN01",
+    "name": "Áo polo nam HAUVIE PLN01",
     "price": 399000,
     "gender": "male",
     "color": "Xanh rêu",
@@ -35,7 +35,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nam MOVA PLN02",
+    "name": "Áo polo nam HAUVIE PLN02",
     "price": 399000,
     "gender": "male",
     "color": "Xám than",
@@ -61,7 +61,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nam MOVA PLN03",
+    "name": "Áo polo nam HAUVIE PLN03",
     "price": 399000,
     "gender": "male",
     "color": "Đen",
@@ -87,7 +87,7 @@
       "name": "Áo sơ mi"
     },
     "existingCategory": false,
-    "name": "Áo sơ mi nam MOVA SMN01",
+    "name": "Áo sơ mi nam HAUVIE SMN01",
     "price": 429000,
     "gender": "male",
     "color": "Xanh xám",
@@ -113,7 +113,7 @@
       "name": "Áo sơ mi"
     },
     "existingCategory": false,
-    "name": "Áo sơ mi nam MOVA SMN02",
+    "name": "Áo sơ mi nam HAUVIE SMN02",
     "price": 429000,
     "gender": "male",
     "color": "Xanh navy",
@@ -139,7 +139,7 @@
       "name": "Áo sơ mi"
     },
     "existingCategory": false,
-    "name": "Áo sơ mi nam MOVA SMN03",
+    "name": "Áo sơ mi nam HAUVIE SMN03",
     "price": 429000,
     "gender": "male",
     "color": "Xanh than",
@@ -165,7 +165,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nam MOVA ATN01",
+    "name": "Áo thun nam HAUVIE ATN01",
     "price": 329000,
     "gender": "male",
     "color": "Trắng",
@@ -191,7 +191,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nam MOVA ATN02",
+    "name": "Áo thun nam HAUVIE ATN02",
     "price": 329000,
     "gender": "male",
     "color": "Xanh loang",
@@ -217,7 +217,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nam MOVA ATN03",
+    "name": "Áo thun nam HAUVIE ATN03",
     "price": 329000,
     "gender": "male",
     "color": "Hồng pastel",
@@ -243,7 +243,7 @@
       "name": "Quần short"
     },
     "existingCategory": true,
-    "name": "Quần short nam MOVA QN01",
+    "name": "Quần short nam HAUVIE QN01",
     "price": 389000,
     "gender": "male",
     "color": "Đen",
@@ -269,7 +269,7 @@
       "name": "Quần short"
     },
     "existingCategory": true,
-    "name": "Quần short nam MOVA QN02",
+    "name": "Quần short nam HAUVIE QN02",
     "price": 389000,
     "gender": "male",
     "color": "Be",
@@ -295,7 +295,7 @@
       "name": "Quần short"
     },
     "existingCategory": true,
-    "name": "Quần short nam MOVA QN03",
+    "name": "Quần short nam HAUVIE QN03",
     "price": 389000,
     "gender": "male",
     "color": "Trắng",
@@ -321,7 +321,7 @@
       "name": "Áo dài tay"
     },
     "existingCategory": false,
-    "name": "Áo dài tay nữ MOVA DTG01",
+    "name": "Áo dài tay nữ HAUVIE DTG01",
     "price": 449000,
     "gender": "female",
     "color": "Trắng kem",
@@ -351,7 +351,7 @@
       "name": "Áo dài tay"
     },
     "existingCategory": false,
-    "name": "Áo dài tay nữ MOVA DTG02",
+    "name": "Áo dài tay nữ HAUVIE DTG02",
     "price": 449000,
     "gender": "female",
     "color": "Đen",
@@ -381,7 +381,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nữ MOVA PLG01",
+    "name": "Áo polo nữ HAUVIE PLG01",
     "price": 379000,
     "gender": "female",
     "color": "Trắng",
@@ -407,7 +407,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nữ MOVA PLG02",
+    "name": "Áo polo nữ HAUVIE PLG02",
     "price": 379000,
     "gender": "female",
     "color": "Đen",
@@ -433,7 +433,7 @@
       "name": "Áo polo"
     },
     "existingCategory": false,
-    "name": "Áo polo nữ MOVA PLG03",
+    "name": "Áo polo nữ HAUVIE PLG03",
     "price": 379000,
     "gender": "female",
     "color": "Xanh navy",
@@ -459,7 +459,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nữ MOVA ATG01",
+    "name": "Áo thun nữ HAUVIE ATG01",
     "price": 329000,
     "gender": "female",
     "color": "Tím pastel",
@@ -485,7 +485,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nữ MOVA ATG02",
+    "name": "Áo thun nữ HAUVIE ATG02",
     "price": 329000,
     "gender": "female",
     "color": "Đen",
@@ -511,7 +511,7 @@
       "name": "Áo thun thể thao"
     },
     "existingCategory": true,
-    "name": "Áo thun nữ MOVA ATG03",
+    "name": "Áo thun nữ HAUVIE ATG03",
     "price": 329000,
     "gender": "female",
     "color": "Hồng phấn",
@@ -537,7 +537,7 @@
       "name": "Quần legging"
     },
     "existingCategory": false,
-    "name": "Quần legging nữ MOVA LGG01",
+    "name": "Quần legging nữ HAUVIE LGG01",
     "price": 399000,
     "gender": "female",
     "color": "Xanh navy",
@@ -563,7 +563,7 @@
       "name": "Quần legging"
     },
     "existingCategory": false,
-    "name": "Quần legging nữ MOVA LGG02",
+    "name": "Quần legging nữ HAUVIE LGG02",
     "price": 399000,
     "gender": "female",
     "color": "Đen",
@@ -589,7 +589,7 @@
       "name": "Quần short"
     },
     "existingCategory": true,
-    "name": "Quần short nữ MOVA QSG01",
+    "name": "Quần short nữ HAUVIE QSG01",
     "price": 389000,
     "gender": "female",
     "color": "Đen",
@@ -615,7 +615,7 @@
       "name": "Quần short"
     },
     "existingCategory": true,
-    "name": "Quần short nữ MOVA QSG02",
+    "name": "Quần short nữ HAUVIE QSG02",
     "price": 389000,
     "gender": "female",
     "color": "Trắng",
@@ -641,7 +641,7 @@
       "name": "Váy thể thao"
     },
     "existingCategory": false,
-    "name": "Váy thể thao nữ MOVA VG01",
+    "name": "Váy thể thao nữ HAUVIE VG01",
     "price": 359000,
     "gender": "female",
     "color": "Trắng",
@@ -667,7 +667,7 @@
       "name": "Váy thể thao"
     },
     "existingCategory": false,
-    "name": "Váy thể thao nữ MOVA VG02",
+    "name": "Váy thể thao nữ HAUVIE VG02",
     "price": 359000,
     "gender": "female",
     "color": "Xanh pastel",
@@ -693,7 +693,7 @@
       "name": "Túi"
     },
     "existingCategory": false,
-    "name": "Túi MOVA BAG01",
+    "name": "Túi HAUVIE BAG01",
     "price": 299000,
     "gender": "unisex",
     "color": "Đen",
@@ -719,7 +719,7 @@
       "name": "Túi"
     },
     "existingCategory": false,
-    "name": "Túi MOVA BAG02",
+    "name": "Túi HAUVIE BAG02",
     "price": 299000,
     "gender": "unisex",
     "color": "Xám bạc",
@@ -745,7 +745,7 @@
       "name": "Găng tay dài"
     },
     "existingCategory": false,
-    "name": "Găng tay dài MOVA GTD01",
+    "name": "Găng tay dài HAUVIE GTD01",
     "price": 99000,
     "gender": "unisex",
     "color": "Đen",
@@ -771,7 +771,7 @@
       "name": "Găng tay dài"
     },
     "existingCategory": false,
-    "name": "Găng tay dài MOVA GTD02",
+    "name": "Găng tay dài HAUVIE GTD02",
     "price": 99000,
     "gender": "unisex",
     "color": "Trắng",
@@ -797,7 +797,7 @@
       "name": "Găng tay dài"
     },
     "existingCategory": false,
-    "name": "Găng tay dài MOVA GTD03",
+    "name": "Găng tay dài HAUVIE GTD03",
     "price": 99000,
     "gender": "unisex",
     "color": "Xanh pastel",
@@ -823,7 +823,7 @@
       "name": "Khẩu trang"
     },
     "existingCategory": false,
-    "name": "Khẩu trang MOVA KT01",
+    "name": "Khẩu trang HAUVIE KT01",
     "price": 59000,
     "gender": "unisex",
     "color": "Đen",
@@ -849,7 +849,7 @@
       "name": "Khẩu trang"
     },
     "existingCategory": false,
-    "name": "Khẩu trang MOVA KT02",
+    "name": "Khẩu trang HAUVIE KT02",
     "price": 59000,
     "gender": "unisex",
     "color": "Xanh bạc hà",
@@ -875,7 +875,7 @@
       "name": "Khẩu trang"
     },
     "existingCategory": false,
-    "name": "Khẩu trang MOVA KT03",
+    "name": "Khẩu trang HAUVIE KT03",
     "price": 59000,
     "gender": "unisex",
     "color": "Xanh da trời",
@@ -901,7 +901,7 @@
       "name": "Tất"
     },
     "existingCategory": false,
-    "name": "Tất MOVA SOCKS01",
+    "name": "Tất HAUVIE SOCKS01",
     "price": 79000,
     "gender": "unisex",
     "color": "Xám",
@@ -927,7 +927,7 @@
       "name": "Tất"
     },
     "existingCategory": false,
-    "name": "Tất MOVA SOCKS02",
+    "name": "Tất HAUVIE SOCKS02",
     "price": 79000,
     "gender": "unisex",
     "color": "Trắng",
@@ -953,7 +953,7 @@
       "name": "Tất"
     },
     "existingCategory": false,
-    "name": "Tất MOVA SOCKS03",
+    "name": "Tất HAUVIE SOCKS03",
     "price": 79000,
     "gender": "unisex",
     "color": "Trắng phối xanh navy",

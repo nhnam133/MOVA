@@ -220,15 +220,15 @@ export function CartProvider({
       await context.registerTool(
         {
           name: 'add_product_to_cart',
-          title: 'Thêm sản phẩm vào giỏ MOVA',
+          title: 'Thêm sản phẩm vào giỏ HAUVIE',
           description:
-            'Thêm một phiên bản sản phẩm MOVA vào giỏ hàng hiện tại và mở giỏ hàng.',
+            'Thêm một phiên bản sản phẩm HAUVIE vào giỏ hàng hiện tại và mở giỏ hàng.',
           inputSchema: {
             type: 'object',
             properties: {
               productSlug: {
                 type: 'string',
-                description: 'Slug sản phẩm trong danh mục MOVA.',
+                description: 'Slug sản phẩm trong danh mục HAUVIE.',
               },
               sku: {
                 type: 'string',
@@ -264,9 +264,9 @@ export function CartProvider({
       await context.registerTool(
         {
           name: 'read_cart',
-          title: 'Xem giỏ hàng MOVA',
+          title: 'Xem giỏ hàng HAUVIE',
           description:
-            'Đọc các SKU, số lượng và tổng số sản phẩm trong giỏ MOVA hiện tại.',
+            'Đọc các SKU, số lượng và tổng số sản phẩm trong giỏ HAUVIE hiện tại.',
           inputSchema: {
             type: 'object',
             properties: {},

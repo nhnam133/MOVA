@@ -154,7 +154,7 @@ export default async function ProductDetailPage({
           <div className="space-y-4">
             {reviewRows.length === 0 ? (
               <p className="rounded-2xl border border-black/10 p-6 text-sm text-neutral-500">
-                Sản phẩm chưa có đánh giá. MOVA không tạo số liệu hoặc bình luận
+                Sản phẩm chưa có đánh giá. HAUVIE không tạo số liệu hoặc bình luận
                 giả.
               </p>
             ) : (
@@ -165,7 +165,7 @@ export default async function ProductDetailPage({
                 >
                   <div className="flex justify-between gap-4">
                     <p className="font-bold">
-                      {review.name || 'Khách hàng MOVA'}
+                      {review.name || 'Khách hàng HAUVIE'}
                     </p>
                     <span className="text-xs text-neutral-400">
                       {new Date(review.createdAt).toLocaleDateString('vi-VN')}
@@ -184,7 +184,7 @@ export default async function ProductDetailPage({
                   </p>
                   {review.adminReply && (
                     <div className="mt-4 border-l-4 border-[#dfff00] bg-neutral-50 p-4 text-sm leading-6">
-                      <p className="font-black">MOVA phản hồi</p>
+                      <p className="font-black">HAUVIE phản hồi</p>
                       <p className="mt-1 text-neutral-600">{review.adminReply}</p>
                     </div>
                   )}

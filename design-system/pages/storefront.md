@@ -1,4 +1,4 @@
-# MOVA storefront override
+# HAUVIE storefront override
 
 The user's approved brand overrides the generated master palette and font suggestions.
 

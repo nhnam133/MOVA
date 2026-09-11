@@ -3,6 +3,7 @@ import Link from '@/components/store/link';
 import { ArrowLeft, Package } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { requireMovaUser } from '@/lib/auth';
+import { brandText } from '@/lib/brand';
 import { OrderActions } from '@/components/store/order-actions';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
 import { SiteFooter } from '@/components/store/site-footer';
@@ -131,7 +132,7 @@ export default async function OrderDetailPage({
                 className="grid gap-2 py-4 sm:grid-cols-[1fr_160px_120px] sm:items-center"
               >
                 <div>
-                  <p className="font-bold">{item.productName}</p>
+                  <p className="font-bold">{brandText(item.productName)}</p>
                   <p className="mt-1 text-xs text-neutral-500">
                     {item.sku} · {item.color} / {item.size}
                   </p>
@@ -176,7 +177,7 @@ export default async function OrderDetailPage({
             canExchange={canExchange}
             items={items.map((item) => ({
               id: item.id,
-              label: `${item.productName} · ${item.color}/${item.size}`,
+              label: `${brandText(item.productName)} · ${item.color}/${item.size}`,
               sku: item.sku,
               quantity: item.quantity,
             }))}
@@ -211,7 +212,7 @@ export default async function OrderDetailPage({
                           approved: 'Đã duyệt',
                           rejected: 'Từ chối',
                           return_shipping: 'Đang chờ gửi hàng cũ',
-                          received: 'MOVA đã kiểm tra hàng cũ',
+                          received: 'HAUVIE đã kiểm tra hàng cũ',
                           shipping: 'Đang giao hàng đổi',
                           completed: 'Hoàn thành',
                         }[request.status]
@@ -219,7 +220,7 @@ export default async function OrderDetailPage({
                     </p>
                     <p className="mt-1">
                       {request.responsibility === 'seller'
-                        ? 'MOVA chịu phí'
+                        ? 'HAUVIE chịu phí'
                         : request.responsibility === 'customer'
                           ? 'Khách chịu phí'
                           : 'Đang xác định bên chịu phí'}

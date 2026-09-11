@@ -6,6 +6,11 @@ import { categories, productImages, products, productVariants } from '@/db/schem
 import { ProductEditor } from '@/components/admin/product-editor';
 import Link from '@/components/store/link';
 import { AdminHeader } from '@/components/admin/admin-shell';
+import {
+  brandText,
+  storefrontDescription,
+  storefrontMaterial,
+} from '@/lib/brand';
 
 export default async function EditProductPage({
   params,
@@ -31,9 +36,16 @@ export default async function EditProductPage({
     .where(eq(productImages.productId, id))
     .orderBy(asc(productImages.sortOrder));
   const groups = await db
-    .select({ id: categories.id, name: categories.name })
+    .select({ id: categories.id, name: categories.name, slug: categories.slug })
     .from(categories)
     .orderBy(asc(categories.sortOrder));
+  const copyInput = {
+    categorySlug:
+      groups.find((group) => group.id === product.categoryId)?.slug ?? '',
+    gender: product.gender,
+    color: variants[0]?.color ?? 'trung tính',
+    name: product.name,
+  };
   return (
     <main className="min-h-screen bg-neutral-100">
       <AdminHeader email={admin.email} />
@@ -43,7 +55,12 @@ export default async function EditProductPage({
         </Link>
         <h1 className="my-7 text-3xl font-black">Chỉnh sửa {product.code}</h1>
         <ProductEditor
-          product={product}
+          product={{
+            ...product,
+            name: brandText(product.name),
+            description: storefrontDescription(product.description, copyInput),
+            material: storefrontMaterial(product.material, copyInput),
+          }}
           variants={variants}
           categories={groups}
           images={images}

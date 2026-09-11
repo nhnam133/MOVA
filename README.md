@@ -1,10 +1,10 @@
-# MOVA — Website thương mại điện tử thời trang thể thao
+# HAUVIE — Website thương mại điện tử thời trang thể thao
 
-MOVA được xây mới hoàn toàn. TechVie chỉ được dùng để tham khảo luồng trải nghiệm; dữ liệu, kiến trúc và giao diện của MOVA được thiết kế riêng để hỗ trợ biến thể màu–size, tích điểm, voucher và đổi size.
+HAUVIE được xây mới hoàn toàn. TechVie chỉ được dùng để tham khảo luồng trải nghiệm; dữ liệu, kiến trúc và giao diện của HAUVIE được thiết kế riêng để hỗ trợ biến thể màu–size, tích điểm, voucher và đổi size.
 
 ## Chức năng đã có
 
-- Trang chủ responsive theo nhận diện trắng–đen–xanh lime, tham khảo cấu trúc bán lẻ của ND Style nhưng dùng thiết kế MOVA riêng.
+- Trang chủ responsive theo nhận diện trắng–đen–xanh lime, tham khảo cấu trúc bán lẻ của ND Style nhưng dùng thiết kế HAUVIE riêng.
 - Tìm kiếm và kết hợp bộ lọc danh mục, đối tượng, khoảng giá, màu, size; sắp xếp mới nhất/giá tăng/giá giảm.
 - Danh sách và chi tiết sản phẩm; bộ ảnh, chọn màu–size–số lượng, bảng size mẫu và chính sách liên quan.
 - Giỏ khách lưu trên thiết bị; khi đăng nhập được đồng bộ theo tài khoản và gộp an toàn với giỏ trước đăng nhập.
@@ -61,7 +61,7 @@ MoMo có thể để trống trong giai đoạn phát triển. Khi chưa có đ�
 - Phí giao hàng 30.000đ; miễn phí khi giá trị sản phẩm sau giảm giá đạt 499.000đ.
 - 10.000đ giá trị sản phẩm = 1 điểm, làm tròn xuống; chỉ cộng khi đơn hoàn tất và đã thanh toán.
 - 100 điểm đổi voucher 20.000đ, áp dụng đơn từ 200.000đ, hạn 30 ngày.
-- Đổi size trong 72 giờ từ thời điểm nhận hàng; lỗi MOVA thì MOVA chịu phí, lỗi chọn size của khách thì khách chịu phí.
+- Đổi size trong 72 giờ từ thời điểm nhận hàng; lỗi HAUVIE thì HAUVIE chịu phí, lỗi chọn size của khách thì khách chịu phí.
 
 ## Cấu trúc chính
 

@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** MOVA
+**Project:** HAUVIE
 **Generated:** 2026-09-10 01:04:17
 **Category:** E-commerce
 **Design Dials:** Variance 7/10 (Balanced / Modern) | Motion 5/10 (Standard) | Density 5/10 (Standard)

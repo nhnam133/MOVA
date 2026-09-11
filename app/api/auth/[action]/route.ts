@@ -126,7 +126,7 @@ export async function POST(
       {
         error:
           error instanceof Error && error.message === 'MOVA_LEGACY_ACCOUNT'
-            ? 'Email này có dữ liệu tài khoản cũ. Vui lòng liên hệ MOVA để chuyển tài khoản an toàn.'
+            ? 'Email này có dữ liệu tài khoản cũ. Vui lòng liên hệ HAUVIE để chuyển tài khoản an toàn.'
             : 'Dịch vụ tài khoản tạm thời chưa phản hồi. Vui lòng thử lại sau.',
       },
       503,

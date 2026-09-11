@@ -14,9 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'MOVA — Thời trang thể thao, tự tin chuyển động',
+  title: 'HAUVIE — Thời trang thể thao, tự tin chuyển động',
   description:
-    'Thời trang thể thao MOVA — thiết kế linh hoạt cho mọi chuyển động.',
+    'Thời trang thể thao HAUVIE — thiết kế linh hoạt cho mọi chuyển động.',
+  icons: { icon: '/favicon.svg' },
 };
 
 export default async function RootLayout({

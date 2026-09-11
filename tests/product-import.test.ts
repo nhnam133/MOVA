@@ -7,6 +7,23 @@ import {
   productAssetCatalog,
   productImportCommands,
 } from '../lib/product-import.ts';
+import { brandText, storefrontDescription } from '../lib/brand.ts';
+
+test('legacy MOVA copy is presented consistently as HAUVIE', () => {
+  assert.equal(brandText('Áo polo MOVA PLN01'), 'Áo polo HAUVIE PLN01');
+  assert.match(
+    storefrontDescription(
+      'Sản phẩm minh họa cho đồ án MOVA. Giá, màu, kích cỡ và tồn kho là dữ liệu demo, có thể cập nhật trong trang quản trị.',
+      {
+        categorySlug: 'ao-polo',
+        gender: 'male',
+        color: 'Xanh rêu',
+        name: 'Áo polo nam MOVA PLN01',
+      },
+    ),
+    /áo polo nam màu xanh rêu/i,
+  );
+});
 
 test('all 76 copied AVIF assets match supplied files byte for byte', () => {
   assert.equal(productAssetCatalog.length, 37);
@@ -87,8 +104,9 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
     'Xanh rêu',
   );
   const importedCopy = db
-    .prepare("SELECT description,material FROM products WHERE code='PLN01'")
-    .get() as { description: string; material: string };
+    .prepare("SELECT name,description,material FROM products WHERE code='PLN01'")
+    .get() as { name: string; description: string; material: string };
+  assert.equal(importedCopy.name, 'Áo polo nam HAUVIE PLN01');
   assert.match(importedCopy.description, /áo polo nam màu xanh rêu/i);
   assert.equal(importedCopy.material, 'Vải pique polyester co giãn');
   assert.doesNotMatch(importedCopy.description, /dữ liệu demo/i);

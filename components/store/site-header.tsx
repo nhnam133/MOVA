@@ -64,7 +64,7 @@ export function SiteHeader() {
   const navigation = [
     ['Sản phẩm', '/san-pham'],
     ...categoryLinks,
-    ['MOVA Club', '/#mova-club'],
+    ['HAUVIE Club', '/#mova-club'],
     ['Liên hệ', '/lien-he'],
   ];
 
@@ -82,10 +82,10 @@ export function SiteHeader() {
           <Link
             href="/"
             className="group flex shrink-0 items-end gap-2"
-            aria-label="MOVA - Trang chủ"
+            aria-label="HAUVIE - Trang chủ"
           >
             <span className="text-[31px] font-black italic leading-none tracking-[-0.09em]">
-              MOVA
+              HAUVIE
             </span>
             <span className="mb-0.5 h-2.5 w-2.5 rounded-sm bg-[#dfff00] transition-transform group-hover:rotate-45" />
           </Link>
@@ -152,12 +152,12 @@ export function SiteHeader() {
           className="w-[88%] max-w-sm border-r border-black bg-white p-0 [&>button]:hidden"
         >
           <SheetHeader className="sr-only">
-            <SheetTitle>Menu MOVA</SheetTitle>
+            <SheetTitle>Menu HAUVIE</SheetTitle>
             <SheetDescription>Danh mục sản phẩm và tài khoản</SheetDescription>
           </SheetHeader>
           <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
             <span className="text-2xl font-black italic tracking-[-0.08em]">
-              MOVA
+              HAUVIE
             </span>
             <button
               onClick={() => setMenuOpen(false)}

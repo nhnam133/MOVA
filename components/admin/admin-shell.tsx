@@ -27,7 +27,7 @@ export function AdminHeader({ email }: { email?: string }) {
     <header className="border-b border-white/15 bg-black text-white">
       <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 px-4 py-4 sm:px-8 lg:px-12">
         <Link href="/" className="shrink-0 text-2xl font-black italic tracking-[-0.07em]">
-          MOVA<span className="text-[#dfff00]">.</span>
+          HAUVIE<span className="text-[#dfff00]">.</span>
         </Link>
         <div className="min-w-0 text-right">
           <p className="text-sm font-black">Trung tâm quản trị</p>
@@ -54,7 +54,7 @@ export function AdminHeader({ email }: { email?: string }) {
 }
 
 export function AdminPageIntro({
-  kicker = 'MOVA Admin',
+  kicker = 'HAUVIE Admin',
   title,
   description,
   action,

@@ -9,6 +9,7 @@ import { requireAdmin } from '@/lib/admin-auth';
 import { productAssetCatalog } from '@/lib/product-import';
 import { ProductImportPanel } from '@/components/admin/product-import-panel';
 import { AdminHeader, AdminPageIntro } from '@/components/admin/admin-shell';
+import { brandText } from '@/lib/brand';
 
 export default async function AdminProductsPage() {
   const admin = await requireAdmin();
@@ -70,7 +71,7 @@ export default async function AdminProductsPage() {
                     href={`/quan-tri/san-pham/${product.id}`}
                     className="font-bold underline underline-offset-4"
                   >
-                    {product.name}
+                    {brandText(product.name)}
                     <span className="mt-1 block text-xs font-normal">
                       Chỉnh sửa sản phẩm
                     </span>

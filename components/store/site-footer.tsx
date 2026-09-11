@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
             <p className="text-5xl font-black italic tracking-[-0.08em] sm:text-7xl">
-              MOVA<span className="text-[#dfff00]">.</span>
+              HAUVIE<span className="text-[#dfff00]">.</span>
             </p>
             <p className="mt-5 max-w-md text-sm leading-7 text-white/55">
               Trang phục thể thao trẻ trung cho từng nhịp chạy, buổi tập và
@@ -18,7 +18,7 @@ export function SiteFooter() {
               href="/lien-he"
               className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#dfff00]"
             >
-              Liên hệ với MOVA <ArrowUpRight className="h-4 w-4" />
+              Liên hệ với HAUVIE <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 text-sm lg:col-span-2 lg:grid-cols-3">
@@ -42,7 +42,7 @@ export function SiteFooter() {
                 Quần short
               </Link>
               <Link href="/tai-khoan" className="block hover:text-[#dfff00]">
-                MOVA Club
+                HAUVIE Club
               </Link>
             </div>
             <div className="space-y-3">
@@ -98,7 +98,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="flex flex-col justify-between gap-3 pt-6 text-xs text-white/40 sm:flex-row">
-          <p>© 2026 MOVA · Đồ án thương mại điện tử</p>
+          <p>© 2026 HAUVIE · Đồ án thương mại điện tử</p>
           <p>COD · MoMo UAT · Đổi hàng trong 72 giờ</p>
         </div>
       </div>

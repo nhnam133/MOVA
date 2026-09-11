@@ -95,7 +95,7 @@ export function ReviewModeration({
         {visible ? 'Ẩn đánh giá' : 'Hiện lại'}
       </button>
       <form onSubmit={reply} className="mt-2 flex min-w-[240px] gap-2">
-        <input name="adminReply" defaultValue={adminReply || ''} maxLength={1000} placeholder="Phản hồi của MOVA" aria-label="Phản hồi đánh giá" className="min-h-11 min-w-0 flex-1 rounded-lg border border-black/15 px-3 text-sm" />
+        <input name="adminReply" defaultValue={adminReply || ''} maxLength={1000} placeholder="Phản hồi của HAUVIE" aria-label="Phản hồi đánh giá" className="min-h-11 min-w-0 flex-1 rounded-lg border border-black/15 px-3 text-sm" />
         <button disabled={loading} className="min-h-11 rounded-full bg-[#dfff00] px-4 text-xs font-black">Lưu</button>
       </form>
       {error && (

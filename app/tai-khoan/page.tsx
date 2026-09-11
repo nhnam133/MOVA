@@ -35,7 +35,7 @@ export default async function AccountPage({
         {query.confirmation === 'check' && (
           <output className="mx-auto block max-w-xl px-4 pt-8 text-base">
             Nếu bạn đã xác nhận email, hãy đăng nhập bên dưới. Nếu liên kết đã
-            hết hạn, vui lòng liên hệ MOVA.
+            hết hạn, vui lòng liên hệ HAUVIE.
           </output>
         )}
         <AuthForm ready={authConfigured()} returnTo={query.return_to} />
@@ -108,7 +108,7 @@ export default async function AccountPage({
             <p className="mt-8 text-5xl font-black">
               {profile?.pointsBalance ?? 0}
             </p>
-            <p className="mt-1 text-sm text-white/55">Điểm MOVA hiện có</p>
+            <p className="mt-1 text-sm text-white/55">Điểm HAUVIE hiện có</p>
             <LoyaltyRedeem points={profile?.pointsBalance ?? 0} />
           </div>
           <div className="border border-black bg-white p-6">

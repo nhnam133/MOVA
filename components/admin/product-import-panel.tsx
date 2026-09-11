@@ -52,8 +52,9 @@ export function ProductImportPanel({ codes }: { codes: string[] }) {
         Bộ ảnh sản phẩm mới
       </h2>
       <p className="mt-3 text-base text-neutral-600">
-        Đồng bộ 76 ảnh, màu sắc và mô tả riêng cho 37 sản phẩm. Giá và tồn kho
-        bạn đã chỉnh trong trang quản trị sẽ được giữ nguyên.
+        Đồng bộ nhận diện HAUVIE, 76 ảnh, màu sắc và mô tả riêng cho 37 sản
+        phẩm. Giá và tồn kho bạn đã chỉnh trong trang quản trị sẽ được giữ
+        nguyên.
       </p>
       <label
         htmlFor="include-new-categories"
@@ -85,7 +86,7 @@ export function ProductImportPanel({ codes }: { codes: string[] }) {
         )}
         {busy
           ? `Đang nhập ${count}/${codes.length}`
-          : 'Đồng bộ sản phẩm và ảnh'}
+          : 'Đồng bộ HAUVIE, sản phẩm và ảnh'}
       </button>
       {message && (
         <p role="alert" className="mt-3 text-sm text-red-700">

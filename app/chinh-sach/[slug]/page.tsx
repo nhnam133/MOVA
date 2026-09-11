@@ -17,7 +17,7 @@ const pages = {
     title: 'Chính sách vận chuyển',
     kicker: 'Giao hàng',
     icon: Truck,
-    intro: 'MOVA áp dụng một cách tính phí rõ ràng cho đơn hàng toàn quốc.',
+    intro: 'HAUVIE áp dụng một cách tính phí rõ ràng cho đơn hàng toàn quốc.',
     sections: [
       [
         'Phí vận chuyển',
@@ -46,15 +46,15 @@ const pages = {
       ],
       [
         'Trường hợp hỗ trợ',
-        'Chọn sai size, sản phẩm có vấn đề, giao nhầm sản phẩm và trường hợp khác để MOVA xem xét. Hàng lỗi hoặc giao nhầm bắt buộc có ít nhất một ảnh.',
+        'Chọn sai size, sản phẩm có vấn đề, giao nhầm sản phẩm và trường hợp khác để HAUVIE xem xét. Hàng lỗi hoặc giao nhầm bắt buộc có ít nhất một ảnh.',
       ],
       [
         'Phí đổi hàng',
-        'Nếu lỗi thuộc MOVA, MOVA chịu phí vận chuyển đổi. Nếu khách chọn sai size, khách chịu phí. Khi chưa rõ nguồn lỗi, hệ thống không tự gán phí cho khách.',
+        'Nếu lỗi thuộc HAUVIE, HAUVIE chịu phí vận chuyển đổi. Nếu khách chọn sai size, khách chịu phí. Khi chưa rõ nguồn lỗi, hệ thống không tự gán phí cho khách.',
       ],
       [
         'Hàng thay thế',
-        'Chỉ chọn và duyệt size còn tồn kho. MOVA không tự động chờ nhập hoặc hoàn tiền; trường hợp ngoại lệ được admin liên hệ xử lý.',
+        'Chỉ chọn và duyệt size còn tồn kho. HAUVIE không tự động chờ nhập hoặc hoàn tiền; trường hợp ngoại lệ được admin liên hệ xử lý.',
       ],
     ],
   },
@@ -63,7 +63,7 @@ const pages = {
     kicker: 'Thông tin',
     icon: ShieldCheck,
     intro:
-      'MOVA chỉ sử dụng dữ liệu cần thiết để vận hành luồng mua hàng của đồ án.',
+      'HAUVIE chỉ sử dụng dữ liệu cần thiết để vận hành luồng mua hàng của đồ án.',
     sections: [
       [
         'Dữ liệu tài khoản',
@@ -87,23 +87,23 @@ const pages = {
     title: 'Chính sách bảo hành',
     kicker: 'Chất lượng sản phẩm',
     icon: ShieldCheck,
-    intro: 'MOVA tiếp nhận vấn đề do lỗi sản xuất theo cùng mốc hỗ trợ 72 giờ kể từ lúc khách thực tế nhận hàng.',
+    intro: 'HAUVIE tiếp nhận vấn đề do lỗi sản xuất theo cùng mốc hỗ trợ 72 giờ kể từ lúc khách thực tế nhận hàng.',
     sections: [
-      ['Phạm vi hỗ trợ', 'Trang phục không áp dụng bảo hành kỹ thuật dài hạn. MOVA hỗ trợ sản phẩm bung chỉ, rách, lỗi in hoặc lỗi hoàn thiện có sẵn khi nhận hàng.'],
+      ['Phạm vi hỗ trợ', 'Trang phục không áp dụng bảo hành kỹ thuật dài hạn. HAUVIE hỗ trợ sản phẩm bung chỉ, rách, lỗi in hoặc lỗi hoàn thiện có sẵn khi nhận hàng.'],
       ['Thời hạn', 'Khách cần gửi yêu cầu trong vòng 72 giờ kể từ thời điểm thực tế nhận hàng và cung cấp ảnh thể hiện lỗi sản phẩm.'],
       ['Trường hợp không áp dụng', 'Không áp dụng khi sản phẩm đã bị làm dơ, sử dụng sai hướng dẫn, tự sửa chữa hoặc yêu cầu được gửi sau 72 giờ.'],
-      ['Cách xử lý', 'Nếu xác định lỗi thuộc MOVA, MOVA chịu phí đổi sản phẩm. Sản phẩm thay thế phụ thuộc tồn kho tại thời điểm duyệt.'],
+      ['Cách xử lý', 'Nếu xác định lỗi thuộc HAUVIE, HAUVIE chịu phí đổi sản phẩm. Sản phẩm thay thế phụ thuộc tồn kho tại thời điểm duyệt.'],
     ],
   },
   'dieu-khoan': {
     title: 'Điều khoản sử dụng',
     kicker: 'Quy định website',
     icon: PackageCheck,
-    intro: 'Các quy định giúp thông tin đặt hàng và quá trình hỗ trợ trên MOVA được rõ ràng.',
+    intro: 'Các quy định giúp thông tin đặt hàng và quá trình hỗ trợ trên HAUVIE được rõ ràng.',
     sections: [
       ['Tài khoản', 'Khách hàng chịu trách nhiệm bảo mật tài khoản và cung cấp thông tin nhận hàng chính xác. Mỗi đơn hàng được gắn với tài khoản đã đăng nhập.'],
       ['Thông tin sản phẩm', 'Giá, lựa chọn màu, kích thước và tồn kho được hiển thị tại thời điểm mua. Quản trị viên có thể cập nhật thông tin cho các lần đặt hàng sau.'],
-      ['Đặt và xử lý đơn', 'MOVA có thể liên hệ xác nhận đơn COD trước khi giao. Trạng thái và số tiền của đơn đã tạo được lưu để khách theo dõi trong tài khoản.'],
+      ['Đặt và xử lý đơn', 'HAUVIE có thể liên hệ xác nhận đơn COD trước khi giao. Trạng thái và số tiền của đơn đã tạo được lưu để khách theo dõi trong tài khoản.'],
       ['Phạm vi sử dụng', 'Đây là website phục vụ đồ án thương mại điện tử. Các giao dịch thử nghiệm MoMo không phải giao dịch thương mại thật.'],
     ],
   },
@@ -170,7 +170,7 @@ export default async function PolicyPage({
               [
                 CircleDollarSign,
                 'Bên gây lỗi chịu phí',
-                'MOVA hoặc khách theo kết luận',
+                'HAUVIE hoặc khách theo kết luận',
               ],
               [PackageCheck, 'Kiểm tra tồn', 'Không duyệt vượt SKU còn hàng'],
             ].map(([FeatureIcon, title, copy]) => {

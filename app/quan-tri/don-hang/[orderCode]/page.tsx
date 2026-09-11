@@ -8,6 +8,7 @@ import { getDb } from '@/db';
 import { orderEvents, orderItems, orders, users } from '@/db/schema';
 import { requireAdmin } from '@/lib/admin-auth';
 import { formatMoney } from '@/lib/catalog';
+import { brandText } from '@/lib/brand';
 
 const statusLabels: Record<string, string> = {
   pending: 'Chờ xác nhận', confirmed: 'Đang chuẩn bị', shipping: 'Đang giao',
@@ -54,7 +55,7 @@ export default async function AdminOrderDetailPage({
               <div className="mt-5 divide-y divide-black/10">
                 {items.map((item) => (
                   <div key={item.id} className="grid gap-2 py-4 text-sm sm:grid-cols-[1fr_100px_130px] sm:items-center">
-                    <div><p className="font-bold">{item.productName}</p><p className="mt-1 text-xs text-neutral-500">{item.sku} · {item.color} / {item.size}</p></div>
+                    <div><p className="font-bold">{brandText(item.productName)}</p><p className="mt-1 text-xs text-neutral-500">{item.sku} · {item.color} / {item.size}</p></div>
                     <p>{item.quantity} × {formatMoney(item.unitPrice)}</p>
                     <p className="font-black sm:text-right">{formatMoney(item.lineTotal)}</p>
                   </div>

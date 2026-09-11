@@ -13,6 +13,7 @@ import {
 import { ExchangeActions } from '@/components/admin/exchange-actions';
 import { AdminHeader, AdminPageIntro } from '@/components/admin/admin-shell';
 import Link from '@/components/store/link';
+import { brandText } from '@/lib/brand';
 
 const labels: Record<string, string> = {
   submitted: 'Chờ tiếp nhận',
@@ -98,7 +99,7 @@ export default async function AdminExchangesPage() {
                 .filter((i) => i.requestId === entry.id)
                 .map((i) => (
                   <p key={i.name} className="mt-3 text-sm font-semibold">
-                    {i.name} · {i.color}/{i.size} · SL {i.quantity}
+                    {brandText(i.name)} · {i.color}/{i.size} · SL {i.quantity}
                   </p>
                 ))}
               <div className="mt-3 flex flex-wrap gap-3">
@@ -122,7 +123,7 @@ export default async function AdminExchangesPage() {
                 </p>
               )}
               <div className="mt-3 grid grid-cols-2 gap-3 rounded-xl border border-black/10 p-3 text-sm">
-                <p><span className="block text-xs text-neutral-500">Bên chịu phí</span>{entry.responsibility === 'seller' ? 'MOVA' : entry.responsibility === 'customer' ? 'Khách hàng' : 'Chưa xác định'}</p>
+                <p><span className="block text-xs text-neutral-500">Bên chịu phí</span>{entry.responsibility === 'seller' ? 'HAUVIE' : entry.responsibility === 'customer' ? 'Khách hàng' : 'Chưa xác định'}</p>
                 <p><span className="block text-xs text-neutral-500">Phí đổi</span>{entry.feeAmount.toLocaleString('vi-VN')}đ · {entry.feeStatus === 'paid' ? 'Đã thu' : entry.feeStatus === 'awaiting' ? 'Chờ thu' : 'Không thu'}</p>
               </div>
               <ExchangeActions

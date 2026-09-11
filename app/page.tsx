@@ -34,7 +34,7 @@ export default async function Home() {
         <div className="grid overflow-hidden rounded-[22px] bg-[#101010] text-white md:grid-cols-2">
           <div className="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-14 lg:px-16 lg:py-16">
             <p className="text-sm font-bold uppercase tracking-[0.15em] text-[#dfff00]">
-              MOVA · Thời trang thể thao
+              HAUVIE · Thời trang thể thao
             </p>
             <div>
               <h1 className="mt-6 text-[clamp(2.75rem,4.5vw,4.75rem)] font-black leading-[1.1] tracking-[-0.045em]">
@@ -68,7 +68,7 @@ export default async function Home() {
           <div className="relative aspect-[4/3] min-h-0 bg-[#ececea] md:aspect-auto md:min-h-[520px]">
             <Image
               src="/products/qsg01-1.avif"
-              alt="Quần short thể thao MOVA trong bộ sưu tập"
+              alt="Quần short thể thao HAUVIE trong bộ sưu tập"
               fill
               priority
               className="object-cover object-center"
@@ -84,7 +84,7 @@ export default async function Home() {
             [Truck, 'Giao hàng toàn quốc', '30.000đ · Freeship từ 499K'],
             [RotateCcw, 'Đổi hàng 72 giờ', 'Tính từ lúc nhận thực tế'],
             [ShieldCheck, 'Thanh toán an toàn', 'COD hoặc MoMo UAT'],
-            [Gift, 'Tích điểm MOVA', '10.000đ tiền hàng = 1 điểm'],
+            [Gift, 'Tích điểm HAUVIE', '10.000đ tiền hàng = 1 điểm'],
           ].map(([Icon, title, copy]) => {
             const FeatureIcon = Icon as typeof Truck;
             return (
@@ -113,7 +113,7 @@ export default async function Home() {
       >
         <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <p className="section-kicker">Danh mục MOVA</p>
+            <p className="section-kicker">Danh mục HAUVIE</p>
             <h2 className="section-title">
               Chọn cách bạn
               <br />
@@ -204,7 +204,7 @@ export default async function Home() {
           <div className="relative min-h-[500px]">
             <Image
               src="/products/atg02-1.avif"
-              alt="Áo thể thao MOVA"
+              alt="Áo thể thao HAUVIE"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 55vw"
@@ -225,7 +225,7 @@ export default async function Home() {
             <div className="mt-20 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl bg-[#dfff00] p-6 text-black">
                 <p className="text-xs font-extrabold uppercase tracking-wider">
-                  MOVA Club
+                  HAUVIE Club
                 </p>
                 <p className="mt-8 text-4xl font-black">100 điểm</p>
                 <p className="mt-1 text-sm">Đổi voucher 20.000đ</p>
@@ -252,7 +252,7 @@ export default async function Home() {
         <div className="mx-auto flex max-w-[1384px] flex-col items-start justify-between gap-7 px-4 sm:flex-row sm:items-center sm:px-8">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.2em]">
-              MOVA / Performance wear
+              HAUVIE / Performance wear
             </p>
             <h2 className="mt-3 max-w-3xl text-4xl font-black uppercase leading-none tracking-[-0.055em] sm:text-6xl">
               Mặc thoải mái.
@@ -264,7 +264,7 @@ export default async function Home() {
             href="/san-pham"
             className="inline-flex h-14 shrink-0 items-center gap-5 rounded-full bg-black px-7 text-sm font-black text-white"
           >
-            Khám phá MOVA <ArrowRight className="h-4 w-4" />
+            Khám phá HAUVIE <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>

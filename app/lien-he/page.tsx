@@ -11,13 +11,13 @@ export default function ContactPage() {
       <SiteHeader />
       <section className="bg-black px-4 py-16 text-white sm:px-8 lg:px-12">
         <div className="mx-auto max-w-[1384px]">
-          <p className="section-kicker text-[#dfff00]">MOVA / Hỗ trợ</p>
+          <p className="section-kicker text-[#dfff00]">HAUVIE / Hỗ trợ</p>
           <h1 className="mt-4 text-5xl font-black uppercase tracking-[-0.07em] sm:text-7xl">
             Liên hệ
           </h1>
           <p className="mt-5 max-w-xl text-sm leading-7 text-white/55">
             Gửi câu hỏi về sản phẩm, đơn hàng hoặc quy trình đổi size. Thông tin
-            của bạn sẽ được MOVA tiếp nhận và phản hồi sớm nhất có thể.
+            của bạn sẽ được HAUVIE tiếp nhận và phản hồi sớm nhất có thể.
           </p>
         </div>
       </section>
@@ -31,7 +31,7 @@ export default function ContactPage() {
               UTH cơ sở 1, số 2 Võ Oanh, phường Thạnh Mỹ Tây, TP.HCM.
             </p>
             <p className="mt-3 rounded-xl bg-[#f1f1eb] p-4 text-sm leading-6 text-neutral-700">
-              Địa chỉ này chỉ dùng để minh họa chức năng bản đồ cho đồ án, không phải cửa hàng hoặc địa chỉ kinh doanh chính thức của MOVA.
+              Địa chỉ này chỉ dùng để minh họa chức năng bản đồ cho đồ án, không phải cửa hàng hoặc địa chỉ kinh doanh chính thức của HAUVIE.
             </p>
             <Link
               href="https://www.google.com/maps/search/?api=1&query=UTH+c%C6%A1+s%E1%BB%9F+1+s%E1%BB%91+2+V%C3%B5+Oanh+TPHCM"
@@ -44,7 +44,7 @@ export default function ContactPage() {
             </Link>
           </div>
           <iframe
-            title="Bản đồ Google Maps đến điểm liên hệ MOVA tại UTH cơ sở 1"
+            title="Bản đồ Google Maps đến điểm liên hệ HAUVIE tại UTH cơ sở 1"
             src="https://www.google.com/maps?q=UTH%20c%C6%A1%20s%E1%BB%9F%201%2C%20s%E1%BB%91%202%20V%C3%B5%20Oanh%2C%20TP.HCM&output=embed"
             className="h-[420px] w-full border-0"
             loading="lazy"

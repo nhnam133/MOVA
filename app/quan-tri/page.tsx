@@ -13,6 +13,7 @@ import { getDb } from '@/db';
 import { orderItems, orders, products, productVariants } from '@/db/schema';
 import { requireAdmin } from '@/lib/admin-auth';
 import { formatMoney } from '@/lib/catalog';
+import { brandText } from '@/lib/brand';
 
 const statusLabels: Record<string, string> = {
   pending: 'Chờ xác nhận',
@@ -219,7 +220,7 @@ export default async function AdminDashboardPage({
                         {index + 1}
                       </span>
                       <div className="min-w-0">
-                        <p className="truncate font-bold">{product.name}</p>
+                        <p className="truncate font-bold">{brandText(product.name)}</p>
                         <p className="text-sm text-neutral-500">{product.quantity} sản phẩm</p>
                       </div>
                     </div>

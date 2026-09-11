@@ -33,9 +33,9 @@ export function ContactForm() {
       onSubmit={submit}
       className="rounded-[22px] border border-black/10 bg-white p-6 shadow-sm sm:p-8"
     >
-      <h2 className="text-2xl font-black">Gửi lời nhắn cho MOVA</h2>
+      <h2 className="text-2xl font-black">Gửi lời nhắn cho HAUVIE</h2>
       <p className="mt-2 text-sm leading-6 text-neutral-500">
-        Bạn chỉ cần cung cấp email hoặc số điện thoại để MOVA có thể phản hồi.
+        Bạn chỉ cần cung cấp email hoặc số điện thoại để HAUVIE có thể phản hồi.
       </p>
       <div className="mt-7 grid gap-5 sm:grid-cols-2">
         <label className="text-sm font-bold">
@@ -60,7 +60,7 @@ export function ContactForm() {
         </label>
         <label className="text-sm font-bold sm:col-span-2">
           Mã đơn hàng (nếu có)
-          <input name="orderCode" maxLength={30} placeholder="Ví dụ: MV..." className={field} />
+          <input name="orderCode" maxLength={30} placeholder="Ví dụ: HV..." className={field} />
         </label>
         <label className="text-sm font-bold sm:col-span-2">
           Nội dung
@@ -84,7 +84,7 @@ export function ContactForm() {
       {state === 'success' && (
         <output className="mt-5 flex items-center gap-2 rounded-xl bg-lime-50 p-3 text-sm font-bold">
           <CheckCircle2 className="h-4 w-4" />
-          MOVA đã nhận được lời nhắn của bạn.
+          HAUVIE đã nhận được lời nhắn của bạn.
         </output>
       )}
       <button

@@ -49,9 +49,9 @@ export default async function CheckoutResultPage({
           <>
             <p className="mx-auto mt-6 max-w-xl text-sm leading-7 text-neutral-600">
               {order.paymentMethod === 'cod'
-                ? 'MOVA sẽ xác nhận và chuẩn bị đơn. Bạn thanh toán khi nhận hàng.'
+                ? 'HAUVIE sẽ xác nhận và chuẩn bị đơn. Bạn thanh toán khi nhận hàng.'
                 : paid
-                  ? 'MoMo đã xác nhận giao dịch. MOVA sẽ sớm chuẩn bị đơn.'
+                  ? 'MoMo đã xác nhận giao dịch. HAUVIE sẽ sớm chuẩn bị đơn.'
                   : 'Kết quả MoMo đang được cập nhật. Bạn có thể kiểm tra lại trong tài khoản.'}
             </p>
             <p className="mt-5 text-2xl font-black">

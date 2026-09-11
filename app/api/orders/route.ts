@@ -187,7 +187,7 @@ export async function POST(request: Request) {
   const now = Date.now(),
     orderId = crypto.randomUUID();
   const orderCode =
-    'MV' +
+    'HV' +
     now.toString(36).toUpperCase() +
     crypto.randomUUID().slice(0, 5).toUpperCase();
   const momoRequestId =
@@ -301,7 +301,7 @@ export async function POST(request: Request) {
         orderCode,
         redirectUrl: '/tai-khoan/don-hang/' + orderCode,
         warning:
-          'Chưa nhận được liên kết MoMo. Kiểm tra đơn hàng hoặc liên hệ MOVA, không thanh toán lại.',
+          'Chưa nhận được liên kết MoMo. Kiểm tra đơn hàng hoặc liên hệ HAUVIE, không thanh toán lại.',
       });
     }
   }

@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   const now = Date.now(),
     voucherId = crypto.randomUUID(),
     code =
-      'MOVA' +
+      'HAUVIE' +
       crypto.randomUUID().replaceAll('-', '').slice(0, 12).toUpperCase();
   const expiresAt = now + 30 * 24 * 60 * 60 * 1000;
   try {

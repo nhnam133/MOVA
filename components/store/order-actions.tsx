@@ -160,7 +160,7 @@ export function OrderActions({
             <label className="text-sm font-bold">
               Size/SKU muốn đổi
               <select name="replacementSku" className={field}>
-                <option value="">Để MOVA hỗ trợ</option>
+                <option value="">Để HAUVIE hỗ trợ</option>
                 {variants.map((variant) => (
                   <option key={variant.sku} value={variant.sku}>
                     {variant.label}

@@ -174,10 +174,10 @@ export function AuthForm({
     <section className="mx-auto w-full max-w-xl px-4 py-10 sm:py-16">
       <div className="rounded-3xl border border-black/10 bg-card p-6 shadow-sm sm:p-10">
         <p className="text-sm font-extrabold uppercase tracking-[0.18em] text-neutral-600">
-          Tài khoản MOVA
+          Tài khoản HAUVIE
         </p>
         <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
-          {mode === 'login' ? 'Chào mừng trở lại.' : 'Gia nhập MOVA.'}
+          {mode === 'login' ? 'Chào mừng trở lại.' : 'Gia nhập HAUVIE.'}
         </h1>
         <p className="mb-7 mt-3 text-base leading-6 text-neutral-600">
           {mode === 'login'

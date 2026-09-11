@@ -38,7 +38,7 @@ export async function POST(request: Request) {
   } else if (body.action === 'approve' && ['submitted', 'reviewing', 'needs_info'].includes(entry.status)) {
     const feeAmount = Number(body.feeAmount || 0);
     if (!['seller', 'customer'].includes(body.responsibility || '') || note.length < 5 || note.length > 2000 || !body.replacementSku || !Number.isSafeInteger(feeAmount) || feeAmount < 0 || feeAmount > 1000000) return Response.json({ error: 'Chọn SKU, bên chịu phí, phí vận chuyển và ghi kết luận.' }, { status: 400 });
-    if (body.responsibility === 'seller' && feeAmount !== 0) return Response.json({ error: 'Khi MOVA chịu phí, phí khách phải trả phải bằng 0.' }, { status: 400 });
+    if (body.responsibility === 'seller' && feeAmount !== 0) return Response.json({ error: 'Khi HAUVIE chịu phí, phí khách phải trả phải bằng 0.' }, { status: 400 });
     const [variant] = await db.select().from(productVariants).where(eq(productVariants.sku, body.replacementSku)).limit(1);
     if (!variant || !variant.active || (entry.reason === 'wrong_size' && (variant.productId !== item.productId || variant.color !== item.color))) return Response.json({ error: 'Đổi sai size phải giữ đúng sản phẩm và màu đã mua.' }, { status: 400 });
     commands.push(

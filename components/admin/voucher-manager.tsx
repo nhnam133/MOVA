@@ -29,7 +29,7 @@ export function VoucherManager({ initial }: { initial: Voucher[] }) {
   function save(row: Voucher) { void send('PATCH', { ...row, expiresAt: row.expiresAt }, row.id); }
   return <div className="space-y-6">
     <form onSubmit={create} className="grid gap-4 rounded-2xl border border-black bg-[#dfff00] p-5 sm:grid-cols-2 lg:grid-cols-5 lg:items-end">
-      <label className="text-sm font-black">Mã voucher<input name="code" required placeholder="MOVA20" className={input} /></label>
+      <label className="text-sm font-black">Mã voucher<input name="code" required placeholder="HAUVIE20" className={input} /></label>
       <label className="text-sm font-black">Giá trị giảm<input name="value" type="number" min={1000} step={1000} required defaultValue={20000} className={input} /></label>
       <label className="text-sm font-black">Đơn tối thiểu<input name="minimumOrderValue" type="number" min={1000} step={1000} required defaultValue={200000} className={input} /></label>
       <label className="text-sm font-black">Điểm cần đổi<input name="pointsCost" type="number" min={0} required defaultValue={100} className={input} /></label>

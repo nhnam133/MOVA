@@ -8,6 +8,7 @@ import {
   products as productTable,
 } from '@/db/schema';
 import { type Product } from './catalog';
+import { brandText, storefrontDescription, storefrontMaterial } from './brand';
 
 function imageUrl(objectKey: string | undefined) {
   if (!objectKey) return '/products/atg01-1.avif';
@@ -54,14 +55,23 @@ export const getCatalogProducts = cache(async (): Promise<Product[]> => {
     .where(inArray(productImages.productId, ids))
     .orderBy(asc(productImages.sortOrder));
   return rows.map((row) => {
+    const productVariantsForRow = variants.filter(
+      (variant) => variant.productId === row.id && variant.active,
+    );
     const gallery = images
       .filter((image) => image.productId === row.id)
       .map((image) => imageUrl(image.objectKey));
+    const copyInput = {
+      categorySlug: row.categorySlug,
+      gender: row.gender,
+      color: productVariantsForRow[0]?.color ?? 'trung tính',
+      name: row.name,
+    };
     return {
       id: row.id,
       code: row.code,
       slug: row.slug,
-      name: row.name,
+      name: brandText(row.name),
       category: row.category,
       categorySlug: row.categorySlug,
       price: row.price,
@@ -70,10 +80,9 @@ export const getCatalogProducts = cache(async (): Promise<Product[]> => {
       image: gallery[0] ?? '/products/atg01-1.avif',
       gallery,
       badge: row.featured ? 'Nổi bật' : null,
-      description: row.description,
-      material: row.material,
-      variants: variants
-        .filter((variant) => variant.productId === row.id && variant.active)
+      description: storefrontDescription(row.description, copyInput),
+      material: storefrontMaterial(row.material, copyInput),
+      variants: productVariantsForRow
         .map((variant) => ({
           id: variant.id,
           sku: variant.sku,

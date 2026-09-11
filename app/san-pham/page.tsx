@@ -125,7 +125,7 @@ export default async function ProductsPage({
       <SiteHeader />
       <section className="bg-black px-4 py-14 text-white sm:px-8 lg:px-12 lg:py-20">
         <div className="mx-auto max-w-[1384px]">
-          <p className="section-kicker text-[#dfff00]">MOVA / Catalog</p>
+          <p className="section-kicker text-[#dfff00]">HAUVIE / Catalog</p>
           <h1 className="mt-4 text-5xl font-black uppercase tracking-[-0.07em] sm:text-7xl">
             {activeName ?? (q ? `Kết quả cho “${q}”` : 'Tất cả sản phẩm')}
           </h1>

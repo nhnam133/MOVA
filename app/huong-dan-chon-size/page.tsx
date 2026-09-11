@@ -15,7 +15,7 @@ export default function SizeGuidePage() {
       <SiteHeader />
       <section className="bg-black px-4 py-16 text-white sm:px-8">
         <div className="mx-auto max-w-[1100px]">
-          <p className="section-kicker text-[#dfff00]">MOVA / Size guide</p>
+          <p className="section-kicker text-[#dfff00]">HAUVIE / Size guide</p>
           <h1 className="mt-4 text-5xl font-black uppercase tracking-[-0.07em] sm:text-7xl">
             Chọn size phù hợp
           </h1>

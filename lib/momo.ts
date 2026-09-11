@@ -79,8 +79,8 @@ export async function createMomoPayment({
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
         partnerCode,
-        partnerName: 'MOVA',
-        storeId: 'MOVAStore',
+        partnerName: 'HAUVIE',
+        storeId: 'HAUVIEStore',
         requestType,
         ipnUrl,
         redirectUrl,

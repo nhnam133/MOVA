@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       { error: 'Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.' },
       { status: 400 },
     );
-  if (!['general', 'order_support', 'cancel_request'].includes(messageType) || ((messageType === 'order_support' || messageType === 'cancel_request') && !/^MV[A-Z0-9]{5,25}$/.test(orderCode)))
+  if (!['general', 'order_support', 'cancel_request'].includes(messageType) || ((messageType === 'order_support' || messageType === 'cancel_request') && !/^(?:HV|MV)[A-Z0-9]{5,25}$/.test(orderCode)))
     return Response.json(
       { error: 'Vui lòng nhập mã đơn hợp lệ khi cần hỗ trợ hoặc yêu cầu hủy đơn.' },
       { status: 400 },

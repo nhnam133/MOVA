@@ -1,4 +1,4 @@
-# MOVA account override
+# HAUVIE account override
 
 Extends the approved storefront override, not the generated master palette.
 
