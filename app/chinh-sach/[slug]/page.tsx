@@ -59,7 +59,7 @@ const pages = {
     ],
   },
   'bao-mat': {
-    title: 'Bảo mật & điều khoản',
+    title: 'Chính sách bảo mật',
     kicker: 'Thông tin',
     icon: ShieldCheck,
     intro:
@@ -81,6 +81,30 @@ const pages = {
         'Phạm vi đồ án',
         'Website là sản phẩm học tập với dữ liệu demo, chưa phải tư vấn pháp lý hoặc cam kết kinh doanh thật.',
       ],
+    ],
+  },
+  'bao-hanh': {
+    title: 'Chính sách bảo hành',
+    kicker: 'Chất lượng sản phẩm',
+    icon: ShieldCheck,
+    intro: 'MOVA tiếp nhận vấn đề do lỗi sản xuất theo cùng mốc hỗ trợ 72 giờ kể từ lúc khách thực tế nhận hàng.',
+    sections: [
+      ['Phạm vi hỗ trợ', 'Trang phục không áp dụng bảo hành kỹ thuật dài hạn. MOVA hỗ trợ sản phẩm bung chỉ, rách, lỗi in hoặc lỗi hoàn thiện có sẵn khi nhận hàng.'],
+      ['Thời hạn', 'Khách cần gửi yêu cầu trong vòng 72 giờ kể từ thời điểm thực tế nhận hàng và cung cấp ảnh thể hiện lỗi sản phẩm.'],
+      ['Trường hợp không áp dụng', 'Không áp dụng khi sản phẩm đã bị làm dơ, sử dụng sai hướng dẫn, tự sửa chữa hoặc yêu cầu được gửi sau 72 giờ.'],
+      ['Cách xử lý', 'Nếu xác định lỗi thuộc MOVA, MOVA chịu phí đổi sản phẩm. Sản phẩm thay thế phụ thuộc tồn kho tại thời điểm duyệt.'],
+    ],
+  },
+  'dieu-khoan': {
+    title: 'Điều khoản sử dụng',
+    kicker: 'Quy định website',
+    icon: PackageCheck,
+    intro: 'Các quy định giúp thông tin đặt hàng và quá trình hỗ trợ trên MOVA được rõ ràng.',
+    sections: [
+      ['Tài khoản', 'Khách hàng chịu trách nhiệm bảo mật tài khoản và cung cấp thông tin nhận hàng chính xác. Mỗi đơn hàng được gắn với tài khoản đã đăng nhập.'],
+      ['Thông tin sản phẩm', 'Giá, lựa chọn màu, kích thước và tồn kho được hiển thị tại thời điểm mua. Quản trị viên có thể cập nhật thông tin cho các lần đặt hàng sau.'],
+      ['Đặt và xử lý đơn', 'MOVA có thể liên hệ xác nhận đơn COD trước khi giao. Trạng thái và số tiền của đơn đã tạo được lưu để khách theo dõi trong tài khoản.'],
+      ['Phạm vi sử dụng', 'Đây là website phục vụ đồ án thương mại điện tử. Các giao dịch thử nghiệm MoMo không phải giao dịch thương mại thật.'],
     ],
   },
 } as const;

@@ -132,6 +132,60 @@ export const productVariants = sqliteTable(
   ],
 );
 
+export const stockMovements = sqliteTable(
+  'stock_movements',
+  {
+    id: text('id').primaryKey(),
+    variantId: text('variant_id')
+      .notNull()
+      .references(() => productVariants.id),
+    actorUserId: text('actor_user_id').references(() => users.id),
+    type: text('type', {
+      enum: ['initial', 'adjustment', 'order', 'release', 'exchange', 'restock'],
+    }).notNull(),
+    quantityDelta: integer('quantity_delta').notNull(),
+    stockBefore: integer('stock_before').notNull(),
+    stockAfter: integer('stock_after').notNull(),
+    reason: text('reason').notNull(),
+    referenceType: text('reference_type'),
+    referenceId: text('reference_id'),
+    createdAt: integer('created_at').notNull(),
+  },
+  (table) => [
+    index('stock_movements_variant_created_index').on(
+      table.variantId,
+      table.createdAt,
+    ),
+    index('stock_movements_reference_index').on(
+      table.referenceType,
+      table.referenceId,
+    ),
+  ],
+);
+
+export const cartItems = sqliteTable(
+  'cart_items',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    variantId: text('variant_id')
+      .notNull()
+      .references(() => productVariants.id, { onDelete: 'cascade' }),
+    quantity: integer('quantity').notNull(),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull(),
+  },
+  (table) => [
+    uniqueIndex('cart_items_user_variant_unique').on(
+      table.userId,
+      table.variantId,
+    ),
+    index('cart_items_user_index').on(table.userId),
+  ],
+);
+
 export const vouchers = sqliteTable(
   'vouchers',
   {
@@ -224,6 +278,23 @@ export const orders = sqliteTable(
   ],
 );
 
+export const orderEvents = sqliteTable(
+  'order_events',
+  {
+    id: text('id').primaryKey(),
+    orderId: text('order_id')
+      .notNull()
+      .references(() => orders.id, { onDelete: 'cascade' }),
+    actorUserId: text('actor_user_id').references(() => users.id),
+    eventType: text('event_type').notNull(),
+    fromStatus: text('from_status'),
+    toStatus: text('to_status'),
+    note: text('note').notNull().default(''),
+    createdAt: integer('created_at').notNull(),
+  },
+  (table) => [index('order_events_order_created_index').on(table.orderId, table.createdAt)],
+);
+
 export const orderItems = sqliteTable(
   'order_items',
   {
@@ -296,8 +367,11 @@ export const exchangeRequests = sqliteTable(
       enum: [
         'submitted',
         'reviewing',
+        'needs_info',
         'approved',
         'rejected',
+        'return_shipping',
+        'received',
         'shipping',
         'completed',
       ],
@@ -306,10 +380,51 @@ export const exchangeRequests = sqliteTable(
       .default('submitted'),
     requestedAt: integer('requested_at').notNull(),
     reviewedAt: integer('reviewed_at'),
+    feeAmount: integer('fee_amount').notNull().default(0),
+    feeStatus: text('fee_status', {
+      enum: ['not_required', 'awaiting', 'paid'],
+    })
+      .notNull()
+      .default('not_required'),
+    returnCondition: text('return_condition', {
+      enum: ['pending', 'accepted', 'rejected'],
+    })
+      .notNull()
+      .default('pending'),
+    returnedSku: text('returned_sku'),
+    restockDecision: text('restock_decision', {
+      enum: ['pending', 'restock', 'quarantine'],
+    })
+      .notNull()
+      .default('pending'),
+    receivedAt: integer('received_at'),
+    shippedAt: integer('shipped_at'),
     completedAt: integer('completed_at'),
   },
   (table) => [
     uniqueIndex('exchange_requests_code_unique').on(table.requestCode),
+  ],
+);
+
+export const exchangeEvents = sqliteTable(
+  'exchange_events',
+  {
+    id: text('id').primaryKey(),
+    exchangeRequestId: text('exchange_request_id')
+      .notNull()
+      .references(() => exchangeRequests.id, { onDelete: 'cascade' }),
+    actorUserId: text('actor_user_id').references(() => users.id),
+    eventType: text('event_type').notNull(),
+    fromStatus: text('from_status'),
+    toStatus: text('to_status'),
+    note: text('note').notNull().default(''),
+    createdAt: integer('created_at').notNull(),
+  },
+  (table) => [
+    index('exchange_events_request_created_index').on(
+      table.exchangeRequestId,
+      table.createdAt,
+    ),
   ],
 );
 
@@ -347,6 +462,12 @@ export const contactMessages = sqliteTable(
     name: text('name').notNull(),
     email: text('email'),
     phone: text('phone'),
+    messageType: text('message_type', {
+      enum: ['general', 'order_support', 'cancel_request'],
+    })
+      .notNull()
+      .default('general'),
+    orderCode: text('order_code'),
     message: text('message').notNull(),
     status: text('status', { enum: ['new', 'processing', 'resolved'] })
       .notNull()

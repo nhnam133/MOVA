@@ -73,6 +73,12 @@ export function SiteFooter() {
               >
                 Bảo mật
               </Link>
+              <Link href="/chinh-sach/bao-hanh" className="block hover:text-[#dfff00]">
+                Bảo hành
+              </Link>
+              <Link href="/chinh-sach/dieu-khoan" className="block hover:text-[#dfff00]">
+                Điều khoản sử dụng
+              </Link>
             </div>
             <div className="col-span-2 space-y-3 lg:col-span-1">
               <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-white/35">
@@ -80,7 +86,7 @@ export function SiteFooter() {
               </p>
               <p className="flex items-start gap-2 leading-6 text-white/70">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#dfff00]" />
-                UTH cơ sở 1, số 2 Võ Oanh, TP.HCM
+                Địa điểm minh họa: UTH cơ sở 1, số 2 Võ Oanh, TP.HCM
               </p>
               <Link
                 href="/lien-he"

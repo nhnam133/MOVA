@@ -23,17 +23,6 @@ import {
 import { formatMoney } from '@/lib/catalog';
 import { useCart } from './cart-provider';
 
-const navigation = [
-  ['Sản phẩm', '/san-pham'],
-  ['Áo thun', '/san-pham?danh-muc=ao-thun-the-thao'],
-  ['Áo chạy bộ', '/san-pham?danh-muc=ao-chay-bo'],
-  ['Quần short', '/san-pham?danh-muc=quan-short'],
-  ['Áo polo', '/san-pham?danh-muc=ao-polo'],
-  ['Quần legging', '/san-pham?danh-muc=quan-legging'],
-  ['MOVA Club', '/#mova-club'],
-  ['Liên hệ', '/lien-he'],
-];
-
 export function AnnouncementBar() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 bg-[#dfff00] px-4 py-2 text-center text-xs font-semibold text-black sm:text-sm">
@@ -69,6 +58,15 @@ export function SiteHeader() {
     (sum, row) => sum + row.product.price * row.item.quantity,
     0,
   );
+  const categoryLinks = Array.from(
+    new Map(catalog.map((product) => [product.categorySlug, product.category])),
+  ).map(([slug, name]) => [name, `/san-pham?danh-muc=${slug}`]);
+  const navigation = [
+    ['Sản phẩm', '/san-pham'],
+    ...categoryLinks,
+    ['MOVA Club', '/#mova-club'],
+    ['Liên hệ', '/lien-he'],
+  ];
 
   return (
     <>
@@ -134,12 +132,12 @@ export function SiteHeader() {
           className="hidden border-t border-black/5 lg:block"
           aria-label="Điều hướng chính"
         >
-          <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-3 px-12">
+          <div className="mx-auto flex max-w-[1480px] items-center gap-8 overflow-x-auto px-12">
             {navigation.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
-                className="py-3 text-sm font-semibold underline-offset-8 transition hover:underline"
+                className="shrink-0 py-3 text-sm font-semibold underline-offset-8 transition hover:underline"
               >
                 {label}
               </Link>

@@ -242,6 +242,10 @@ export async function POST(request: Request) {
       now,
     ],
   });
+  commands.push({
+    sql: 'INSERT INTO order_events (id,order_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)',
+    params: [crypto.randomUUID(), orderId, user.userId, 'created', null, 'pending', 'Khách hàng tạo đơn.', now],
+  });
   for (const entry of resolved)
     commands.push({
       sql: 'INSERT INTO order_items (id,order_id,product_id,variant_id,product_code,product_name,sku,color,size,unit_price,quantity,line_total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',

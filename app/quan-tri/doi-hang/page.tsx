@@ -11,18 +11,22 @@ import {
   products,
 } from '@/db/schema';
 import { ExchangeActions } from '@/components/admin/exchange-actions';
+import { AdminHeader, AdminPageIntro } from '@/components/admin/admin-shell';
 import Link from '@/components/store/link';
 
 const labels: Record<string, string> = {
   submitted: 'Chờ tiếp nhận',
   reviewing: 'Đang xem xét',
+  needs_info: 'Chờ khách bổ sung',
   approved: 'Đã duyệt',
   rejected: 'Từ chối',
+  return_shipping: 'Đang chờ hàng cũ',
+  received: 'Đã kiểm tra hàng cũ',
   shipping: 'Đang giao hàng đổi',
   completed: 'Hoàn thành',
 };
 export default async function AdminExchangesPage() {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const db = getDb();
   const requests = await db
     .select({
@@ -32,6 +36,11 @@ export default async function AdminExchangesPage() {
       reason: exchangeRequests.reason,
       description: exchangeRequests.description,
       note: exchangeRequests.adminNote,
+      feeAmount: exchangeRequests.feeAmount,
+      feeStatus: exchangeRequests.feeStatus,
+      responsibility: exchangeRequests.responsibility,
+      returnCondition: exchangeRequests.returnCondition,
+      restockDecision: exchangeRequests.restockDecision,
       orderCode: orders.orderCode,
       recipient: orders.recipientName,
       phone: orders.recipientPhone,
@@ -43,6 +52,7 @@ export default async function AdminExchangesPage() {
     .select({
       requestId: exchangeItems.exchangeRequestId,
       sku: exchangeItems.replacementSku,
+      originalSku: orderItems.sku,
       quantity: exchangeItems.quantity,
       name: orderItems.productName,
       size: orderItems.size,
@@ -64,15 +74,10 @@ export default async function AdminExchangesPage() {
     .innerJoin(products, eq(products.id, productVariants.productId))
     .where(eq(productVariants.active, true));
   return (
-    <main className="min-h-screen bg-neutral-100 px-4 py-8 sm:px-8">
-      <div className="mx-auto max-w-6xl">
-        <nav className="flex flex-wrap gap-5 text-sm font-bold">
-          <Link href="/tai-khoan">Tài khoản</Link>
-          <Link href="/quan-tri/san-pham">Sản phẩm</Link>
-          <Link href="/quan-tri/don-hang">Đơn hàng</Link>
-          <Link href="/quan-tri/ho-tro">Liên hệ & đánh giá</Link>
-        </nav>
-        <h1 className="my-8 text-3xl font-black">Quản lý đổi hàng</h1>
+    <main className="min-h-screen bg-[#f1f1eb]">
+      <AdminHeader email={admin.email} />
+      <div className="mx-auto max-w-[1300px] px-4 py-10 sm:px-8 lg:py-14">
+        <AdminPageIntro title="Đổi hàng" description="Tiếp nhận yêu cầu, xác định phí, kiểm tra hàng trả về và theo dõi việc gửi sản phẩm thay thế." />
         {requests.length === 0 && (
           <p className="rounded-xl bg-white p-8">Chưa có yêu cầu đổi hàng.</p>
         )}
@@ -116,12 +121,19 @@ export default async function AdminExchangesPage() {
                   Kết luận: {entry.note}
                 </p>
               )}
+              <div className="mt-3 grid grid-cols-2 gap-3 rounded-xl border border-black/10 p-3 text-sm">
+                <p><span className="block text-xs text-neutral-500">Bên chịu phí</span>{entry.responsibility === 'seller' ? 'MOVA' : entry.responsibility === 'customer' ? 'Khách hàng' : 'Chưa xác định'}</p>
+                <p><span className="block text-xs text-neutral-500">Phí đổi</span>{entry.feeAmount.toLocaleString('vi-VN')}đ · {entry.feeStatus === 'paid' ? 'Đã thu' : entry.feeStatus === 'awaiting' ? 'Chờ thu' : 'Không thu'}</p>
+              </div>
               <ExchangeActions
                 id={entry.id}
                 status={entry.status}
                 replacementSku={
                   items.find((i) => i.requestId === entry.id)?.sku ?? null
                 }
+                originalSku={items.find((i) => i.requestId === entry.id)?.originalSku ?? ''}
+                initialFeeAmount={entry.feeAmount}
+                initialFeeStatus={entry.feeStatus}
                 variants={variants
                   .filter((v) => v.stock - v.reserved > 0)
                   .map((v) => ({

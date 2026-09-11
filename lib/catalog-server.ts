@@ -1,4 +1,4 @@
-import { asc, desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, desc, eq, inArray } from 'drizzle-orm';
 import { cache } from 'react';
 import { getDb } from '@/db';
 import {
@@ -35,7 +35,12 @@ export const getCatalogProducts = cache(async (): Promise<Product[]> => {
     })
     .from(productTable)
     .innerJoin(categoryTable, eq(productTable.categoryId, categoryTable.id))
-    .where(eq(productTable.status, 'active'))
+    .where(
+      and(
+        eq(productTable.status, 'active'),
+        eq(categoryTable.isVisible, true),
+      ),
+    )
     .orderBy(desc(productTable.createdAt));
   if (rows.length === 0) return [];
   const ids = rows.map((row) => row.id);

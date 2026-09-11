@@ -9,7 +9,8 @@ export async function POST(
   request: Request,
   { params }: { params: Promise<{ orderCode: string }> },
 ) {
-  if (!(await getAdminUser()))
+  const admin = await getAdminUser();
+  if (!admin)
     return Response.json(
       { error: 'Bạn không có quyền quản trị.' },
       { status: 403 },
@@ -56,7 +57,13 @@ export async function POST(
     ];
     status = 'confirmed';
   } else if (body?.action === 'ship' && order.status === 'confirmed') {
-    commands = shipOrderCommands(order.id, now);
+    commands = [
+      ...shipOrderCommands(order.id, now),
+      {
+        sql: "INSERT INTO stock_movements (id,variant_id,actor_user_id,type,quantity_delta,stock_before,stock_after,reason,reference_type,reference_id,created_at) SELECT lower(hex(randomblob(16))),v.id,?,'order',-SUM(i.quantity),v.stock+SUM(i.quantity),v.stock,'Xuất kho cho đơn ' || ?,'order',?,? FROM order_items i JOIN product_variants v ON v.id=i.variant_id WHERE i.order_id=? GROUP BY v.id,v.stock",
+        params: [admin.userId, order.orderCode, order.id, now, order.id],
+      },
+    ];
     status = 'shipping';
   } else if (body?.action === 'complete' && order.status === 'shipping') {
     const receivedAt = body.receivedAt;
@@ -106,6 +113,21 @@ export async function POST(
       { error: 'Thao tác không phù hợp trạng thái đơn hiện tại.' },
       { status: 409 },
     );
+  const eventType =
+    status === 'paid' ? 'payment_collected' : status;
+  commands.push({
+    sql: 'INSERT INTO order_events (id,order_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)',
+    params: [
+      crypto.randomUUID(),
+      order.id,
+      admin.userId,
+      eventType,
+      status === 'paid' ? null : order.status,
+      status === 'paid' ? null : status,
+      status === 'paid' ? 'Xác nhận đã thu tiền COD.' : '',
+      now,
+    ],
+  });
   try {
     await atomicBatch(commands);
   } catch {

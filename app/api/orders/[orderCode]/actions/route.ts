@@ -19,7 +19,10 @@ import { isExchangeWindowOpen } from '@/lib/business-rules';
 const activeExchangeStatuses = [
   'submitted',
   'reviewing',
+  'needs_info',
   'approved',
+  'return_shipping',
+  'received',
   'shipping',
 ] as const;
 
@@ -52,7 +55,11 @@ export async function POST(
     }
     if (body?.action === 'cancel') {
       try {
-        await atomicBatch(cancelOrderCommands(order.id, Date.now()));
+        const now = Date.now();
+        await atomicBatch([
+          ...cancelOrderCommands(order.id, now),
+          { sql: 'INSERT INTO order_events (id,order_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)', params: [crypto.randomUUID(), order.id, user.userId, 'cancelled', order.status, 'cancelled', 'Khách hàng tự hủy đơn COD khi chờ xác nhận.', now] },
+        ]);
       } catch {
         return Response.json(
           {
@@ -90,6 +97,7 @@ export async function POST(
             params: [receivedAt!, now, now, order.id],
           },
           ...earnPointsCommands(order.id, now),
+          { sql: 'INSERT INTO order_events (id,order_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)', params: [crypto.randomUUID(), order.id, user.userId, 'completed', order.status, 'completed', 'Khách xác nhận đã nhận hàng.', now] },
         ]);
       } catch {
         return Response.json(
@@ -107,6 +115,25 @@ export async function POST(
     const entry = data.get(name);
     return typeof entry === 'string' ? entry.trim() : '';
   };
+  if (field('action') === 'add_exchange_info') {
+    const requestId = field('requestId');
+    const description = field('description');
+    const [exchange] = await db.select().from(exchangeRequests).where(and(eq(exchangeRequests.id, requestId), eq(exchangeRequests.orderId, order.id), eq(exchangeRequests.userId, user.userId), eq(exchangeRequests.status, 'needs_info'))).limit(1);
+    if (!exchange || description.length < 5 || description.length > 2000) return Response.json({ error: 'Nội dung bổ sung phải có từ 5 đến 2.000 ký tự.' }, { status: 400 });
+    const files = data.getAll('evidence').filter((file): file is File => file instanceof File && file.size > 0);
+    if (files.length > 5 || files.some((file) => !['image/avif','image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 5 * 1024 * 1024)) return Response.json({ error: 'Tối đa 5 ảnh AVIF/JPG/PNG/WebP, mỗi ảnh không quá 5MB.' }, { status: 400 });
+    const now = Date.now(); const uploads: { key: string; id: string }[] = [];
+    try {
+      for (const file of files) { const key = `exchange-evidence/${user.userId}/${exchange.id}/${crypto.randomUUID()}`; await env.FILES.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type } }); uploads.push({ key, id: crypto.randomUUID() }); }
+      await atomicBatch([
+        guard("EXISTS (SELECT 1 FROM exchange_requests WHERE id=? AND user_id=? AND status='needs_info')", [exchange.id, user.userId]),
+        { sql: "UPDATE exchange_requests SET description=description || char(10) || 'Bổ sung: ' || ?,status='reviewing' WHERE id=?", params: [description, exchange.id] },
+        ...uploads.map((upload) => ({ sql: 'INSERT INTO exchange_evidence (id,exchange_request_id,object_key,created_at) VALUES (?,?,?,?)', params: [upload.id, exchange.id, upload.key, now] })),
+        { sql: 'INSERT INTO exchange_events (id,exchange_request_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)', params: [crypto.randomUUID(), exchange.id, user.userId, 'customer_info', 'needs_info', 'reviewing', description, now] },
+      ]);
+    } catch { await Promise.allSettled(uploads.map((upload) => env.FILES.delete(upload.key))); return Response.json({ error: 'Không thể lưu thông tin bổ sung. Vui lòng thử lại.' }, { status: 409 }); }
+    return Response.json({ status: 'updated' });
+  }
   if (field('action') !== 'exchange')
     return Response.json({ error: 'Thao tác không hợp lệ.' }, { status: 400 });
   if (
@@ -249,7 +276,7 @@ export async function POST(
         [order.id, user.userId, now, now - 72 * 60 * 60 * 1000],
       ),
       guard(
-        "NOT EXISTS (SELECT 1 FROM exchange_requests r JOIN exchange_items i ON i.exchange_request_id=r.id WHERE i.order_item_id=? AND r.status IN ('submitted','reviewing','approved','shipping'))",
+        "NOT EXISTS (SELECT 1 FROM exchange_requests r JOIN exchange_items i ON i.exchange_request_id=r.id WHERE i.order_item_id=? AND r.status IN ('submitted','reviewing','needs_info','approved','return_shipping','received','shipping'))",
         [item.id],
       ),
       {
@@ -278,6 +305,7 @@ export async function POST(
         sql: 'INSERT INTO exchange_evidence (id,exchange_request_id,object_key,created_at) VALUES (?,?,?,?)',
         params: [upload.id, requestId, upload.key, now],
       })),
+      { sql: 'INSERT INTO exchange_events (id,exchange_request_id,actor_user_id,event_type,from_status,to_status,note,created_at) VALUES (?,?,?,?,?,?,?,?)', params: [crypto.randomUUID(), requestId, user.userId, 'created', null, 'submitted', description, now] },
     ]);
   } catch {
     await Promise.allSettled(

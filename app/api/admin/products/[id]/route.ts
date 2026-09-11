@@ -38,7 +38,8 @@ export async function PATCH(
     compare = field('compareAtPrice') ? Number(field('compareAtPrice')) : null;
   const updatedAt = Number(field('updatedAt')),
     description = field('description'),
-    material = field('material');
+    material = field('material'),
+    stockReason = field('stockReason');
   let variants: VariantInput[];
   try {
     variants = JSON.parse(field('variants'));
@@ -74,7 +75,8 @@ export async function PATCH(
       typeof v.color !== 'string' ||
       !v.color.trim() ||
       v.color.length > 50 ||
-      !['S', 'M', 'L', 'XL', 'XXL'].includes(v.size) ||
+      typeof v.size !== 'string' ||
+      !/^[\p{L}0-9 .+/-]{1,20}$/u.test(v.size.trim()) ||
       !Number.isInteger(v.stock) ||
       v.stock < 0 ||
       v.stock > 1000000 ||
@@ -106,6 +108,15 @@ export async function PATCH(
     .select()
     .from(productVariants)
     .where(eq(productVariants.productId, id));
+  const stockChanged = variants.some((variant) => {
+    const old = previous.find((entry) => entry.id === variant.id);
+    return !old || old.stock !== variant.stock;
+  });
+  if (stockChanged && (stockReason.length < 5 || stockReason.length > 300))
+    return Response.json(
+      { error: 'Ghi rõ lý do khi thêm hoặc điều chỉnh tồn kho.' },
+      { status: 400 },
+    );
   if (previous.some((v) => !variants.some((row) => row.id === v.id)))
     return Response.json(
       { error: 'Không được xóa biến thể có lịch sử. Hãy tắt Đang bán.' },
@@ -173,6 +184,22 @@ export async function PATCH(
           params: [variant.stock, variant.active ? 1 : 0, now, variant.id],
         },
       );
+      if (old.stock !== variant.stock)
+        commands.splice(commands.length - 1, 0, {
+          sql: "INSERT INTO stock_movements (id,variant_id,actor_user_id,type,quantity_delta,stock_before,stock_after,reason,reference_type,reference_id,created_at) VALUES (?,?,?,'adjustment',?,?,?,?,?,?,?)",
+          params: [
+            crypto.randomUUID(),
+            variant.id,
+            admin.userId,
+            variant.stock - old.stock,
+            old.stock,
+            variant.stock,
+            stockReason,
+            'product',
+            id,
+            now,
+          ],
+        });
     } else {
       const color = variant.color.trim(),
         variantId = crypto.randomUUID(),
@@ -196,16 +223,55 @@ export async function PATCH(
           now,
         ],
       });
+      commands.push({
+        sql: "INSERT INTO stock_movements (id,variant_id,actor_user_id,type,quantity_delta,stock_before,stock_after,reason,reference_type,reference_id,created_at) VALUES (?,?,?,'initial',?,?,?,?,?,?,?)",
+        params: [
+          crypto.randomUUID(),
+          variantId,
+          admin.userId,
+          variant.stock,
+          0,
+          variant.stock,
+          stockReason,
+          'product',
+          id,
+          now,
+        ],
+      });
     }
   }
   const images = await db
     .select()
     .from(productImages)
     .where(eq(productImages.productId, id));
-  const offset = images.reduce(
-      (max, image) => Math.max(max, image.sortOrder + 1),
-      0,
-    ),
+  let imageOrder: string[], deletedImageIds: string[];
+  try {
+    imageOrder = JSON.parse(field('imageOrder') || '[]');
+    deletedImageIds = JSON.parse(field('deletedImages') || '[]');
+  } catch {
+    return Response.json({ error: 'Thứ tự ảnh không hợp lệ.' }, { status: 400 });
+  }
+  const knownIds = new Set(images.map((image) => image.id));
+  const deletedIds = new Set(deletedImageIds);
+  const remainingIds = images.filter((image) => !deletedIds.has(image.id)).map((image) => image.id);
+  if (
+    !Array.isArray(imageOrder) ||
+    !Array.isArray(deletedImageIds) ||
+    deletedImageIds.some((imageId) => !knownIds.has(imageId)) ||
+    imageOrder.length !== remainingIds.length ||
+    new Set(imageOrder).size !== imageOrder.length ||
+    imageOrder.some((imageId) => !remainingIds.includes(imageId)) ||
+    imageOrder.length + files.length < 1
+  )
+    return Response.json({ error: 'Bộ ảnh phải còn ít nhất một ảnh và không được trùng.' }, { status: 400 });
+  for (const image of images) {
+    if (deletedIds.has(image.id))
+      commands.push({ sql: 'DELETE FROM product_images WHERE id=? AND product_id=?', params: [image.id, id] });
+  }
+  imageOrder.forEach((imageId, index) =>
+    commands.push({ sql: 'UPDATE product_images SET sort_order=? WHERE id=? AND product_id=?', params: [index, imageId, id] }),
+  );
+  const offset = imageOrder.length,
     keys: string[] = [];
   try {
     for (const [index, file] of files.entries()) {
@@ -220,6 +286,11 @@ export async function PATCH(
       });
     }
     await atomicBatch(commands);
+    await Promise.allSettled(
+      images
+        .filter((image) => deletedIds.has(image.id))
+        .map((image) => env.FILES.delete(image.objectKey)),
+    );
   } catch {
     await Promise.allSettled(keys.map((key) => env.FILES.delete(key)));
     return Response.json(

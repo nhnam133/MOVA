@@ -53,10 +53,11 @@ declare global {
 }
 
 const STORAGE_KEY = 'mova-cart-v2';
+const GUEST_STORAGE_KEY = 'mova-cart-v2:guest';
 const LEGACY_STORAGE_KEY = 'mova-cart-v1';
 const CartContext = createContext<CartContextValue | null>(null);
 
-function readStoredCart(): CartItem[] {
+function readStoredCart(key = STORAGE_KEY): CartItem[] {
   try {
     // Reset carts created by the former demo/QA build once, then persist only
     // items that shoppers explicitly add in the current storefront.
@@ -64,7 +65,7 @@ function readStoredCart(): CartItem[] {
       window.localStorage.removeItem(LEGACY_STORAGE_KEY);
       return [];
     }
-    const value = window.localStorage.getItem(STORAGE_KEY);
+    const value = window.localStorage.getItem(key);
     if (!value) return [];
     const parsed = JSON.parse(value) as CartItem[];
     return Array.isArray(parsed) ? parsed : [];
@@ -77,32 +78,73 @@ export function CartProvider({
   children,
   catalog,
   signedIn = false,
+  accountKey,
 }: {
   children: React.ReactNode;
   catalog: Product[];
   signedIn?: boolean;
+  accountKey?: string;
 }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setCartOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setItems(sanitizeCart(readStoredCart(), catalog));
-      setHydrated(true);
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [catalog]);
+  const storageKey = signedIn && accountKey
+    ? `${STORAGE_KEY}:${accountKey}`
+    : GUEST_STORAGE_KEY;
 
   useEffect(() => {
-    if (hydrated) {
-      try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-      } catch {
-        /* Cart remains usable when storage is blocked. */
+    let cancelled = false;
+    async function hydrate() {
+      const legacy = readStoredCart(STORAGE_KEY);
+      const local = readStoredCart(storageKey);
+      const guest = signedIn ? readStoredCart(GUEST_STORAGE_KEY) : [];
+      let next = sanitizeCart([...legacy, ...local, ...guest], catalog);
+      if (signedIn) {
+        try {
+          const response = await fetch('/api/cart', { cache: 'no-store' });
+          if (response.ok) {
+            const result = await response.json() as { items?: CartItem[] };
+            next = sanitizeCart(
+              [...(result.items ?? []), ...legacy, ...guest],
+              catalog,
+            );
+          }
+        } catch {
+          /* Fall back to the device cache while offline. */
+        }
       }
+      if (cancelled) return;
+      try {
+        window.localStorage.removeItem(STORAGE_KEY);
+        if (signedIn) window.localStorage.removeItem(GUEST_STORAGE_KEY);
+      } catch {
+        /* Storage may be restricted. */
+      }
+      setItems(next);
+      setHydrated(true);
     }
-  }, [hydrated, items]);
+    void hydrate();
+    return () => { cancelled = true; };
+  }, [catalog, signedIn, storageKey]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(items));
+    } catch {
+      /* Cart remains usable when storage is blocked. */
+    }
+    if (!signedIn) return;
+    const timer = window.setTimeout(() => {
+      void fetch('/api/cart', {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ items }),
+      });
+    }, 350);
+    return () => window.clearTimeout(timer);
+  }, [hydrated, items, signedIn, storageKey]);
 
   const addItem = useCallback(
     (productSlug: string, sku: string, quantity = 1) => {
@@ -161,12 +203,12 @@ export function CartProvider({
   );
   const clearCart = useCallback(() => {
     try {
-      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(storageKey);
     } catch {
       /* Restricted storage. */
     }
     setItems([]);
-  }, []);
+  }, [storageKey]);
   const itemCount = items.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
@@ -232,7 +274,7 @@ export function CartProvider({
           },
           annotations: { readOnlyHint: true, untrustedContentHint: false },
           execute() {
-            const storedItems = readStoredCart();
+            const storedItems = readStoredCart(storageKey);
             return {
               items: storedItems,
               itemCount: storedItems.reduce(
@@ -248,7 +290,7 @@ export function CartProvider({
 
     void register().catch(() => undefined);
     return () => lifecycle.abort();
-  }, [addItem]);
+  }, [addItem, storageKey]);
 
   const value = useMemo(
     () => ({

@@ -38,6 +38,7 @@ export default async function ProductDetailPage({
           id: reviews.id,
           rating: reviews.rating,
           content: reviews.content,
+          adminReply: reviews.adminReply,
           createdAt: reviews.createdAt,
           name: users.fullName,
         })
@@ -90,7 +91,7 @@ export default async function ProductDetailPage({
             {[
               [Truck, 'Ship 30.000đ', 'Miễn phí từ 499K'],
               [Clock3, 'Đổi 72 giờ', 'Từ lúc nhận thực tế'],
-              [ShieldCheck, 'Thanh toán', 'COD hoặc MoMo UAT'],
+              [ShieldCheck, 'Thanh toán', 'COD; MoMo UAT đang hoàn thiện'],
             ].map(([Icon, title, copy]) => {
               const FeatureIcon = Icon as typeof Truck;
               return (
@@ -181,6 +182,12 @@ export default async function ProductDetailPage({
                   <p className="mt-3 text-sm leading-6 text-neutral-600">
                     {review.content}
                   </p>
+                  {review.adminReply && (
+                    <div className="mt-4 border-l-4 border-[#dfff00] bg-neutral-50 p-4 text-sm leading-6">
+                      <p className="font-black">MOVA phản hồi</p>
+                      <p className="mt-1 text-neutral-600">{review.adminReply}</p>
+                    </div>
+                  )}
                 </article>
               ))
             )}

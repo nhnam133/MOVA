@@ -50,6 +50,18 @@ export function ContactForm() {
           Số điện thoại
           <input name="phone" inputMode="tel" className={field} />
         </label>
+        <label className="text-sm font-bold">
+          Nội dung cần hỗ trợ
+          <select name="messageType" className={field}>
+            <option value="general">Tư vấn chung</option>
+            <option value="order_support">Hỗ trợ đơn hàng</option>
+            <option value="cancel_request">Yêu cầu hủy đơn</option>
+          </select>
+        </label>
+        <label className="text-sm font-bold sm:col-span-2">
+          Mã đơn hàng (nếu có)
+          <input name="orderCode" maxLength={30} placeholder="Ví dụ: MV..." className={field} />
+        </label>
         <label className="text-sm font-bold sm:col-span-2">
           Nội dung
           <textarea

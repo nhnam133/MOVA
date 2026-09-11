@@ -17,6 +17,7 @@ import {
 import { getAdminUser } from '@/lib/admin-auth';
 import { formatMoney } from '@/lib/catalog';
 import { LoyaltyRedeem } from '@/components/store/loyalty-redeem';
+import { ProfileSettings } from '@/components/store/profile-settings';
 
 export const dynamic = 'force-dynamic';
 
@@ -91,7 +92,7 @@ export default async function AccountPage({
           <div className="flex flex-wrap items-center gap-5">
             {admin && (
               <Link
-                href="/quan-tri/san-pham"
+                href="/quan-tri"
                 className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
               >
                 <Settings className="h-4 w-4" />
@@ -123,6 +124,11 @@ export default async function AccountPage({
             <p className="mt-2 text-sm">Voucher dùng cho đơn từ 200.000đ</p>
           </div>
         </div>
+        <ProfileSettings
+          email={user.email}
+          fullName={profile?.fullName || user.fullName || ''}
+          phone={profile?.phone || ''}
+        />
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           <section>
             <h2 className="mb-5 text-2xl font-black uppercase">

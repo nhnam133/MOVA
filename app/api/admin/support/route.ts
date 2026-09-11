@@ -16,6 +16,8 @@ export async function POST(request: Request) {
     status?: 'new' | 'processing' | 'resolved';
     visible?: boolean;
     hiddenReason?: string | null;
+    adminNote?: string | null;
+    adminReply?: string | null;
   };
   if (!body.id)
     return Response.json({ error: 'Thiếu mã dữ liệu.' }, { status: 400 });
@@ -27,8 +29,14 @@ export async function POST(request: Request) {
   ) {
     await db
       .update(contactMessages)
-      .set({ status: body.status, updatedAt: Date.now() })
+      .set({ status: body.status, adminNote: typeof body.adminNote === 'string' ? body.adminNote.trim().slice(0, 1000) || null : undefined, updatedAt: Date.now() })
       .where(eq(contactMessages.id, body.id));
+    return Response.json({ status: 'updated' });
+  }
+  if (body.type === 'review-reply' && typeof body.adminReply === 'string') {
+    const reply = body.adminReply.trim();
+    if (reply.length > 1000) return Response.json({ error: 'Phản hồi không quá 1.000 ký tự.' }, { status: 400 });
+    await db.update(reviews).set({ adminReply: reply || null, updatedAt: Date.now() }).where(eq(reviews.id, body.id));
     return Response.json({ status: 'updated' });
   }
   if (body.type === 'review' && typeof body.visible === 'boolean') {

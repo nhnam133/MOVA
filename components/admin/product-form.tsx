@@ -105,6 +105,14 @@ export function ProductForm({
         />
       </label>
       <label className="text-xs font-bold uppercase tracking-wider">
+        Trạng thái khi lưu
+        <select name="status" defaultValue="active" className={input}>
+          <option value="active">Công khai ngay</option>
+          <option value="draft">Lưu bản nháp</option>
+          <option value="hidden">Tạm ẩn</option>
+        </select>
+      </label>
+      <label className="text-xs font-bold uppercase tracking-wider sm:col-span-2">
         Chất liệu
         <input name="material" className={input} />
       </label>

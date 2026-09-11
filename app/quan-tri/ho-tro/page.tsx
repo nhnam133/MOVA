@@ -9,9 +9,10 @@ import { getDb } from '@/db';
 import { contactMessages, reviews, users } from '@/db/schema';
 import { requireAdmin } from '@/lib/admin-auth';
 import { eq } from 'drizzle-orm';
+import { AdminHeader, AdminPageIntro } from '@/components/admin/admin-shell';
 
 export default async function AdminSupportPage() {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const db = getDb();
   const contacts = await db
     .select()
@@ -24,6 +25,7 @@ export default async function AdminSupportPage() {
       content: reviews.content,
       visible: reviews.visible,
       createdAt: reviews.createdAt,
+      adminReply: reviews.adminReply,
       customer: users.email,
     })
     .from(reviews)
@@ -31,14 +33,7 @@ export default async function AdminSupportPage() {
     .orderBy(desc(reviews.createdAt));
   return (
     <main className="min-h-screen bg-[#ededE7]">
-      <header className="bg-black px-4 py-5 text-white">
-        <div className="mx-auto flex max-w-[1384px] justify-between">
-          <Link href="/" className="text-2xl font-black italic">
-            MOVA<span className="text-[#dfff00]">.</span>
-          </Link>
-          <span className="text-xs font-bold">Quản trị hỗ trợ</span>
-        </div>
-      </header>
+      <AdminHeader email={admin.email} />
       <section className="mx-auto max-w-[1384px] px-4 py-12 sm:px-8 lg:px-0">
         <Link
           href="/quan-tri/don-hang"
@@ -47,9 +42,7 @@ export default async function AdminSupportPage() {
           <ArrowLeft className="h-4 w-4" />
           Đơn hàng
         </Link>
-        <h1 className="mt-6 text-5xl font-black uppercase tracking-[-0.06em] sm:text-7xl">
-          Hỗ trợ
-        </h1>
+        <div className="mt-6"><AdminPageIntro title="Hỗ trợ" description="Tiếp nhận liên hệ, yêu cầu hỗ trợ đơn hàng và phản hồi đánh giá sản phẩm." /></div>
         <div className="mt-10 grid gap-8 lg:grid-cols-2">
           <section className="rounded-2xl bg-white p-6">
             <h2 className="text-2xl font-black">Liên hệ</h2>
@@ -68,9 +61,14 @@ export default async function AdminSupportPage() {
                           {entry.email || entry.phone}
                         </p>
                       </div>
-                      <ContactStatus id={entry.id} status={entry.status} />
+                      <ContactStatus id={entry.id} status={entry.status} adminNote={entry.adminNote} />
                     </div>
                     <p className="mt-3 text-sm leading-6">{entry.message}</p>
+                    <p className="mt-2 text-xs font-bold uppercase tracking-wider text-neutral-500">
+                      {entry.messageType === 'cancel_request' ? 'Yêu cầu hủy đơn' : entry.messageType === 'order_support' ? 'Hỗ trợ đơn hàng' : 'Liên hệ chung'}
+                      {entry.orderCode ? ` · ${entry.orderCode}` : ''}
+                    </p>
+                    {entry.adminNote && <p className="mt-2 rounded-lg bg-neutral-100 p-3 text-sm"><strong>Ghi chú xử lý:</strong> {entry.adminNote}</p>}
                   </div>
                 ))
               )}
@@ -95,7 +93,7 @@ export default async function AdminSupportPage() {
                           {entry.content}
                         </p>
                       </div>
-                      <ReviewModeration id={entry.id} visible={entry.visible} />
+                      <ReviewModeration id={entry.id} visible={entry.visible} adminReply={entry.adminReply} />
                     </div>
                   </div>
                 ))

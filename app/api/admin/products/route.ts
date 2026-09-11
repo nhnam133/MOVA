@@ -7,6 +7,7 @@ import {
   productImages,
   products,
   productVariants,
+  stockMovements,
 } from '@/db/schema';
 
 function makeSlug(value: string) {
@@ -44,10 +45,12 @@ export async function POST(request: Request) {
   const material = field('material').trim();
   const description = field('description').trim();
   const stock = Number(data.get('stock'));
+  const status = field('status') as 'active' | 'draft' | 'hidden';
   const sizes = field('sizes')
     .split(',')
     .map((size) => size.trim().toUpperCase())
-    .filter((size) => ['S', 'M', 'L', 'XL', 'XXL'].includes(size));
+    .filter((size) => /^[\p{L}0-9 .+/-]{1,20}$/u.test(size))
+    .slice(0, 20);
   const file = data.get('image');
   if (
     !/^[A-Z0-9-]{3,20}$/.test(code) ||
@@ -61,6 +64,7 @@ export async function POST(request: Request) {
     !color ||
     !Number.isInteger(stock) ||
     stock < 0 ||
+    !['active', 'draft', 'hidden'].includes(status) ||
     sizes.length === 0 ||
     !(file instanceof File) ||
     file.size === 0
@@ -93,6 +97,17 @@ export async function POST(request: Request) {
   const slug = `${makeSlug(name)}-${code.toLowerCase()}`;
   const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
   const objectKey = `products/${productId}-${safeFileName}`;
+  const variantRows = [...new Set(sizes)].map((size) => ({
+    id: crypto.randomUUID(),
+    productId,
+    sku: `${code}-${makeSlug(color).toUpperCase()}-${makeSlug(size).toUpperCase()}`,
+    color,
+    size,
+    stock,
+    active: true,
+    createdAt: now,
+    updatedAt: now,
+  }));
   await env.FILES.put(objectKey, await file.arrayBuffer(), {
     httpMetadata: { contentType: file.type },
   });
@@ -111,7 +126,7 @@ export async function POST(request: Request) {
           price,
           compareAtPrice,
           gender,
-          status: 'active',
+          status,
           featured: data.get('featured') === 'on',
           createdAt: now,
           updatedAt: now,
@@ -126,21 +141,22 @@ export async function POST(request: Request) {
           sortOrder: 0,
           createdAt: now,
         }),
-      ...[...new Set(sizes)].map((size) =>
-        db
-          .insert(productVariants)
-          .values({
-            id: crypto.randomUUID(),
-            productId,
-            sku: `${code}-${makeSlug(color).toUpperCase()}-${size}`,
-            color,
-            size,
-            stock,
-            active: true,
-            createdAt: now,
-            updatedAt: now,
-          }),
-      ),
+      ...variantRows.flatMap((variant) => [
+        db.insert(productVariants).values(variant),
+        db.insert(stockMovements).values({
+          id: crypto.randomUUID(),
+          variantId: variant.id,
+          actorUserId: admin.userId,
+          type: 'initial',
+          quantityDelta: stock,
+          stockBefore: 0,
+          stockAfter: stock,
+          reason: 'Tồn kho khi tạo sản phẩm',
+          referenceType: 'product',
+          referenceId: productId,
+          createdAt: now,
+        }),
+      ]),
     ]);
   } catch {
     await env.FILES.delete(objectKey);

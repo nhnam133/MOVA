@@ -20,6 +20,8 @@ export async function POST(request: Request) {
   const email = value('email');
   const phone = value('phone');
   const message = value('message');
+  const messageType = value('messageType') || 'general';
+  const orderCode = value('orderCode').toUpperCase();
   if (name.length < 2 || message.length < 10 || (!email && !phone))
     return Response.json(
       { error: 'Vui lòng nhập tên, nội dung và ít nhất một cách liên hệ.' },
@@ -35,6 +37,11 @@ export async function POST(request: Request) {
       { error: 'Số điện thoại phải gồm 10 chữ số và bắt đầu bằng 0.' },
       { status: 400 },
     );
+  if (!['general', 'order_support', 'cancel_request'].includes(messageType) || ((messageType === 'order_support' || messageType === 'cancel_request') && !/^MV[A-Z0-9]{5,25}$/.test(orderCode)))
+    return Response.json(
+      { error: 'Vui lòng nhập mã đơn hợp lệ khi cần hỗ trợ hoặc yêu cầu hủy đơn.' },
+      { status: 400 },
+    );
   await getDb()
     .insert(contactMessages)
     .values({
@@ -42,6 +49,8 @@ export async function POST(request: Request) {
       name,
       email: email || null,
       phone: phone || null,
+      messageType: messageType as 'general' | 'order_support' | 'cancel_request',
+      orderCode: orderCode || null,
       message,
       createdAt: now,
       updatedAt: now,

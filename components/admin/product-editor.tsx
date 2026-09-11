@@ -1,5 +1,7 @@
 'use client';
 import { useState, type SyntheticEvent } from 'react';
+import Image from 'next/image';
+import { ArrowLeft, ArrowRight, Star, Trash2 } from 'lucide-react';
 import { requestJson } from '@/lib/client-request';
 
 type Variant = {
@@ -9,6 +11,12 @@ type Variant = {
   stock: number;
   reservedStock?: number;
   active: boolean;
+};
+type ProductImage = {
+  id: string;
+  objectKey: string;
+  altText: string;
+  sortOrder: number;
 };
 export type EditableProduct = {
   id: string;
@@ -28,12 +36,16 @@ export function ProductEditor({
   product,
   variants: initial,
   categories,
+  images: initialImages,
 }: {
   product: EditableProduct;
   variants: Variant[];
   categories: { id: string; name: string }[];
+  images: ProductImage[];
 }) {
   const [variants, setVariants] = useState(initial),
+    [images, setImages] = useState(initialImages),
+    [deletedImages, setDeletedImages] = useState<string[]>([]),
     [loading, setLoading] = useState(false),
     [message, setMessage] = useState('');
   const field =
@@ -44,6 +56,8 @@ export function ProductEditor({
     setMessage('');
     const data = new FormData(event.currentTarget);
     data.set('variants', JSON.stringify(variants));
+    data.set('imageOrder', JSON.stringify(images.map((image) => image.id)));
+    data.set('deletedImages', JSON.stringify(deletedImages));
     data.set('updatedAt', String(product.updatedAt));
     const response = await requestJson(
       '/api/admin/products/' + encodeURIComponent(product.id),
@@ -184,17 +198,14 @@ export function ProductEditor({
               </label>
               <label className="text-sm">
                 Size
-                <select
+                <input
                   aria-label={'Size biến thể ' + (index + 1)}
                   value={v.size}
-                  disabled={Boolean(v.id)}
+                  readOnly={Boolean(v.id)}
+                  maxLength={20}
                   onChange={(e) => update(index, { size: e.target.value })}
                   className={field}
-                >
-                  {['S', 'M', 'L', 'XL', 'XXL'].map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </select>
+                />
               </label>
               <label className="text-sm">
                 Tồn (giữ {v.reservedStock ?? 0})
@@ -222,6 +233,12 @@ export function ProductEditor({
             </div>
           ))}
         </div>
+        {variants.some((variant, index) => variant.stock !== initial[index]?.stock) && (
+          <label className="mt-4 block text-sm font-semibold">
+            Lý do điều chỉnh tồn kho
+            <input name="stockReason" required minLength={5} maxLength={300} placeholder="Ví dụ: nhập bổ sung sau kiểm kê" className={field} />
+          </label>
+        )}
         <button
           type="button"
           onClick={() =>
@@ -236,6 +253,25 @@ export function ProductEditor({
           + Thêm màu / size
         </button>
       </section>
+      <section>
+        <h2 className="text-xl font-black">Bộ ảnh sản phẩm</h2>
+        <p className="mt-2 text-sm text-neutral-600">Ảnh đầu tiên là ảnh đại diện. Dùng mũi tên để đổi thứ tự hoặc loại bỏ ảnh không còn sử dụng.</p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {images.map((image, index) => (
+            <article key={image.id} className="rounded-xl border border-black/15 p-3">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-neutral-100">
+                <Image src={`/api/files?key=${encodeURIComponent(image.objectKey)}`} alt={image.altText || product.name} fill className="object-cover" sizes="(max-width: 640px) 50vw, 240px" />
+                {index === 0 && <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-[#dfff00] px-3 py-1 text-xs font-black"><Star className="h-3.5 w-3.5" />Ảnh đại diện</span>}
+              </div>
+              <div className="mt-3 flex gap-2">
+                <button type="button" disabled={index === 0} onClick={() => setImages((current) => { const next = [...current]; [next[index - 1], next[index]] = [next[index], next[index - 1]]; return next; })} aria-label="Đưa ảnh về trước" className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-black/20 disabled:opacity-30"><ArrowLeft className="h-4 w-4" /></button>
+                <button type="button" disabled={index === images.length - 1} onClick={() => setImages((current) => { const next = [...current]; [next[index], next[index + 1]] = [next[index + 1], next[index]]; return next; })} aria-label="Đưa ảnh ra sau" className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-black/20 disabled:opacity-30"><ArrowRight className="h-4 w-4" /></button>
+                <button type="button" disabled={images.length <= 1} onClick={() => { setDeletedImages((current) => [...current, image.id]); setImages((current) => current.filter((entry) => entry.id !== image.id)); }} aria-label="Xóa ảnh" className="ml-auto flex min-h-11 min-w-11 items-center justify-center rounded-full border border-red-200 text-red-700 disabled:opacity-30"><Trash2 className="h-4 w-4" /></button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
       <label className="block text-sm font-semibold">
         Bổ sung ảnh (tối đa 5 ảnh/lần, mỗi ảnh 5MB)
         <input
@@ -246,7 +282,7 @@ export function ProductEditor({
           className="mt-3 block w-full rounded-xl border border-dashed p-4"
         />
         <span className="mt-2 block font-normal text-neutral-600">
-          Ảnh mới được thêm vào bộ ảnh hiện có; không xóa ảnh đang dùng.
+          Ảnh mới được thêm sau bộ ảnh hiện có. Bạn có thể sắp xếp lại sau khi lưu.
         </span>
       </label>
       {message && (

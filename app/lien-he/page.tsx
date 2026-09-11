@@ -26,9 +26,12 @@ export default function ContactPage() {
         <div className="overflow-hidden rounded-[22px] border border-black/10 bg-white">
           <div className="p-6 sm:p-8">
             <MapPin className="h-6 w-6" />
-            <h2 className="mt-5 text-2xl font-black">Điểm liên hệ MOVA</h2>
+            <h2 className="mt-5 text-2xl font-black">Địa điểm minh họa</h2>
             <p className="mt-2 text-sm leading-6 text-neutral-500">
               UTH cơ sở 1, số 2 Võ Oanh, phường Thạnh Mỹ Tây, TP.HCM.
+            </p>
+            <p className="mt-3 rounded-xl bg-[#f1f1eb] p-4 text-sm leading-6 text-neutral-700">
+              Địa chỉ này chỉ dùng để minh họa chức năng bản đồ cho đồ án, không phải cửa hàng hoặc địa chỉ kinh doanh chính thức của MOVA.
             </p>
             <Link
               href="https://www.google.com/maps/search/?api=1&query=UTH+c%C6%A1+s%E1%BB%9F+1+s%E1%BB%91+2+V%C3%B5+Oanh+TPHCM"

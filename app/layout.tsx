@@ -29,7 +29,11 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CartProvider catalog={catalog} signedIn={Boolean(user)}>
+        <CartProvider
+          catalog={catalog}
+          signedIn={Boolean(user)}
+          accountKey={user?.userId}
+        >
           {children}
         </CartProvider>
       </body>

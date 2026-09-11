@@ -15,6 +15,7 @@ import {
 } from '@/db/schema';
 import { isExchangeWindowOpen } from '@/lib/business-rules';
 import { formatMoney } from '@/lib/catalog';
+import { ExchangeAdditionalInfo } from '@/components/store/exchange-additional-info';
 
 const statusLabel: Record<string, string> = {
   pending: 'Chờ xác nhận',
@@ -206,8 +207,11 @@ export default async function OrderDetailPage({
                         {
                           submitted: 'Chờ tiếp nhận',
                           reviewing: 'Đang xem xét',
+                          needs_info: 'Cần bổ sung thông tin',
                           approved: 'Đã duyệt',
                           rejected: 'Từ chối',
+                          return_shipping: 'Đang chờ gửi hàng cũ',
+                          received: 'MOVA đã kiểm tra hàng cũ',
                           shipping: 'Đang giao hàng đổi',
                           completed: 'Hoàn thành',
                         }[request.status]
@@ -220,8 +224,16 @@ export default async function OrderDetailPage({
                           ? 'Khách chịu phí'
                           : 'Đang xác định bên chịu phí'}
                     </p>
+                    {request.feeAmount > 0 && (
+                      <p className="mt-1">
+                        Phí đổi: {formatMoney(request.feeAmount)} · {request.feeStatus === 'paid' ? 'Đã thanh toán' : 'Chờ thanh toán'}
+                      </p>
+                    )}
                     {request.adminNote && (
                       <p className="mt-2">{request.adminNote}</p>
+                    )}
+                    {request.status === 'needs_info' && (
+                      <ExchangeAdditionalInfo orderCode={order.orderCode} requestId={request.id} />
                     )}
                   </div>
                 </div>

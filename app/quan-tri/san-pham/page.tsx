@@ -8,6 +8,7 @@ import { formatMoney } from '@/lib/catalog';
 import { requireAdmin } from '@/lib/admin-auth';
 import { productAssetCatalog } from '@/lib/product-import';
 import { ProductImportPanel } from '@/components/admin/product-import-panel';
+import { AdminHeader, AdminPageIntro } from '@/components/admin/admin-shell';
 
 export default async function AdminProductsPage() {
   const admin = await requireAdmin();
@@ -28,25 +29,7 @@ export default async function AdminProductsPage() {
     .orderBy(desc(products.createdAt));
   return (
     <main className="min-h-screen bg-[#ededE7]">
-      <header className="border-b border-white/15 bg-black text-white">
-        <div className="mx-auto flex h-18 max-w-[1384px] items-center justify-between px-4 sm:px-8 lg:px-0">
-          <Link href="/" className="text-2xl font-black tracking-[-0.07em]">
-            MOVA<span className="text-[#eaff2f]">.</span>
-          </Link>
-          <div className="flex items-center gap-5">
-            <Link
-              href="/quan-tri/don-hang"
-              className="text-xs font-bold text-[#dfff00]"
-            >
-              Đơn hàng
-            </Link>
-            <div className="text-right">
-              <p className="text-xs font-bold">Quản trị sản phẩm</p>
-              <p className="mt-1 text-[10px] text-white/45">{admin.email}</p>
-            </div>
-          </div>
-        </div>
-      </header>
+      <AdminHeader email={admin.email} />
       <section className="mx-auto max-w-[1384px] px-4 py-10 sm:px-8 lg:px-0 lg:py-16">
         <Link
           href="/tai-khoan"
@@ -55,20 +38,7 @@ export default async function AdminProductsPage() {
           <ArrowLeft className="h-4 w-4" />
           Tài khoản
         </Link>
-        <div className="mt-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-neutral-500">
-              MOVA Admin
-            </p>
-            <h1 className="mt-3 text-5xl font-black uppercase tracking-[-0.06em] sm:text-7xl">
-              Sản phẩm
-            </h1>
-          </div>
-          <span className="inline-flex items-center gap-2 text-sm font-bold">
-            <Box className="h-5 w-5" />
-            {productRows.length} sản phẩm
-          </span>
-        </div>
+        <div className="mt-7"><AdminPageIntro title="Sản phẩm" description="Thêm sản phẩm, cập nhật thông tin, ảnh, biến thể và trạng thái công khai." action={<span className="inline-flex items-center gap-2 text-sm font-bold"><Box className="h-5 w-5" />{productRows.length} sản phẩm</span>} /></div>
         <ProductImportPanel
           codes={productAssetCatalog.map((product) => product.code)}
         />
@@ -109,7 +79,7 @@ export default async function AdminProductsPage() {
                     {formatMoney(product.price)}
                   </span>
                   <span className="text-xs capitalize text-neutral-500">
-                    {product.status}
+                    {{ active: 'Đang bán', hidden: 'Tạm ẩn', draft: 'Bản nháp' }[product.status]}
                   </span>
                 </div>
               ))}
