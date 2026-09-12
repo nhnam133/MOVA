@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from '@/components/store/link';
 import { useState } from 'react';
 import {
+  ArrowRight,
+  ChevronDown,
   Menu,
   Minus,
   Plus,
@@ -22,6 +24,186 @@ import {
 } from '@/components/ui/sheet';
 import { formatMoney } from '@/lib/catalog';
 import { useCart } from './cart-provider';
+
+type MegaLink = {
+  label: string;
+  href: string;
+  categorySlug?: string;
+};
+
+type MegaNavigationItem = {
+  label: string;
+  href: string;
+  accent?: 'blue' | 'lime';
+  eyebrow: string;
+  title: string;
+  description: string;
+  sections: Array<{ title: string; links: MegaLink[] }>;
+};
+
+const categoryLink = (
+  label: string,
+  categorySlug: string,
+  gender?: 'male' | 'female' | 'unisex',
+): MegaLink => ({
+  label,
+  categorySlug,
+  href: `/san-pham?danh-muc=${categorySlug}${gender ? `&gender=${gender}` : ''}`,
+});
+
+const megaNavigation: MegaNavigationItem[] = [
+  {
+    label: 'Mới',
+    href: '/san-pham?sort=moi-nhat',
+    accent: 'blue',
+    eyebrow: 'HAUVIE / Mới nhất',
+    title: 'Khởi động phong cách mới',
+    description:
+      'Khám phá toàn bộ sản phẩm vừa cập nhật và chọn nhanh theo đối tượng.',
+    sections: [
+      {
+        title: 'Khám phá',
+        links: [
+          { label: 'Sản phẩm mới', href: '/san-pham?sort=moi-nhat' },
+          { label: 'Tất cả sản phẩm', href: '/san-pham' },
+          { label: 'Dành cho nam', href: '/san-pham?gender=male' },
+          { label: 'Dành cho nữ', href: '/san-pham?gender=female' },
+        ],
+      },
+      {
+        title: 'Trang phục nổi bật',
+        links: [
+          categoryLink('Áo thun thể thao', 'ao-thun-the-thao'),
+          categoryLink('Áo chạy bộ', 'ao-chay-bo'),
+          categoryLink('Quần short', 'quan-short'),
+          categoryLink('Áo polo', 'ao-polo'),
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Nam',
+    href: '/san-pham?gender=male',
+    eyebrow: 'HAUVIE / Nam',
+    title: 'Trang phục nam năng động',
+    description:
+      'Các thiết kế dễ phối cho tập luyện, di chuyển và mặc hằng ngày.',
+    sections: [
+      {
+        title: 'Áo nam',
+        links: [
+          { label: 'Tất cả sản phẩm nam', href: '/san-pham?gender=male' },
+          categoryLink('Áo thun', 'ao-thun-the-thao', 'male'),
+          categoryLink('Áo chạy bộ', 'ao-chay-bo', 'male'),
+          categoryLink('Áo polo', 'ao-polo', 'male'),
+          categoryLink('Áo sơ mi', 'ao-so-mi', 'male'),
+        ],
+      },
+      {
+        title: 'Quần nam',
+        links: [categoryLink('Quần short', 'quan-short', 'male')],
+      },
+    ],
+  },
+  {
+    label: 'Nữ',
+    href: '/san-pham?gender=female',
+    eyebrow: 'HAUVIE / Nữ',
+    title: 'Tự tin trong từng chuyển động',
+    description:
+      'Phom dáng linh hoạt cho buổi tập và nhịp sống năng động mỗi ngày.',
+    sections: [
+      {
+        title: 'Áo nữ',
+        links: [
+          categoryLink('Áo thun', 'ao-thun-the-thao', 'female'),
+          categoryLink('Áo polo', 'ao-polo', 'female'),
+          categoryLink('Áo dài tay', 'ao-dai-tay', 'female'),
+        ],
+      },
+      {
+        title: 'Quần & váy',
+        links: [
+          categoryLink('Quần short', 'quan-short', 'female'),
+          categoryLink('Quần legging', 'quan-legging', 'female'),
+          categoryLink('Váy thể thao', 'vay-the-thao', 'female'),
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Thể thao',
+    href: '/san-pham?danh-muc=ao-chay-bo',
+    eyebrow: 'HAUVIE / Performance',
+    title: 'Sẵn sàng bứt phá',
+    description:
+      'Những lựa chọn ưu tiên sự thoáng nhẹ và thoải mái khi vận động.',
+    sections: [
+      {
+        title: 'Trang phục tập luyện',
+        links: [
+          categoryLink('Áo chạy bộ', 'ao-chay-bo'),
+          categoryLink('Áo thun thể thao', 'ao-thun-the-thao'),
+          categoryLink('Quần short', 'quan-short'),
+          categoryLink('Quần legging', 'quan-legging'),
+          categoryLink('Váy thể thao', 'vay-the-thao'),
+        ],
+      },
+      {
+        title: 'Chọn nhanh',
+        links: [
+          { label: 'Đồ thể thao nam', href: '/san-pham?gender=male' },
+          { label: 'Đồ thể thao nữ', href: '/san-pham?gender=female' },
+          { label: 'Xem toàn bộ', href: '/san-pham' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Phụ kiện',
+    href: '/san-pham?danh-muc=tui',
+    eyebrow: 'HAUVIE / Phụ kiện',
+    title: 'Hoàn thiện buổi tập',
+    description: 'Các món nhỏ gọn, dễ dùng và đồng hành cùng mọi hoạt động.',
+    sections: [
+      {
+        title: 'Tất cả phụ kiện',
+        links: [
+          categoryLink('Túi', 'tui'),
+          categoryLink('Găng tay dài', 'gang-tay-dai'),
+          categoryLink('Khẩu trang', 'khau-trang'),
+          categoryLink('Tất', 'tat'),
+        ],
+      },
+      {
+        title: 'Khám phá thêm',
+        links: [
+          { label: 'Sản phẩm mới', href: '/san-pham?sort=moi-nhat' },
+          { label: 'Tất cả sản phẩm', href: '/san-pham' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'HAUVIE Club',
+    href: '/#hauvie-club',
+    accent: 'lime',
+    eyebrow: 'Thành viên HAUVIE',
+    title: 'Tích điểm, nhận ưu đãi',
+    description:
+      'Theo dõi điểm, đổi voucher và quản lý quyền lợi ngay trong tài khoản.',
+    sections: [
+      {
+        title: 'Quyền lợi thành viên',
+        links: [
+          { label: 'Xem điểm & voucher', href: '/tai-khoan' },
+          { label: 'Đơn hàng của tôi', href: '/tai-khoan' },
+          { label: 'Chính sách đổi hàng', href: '/chinh-sach/doi-hang' },
+        ],
+      },
+    ],
+  },
+];
 
 export function AnnouncementBar() {
   return (
@@ -62,11 +244,21 @@ export function SiteHeader() {
   const categoryLinks = Array.from(
     new Map(catalog.map((product) => [product.categorySlug, product.category])),
   ).map(([slug, name]) => [name, `/san-pham?danh-muc=${slug}`]);
-  const utilityNavigation = [
-    ['Tất cả sản phẩm', '/san-pham'],
-    ['HAUVIE Club', '/#hauvie-club'],
-    ['Liên hệ', '/lien-he'],
-  ];
+  const availableCategorySlugs = new Set(
+    catalog.map((product) => product.categorySlug),
+  );
+  const visibleMegaNavigation = megaNavigation.map((item) => ({
+    ...item,
+    sections: item.sections
+      .map((section) => ({
+        ...section,
+        links: section.links.filter(
+          (link) =>
+            !link.categorySlug || availableCategorySlugs.has(link.categorySlug),
+        ),
+      }))
+      .filter((section) => section.links.length > 0),
+  }));
   const mobileNavigation = [
     ['Tất cả sản phẩm', '/san-pham'],
     ...categoryLinks,
@@ -135,30 +327,88 @@ export function SiteHeader() {
           </div>
         </div>
         <nav
-          className="hidden border-t border-black/5 lg:block"
+          className="relative hidden border-t border-black/10 lg:block"
           aria-label="Điều hướng chính"
         >
-          <div className="mx-auto flex max-w-[1480px] flex-wrap items-center justify-center gap-x-8 gap-y-1 px-12 py-1">
-            {utilityNavigation.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="shrink-0 py-2.5 text-sm font-semibold underline-offset-8 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
-              >
-                {label}
-              </Link>
+          <ul className="mx-auto flex h-14 max-w-[1180px] items-stretch justify-between px-8">
+            {visibleMegaNavigation.map((item) => (
+              <li key={item.label} className="group static flex items-stretch">
+                <Link
+                  href={item.href}
+                  aria-haspopup="true"
+                  className={`relative flex min-w-24 items-center justify-center gap-1.5 px-4 text-[15px] font-black uppercase tracking-[-0.02em] transition focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${
+                    item.accent === 'blue'
+                      ? 'text-[#2848d8]'
+                      : item.accent === 'lime'
+                        ? 'text-black'
+                        : 'text-black'
+                  }`}
+                >
+                  {item.label}
+                  <ChevronDown
+                    className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180 motion-reduce:transition-none"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={`absolute inset-x-4 bottom-0 h-1 origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100 group-focus-within:scale-x-100 motion-reduce:transition-none ${
+                      item.accent === 'blue' ? 'bg-[#2848d8]' : 'bg-[#dfff00]'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </Link>
+                <div className="pointer-events-none invisible absolute inset-x-0 top-full z-50 translate-y-1 border-y border-black/10 bg-white opacity-0 shadow-[0_28px_70px_rgba(0,0,0,0.14)] transition duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 motion-reduce:transition-none">
+                  <div className="mx-auto grid max-w-[1480px] grid-cols-[minmax(280px,0.9fr)_2fr] gap-14 px-12 py-10">
+                    <div className="border-r border-black/10 pr-12">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-neutral-500">
+                        {item.eyebrow}
+                      </p>
+                      <p className="mt-4 max-w-sm text-3xl font-black uppercase leading-[1.04] tracking-[-0.05em]">
+                        {item.title}
+                      </p>
+                      <p className="mt-4 max-w-sm text-sm leading-6 text-neutral-500">
+                        {item.description}
+                      </p>
+                      <Link
+                        href={item.href}
+                        className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-black px-5 text-sm font-bold text-white transition hover:bg-[#dfff00] hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2"
+                      >
+                        Xem bộ sưu tập
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </Link>
+                    </div>
+                    <div
+                      className={`grid gap-x-12 gap-y-8 ${
+                        item.sections.length > 1 ? 'grid-cols-2' : 'grid-cols-1'
+                      }`}
+                    >
+                      {item.sections.map((section) => (
+                        <div key={section.title}>
+                          <p className="flex items-center gap-3 text-sm font-black uppercase">
+                            {section.title}
+                            <ArrowRight
+                              className="h-4 w-4 text-[#2848d8]"
+                              aria-hidden="true"
+                            />
+                          </p>
+                          <div className="mt-5 grid gap-1">
+                            {section.links.map((link) => (
+                              <Link
+                                key={`${item.label}-${link.label}`}
+                                href={link.href}
+                                className="flex min-h-10 items-center rounded-lg px-3 text-[15px] font-medium text-neutral-600 transition hover:bg-[#efffb3] hover:text-black focus-visible:bg-[#efffb3] focus-visible:text-black focus-visible:outline-2 focus-visible:outline-offset-1"
+                              >
+                                {link.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </li>
             ))}
-            <span className="h-5 w-px bg-black/15" aria-hidden="true" />
-            {categoryLinks.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="shrink-0 py-2.5 text-sm font-semibold underline-offset-8 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
+          </ul>
         </nav>
       </header>
 
