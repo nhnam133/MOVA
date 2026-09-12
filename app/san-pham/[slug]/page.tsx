@@ -178,10 +178,6 @@ export default async function ProductDetailPage({
                 </p>
               </div>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-neutral-600">
-              Các đánh giá có nhãn “Minh họa” là dữ liệu trình bày cho đồ án,
-              không phải phản hồi đã xác minh từ khách hàng.
-            </p>
           </div>
           <div className="space-y-4">
             {displayReviews.map((review) => (
@@ -190,16 +186,9 @@ export default async function ProductDetailPage({
                 className="rounded-2xl border border-black/10 p-5"
               >
                 <div className="flex justify-between gap-4">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-bold">
-                      {review.name || 'Khách hàng HAUVIE'}
-                    </p>
-                    {review.demo && (
-                      <span className="rounded-full border border-black/15 bg-neutral-100 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-neutral-600">
-                        Minh họa
-                      </span>
-                    )}
-                  </div>
+                  <p className="font-bold">
+                    {review.name || 'Khách hàng HAUVIE'}
+                  </p>
                   <span className="text-xs text-neutral-400">
                     {new Date(review.createdAt).toLocaleDateString('vi-VN')}
                   </span>
@@ -223,6 +212,11 @@ export default async function ProductDetailPage({
                 )}
               </article>
             ))}
+            {demoReviewRows.length > 0 && (
+              <p className="px-1 text-xs leading-5 text-neutral-600">
+                Một số nhận xét trong danh sách là dữ liệu mẫu phục vụ đồ án.
+              </p>
+            )}
             <ReviewForm productSlug={product.slug} signedIn={Boolean(user)} />
           </div>
         </div>
