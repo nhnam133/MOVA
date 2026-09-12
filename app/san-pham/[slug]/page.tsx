@@ -19,6 +19,7 @@ import { getDb } from '@/db';
 import { reviews, users } from '@/db/schema';
 import { products } from '@/lib/catalog';
 import { findCatalogProduct } from '@/lib/catalog-server';
+import { demoReviewsForProduct } from '@/lib/demo-reviews';
 import type { Metadata } from 'next';
 
 export function generateStaticParams() {
@@ -67,9 +68,17 @@ export default async function ProductDetailPage({
           and(eq(reviews.productId, product.id), eq(reviews.visible, true)),
         )
     : [];
-  const average = reviewRows.length
-    ? reviewRows.reduce((sum, review) => sum + review.rating, 0) /
-      reviewRows.length
+  const demoReviewRows = demoReviewsForProduct({
+    key: product.id || product.slug,
+    name: product.name,
+  });
+  const displayReviews = [
+    ...reviewRows.map((review) => ({ ...review, demo: false as const })),
+    ...demoReviewRows,
+  ].sort((left, right) => right.createdAt - left.createdAt);
+  const average = displayReviews.length
+    ? displayReviews.reduce((sum, review) => sum + review.rating, 0) /
+      displayReviews.length
     : 0;
   return (
     <main className="min-h-screen bg-[#f6f6f2]">
@@ -153,7 +162,7 @@ export default async function ProductDetailPage({
             </h2>
             <div className="mt-5 flex items-center gap-3">
               <span className="text-4xl font-black">
-                {reviewRows.length ? average.toFixed(1) : '—'}
+                {displayReviews.length ? average.toFixed(1) : '—'}
               </span>
               <div>
                 <div className="flex">
@@ -165,53 +174,55 @@ export default async function ProductDetailPage({
                   ))}
                 </div>
                 <p className="mt-1 text-xs text-neutral-500">
-                  {reviewRows.length} đánh giá đã hiển thị
+                  {displayReviews.length} đánh giá đang hiển thị
                 </p>
               </div>
             </div>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-neutral-600">
+              Các đánh giá có nhãn “Minh họa” là dữ liệu trình bày cho đồ án,
+              không phải phản hồi đã xác minh từ khách hàng.
+            </p>
           </div>
           <div className="space-y-4">
-            {reviewRows.length === 0 ? (
-              <p className="rounded-2xl border border-black/10 p-6 text-sm text-neutral-500">
-                Sản phẩm chưa có đánh giá. HAUVIE không tạo số liệu hoặc bình
-                luận giả.
-              </p>
-            ) : (
-              reviewRows.map((review) => (
-                <article
-                  key={review.id}
-                  className="rounded-2xl border border-black/10 p-5"
-                >
-                  <div className="flex justify-between gap-4">
+            {displayReviews.map((review) => (
+              <article
+                key={review.id}
+                className="rounded-2xl border border-black/10 p-5"
+              >
+                <div className="flex justify-between gap-4">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className="font-bold">
                       {review.name || 'Khách hàng HAUVIE'}
                     </p>
-                    <span className="text-xs text-neutral-400">
-                      {new Date(review.createdAt).toLocaleDateString('vi-VN')}
-                    </span>
+                    {review.demo && (
+                      <span className="rounded-full border border-black/15 bg-neutral-100 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-neutral-600">
+                        Minh họa
+                      </span>
+                    )}
                   </div>
-                  <div className="mt-2 flex">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                      <Star
-                        key={value}
-                        className={`h-3.5 w-3.5 ${value <= review.rating ? 'fill-[#dfff00] text-black' : 'text-neutral-200'}`}
-                      />
-                    ))}
+                  <span className="text-xs text-neutral-400">
+                    {new Date(review.createdAt).toLocaleDateString('vi-VN')}
+                  </span>
+                </div>
+                <div className="mt-2 flex">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <Star
+                      key={value}
+                      className={`h-3.5 w-3.5 ${value <= review.rating ? 'fill-[#dfff00] text-black' : 'text-neutral-200'}`}
+                    />
+                  ))}
+                </div>
+                <p className="mt-3 text-sm leading-6 text-neutral-600">
+                  {review.content}
+                </p>
+                {review.adminReply && (
+                  <div className="mt-4 border-l-4 border-[#dfff00] bg-neutral-50 p-4 text-sm leading-6">
+                    <p className="font-black">HAUVIE phản hồi</p>
+                    <p className="mt-1 text-neutral-600">{review.adminReply}</p>
                   </div>
-                  <p className="mt-3 text-sm leading-6 text-neutral-600">
-                    {review.content}
-                  </p>
-                  {review.adminReply && (
-                    <div className="mt-4 border-l-4 border-[#dfff00] bg-neutral-50 p-4 text-sm leading-6">
-                      <p className="font-black">HAUVIE phản hồi</p>
-                      <p className="mt-1 text-neutral-600">
-                        {review.adminReply}
-                      </p>
-                    </div>
-                  )}
-                </article>
-              ))
-            )}
+                )}
+              </article>
+            ))}
             <ReviewForm productSlug={product.slug} signedIn={Boolean(user)} />
           </div>
         </div>
