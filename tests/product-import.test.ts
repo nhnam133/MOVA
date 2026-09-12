@@ -23,10 +23,22 @@ test('legacy MOVA copy is presented consistently as HAUVIE', () => {
     ),
     /áo polo nam màu xanh rêu/i,
   );
+  const placeholderCopy = storefrontDescription('', {
+    categorySlug: 'ao-polo',
+    gender: 'male',
+    color: 'Màu theo ảnh (demo)',
+    name: 'Áo polo nam HAUVIE PLN01',
+  });
+  assert.match(placeholderCopy, /màu trung tính/i);
+  assert.doesNotMatch(placeholderCopy, /màu màu|demo|theo ảnh/i);
 });
 
 test('all 76 copied AVIF assets match supplied files byte for byte', () => {
   assert.equal(productAssetCatalog.length, 37);
+  assert.equal(
+    productAssetCatalog.some((item) => /demo|theo ảnh/i.test(item.color)),
+    false,
+  );
   const images = productAssetCatalog.flatMap((item) => item.images);
   assert.equal(images.length, 76);
   for (const image of images) {
@@ -104,7 +116,9 @@ test('catalog import is repeatable and preserves existing prices, stock, and edi
     'Xanh rêu',
   );
   const importedCopy = db
-    .prepare("SELECT name,description,material FROM products WHERE code='PLN01'")
+    .prepare(
+      "SELECT name,description,material FROM products WHERE code='PLN01'",
+    )
     .get() as { name: string; description: string; material: string };
   assert.equal(importedCopy.name, 'Áo polo nam HAUVIE PLN01');
   assert.match(importedCopy.description, /áo polo nam màu xanh rêu/i);

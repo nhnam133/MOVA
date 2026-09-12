@@ -20,6 +20,7 @@ export type CartItem = {
 type CartContextValue = {
   items: CartItem[];
   itemCount: number;
+  hydrated: boolean;
   isCartOpen: boolean;
   setCartOpen: (open: boolean) => void;
   addItem: (productSlug: string, sku: string, quantity?: number) => void;
@@ -89,9 +90,8 @@ export function CartProvider({
   const [isCartOpen, setCartOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  const storageKey = signedIn && accountKey
-    ? `${STORAGE_KEY}:${accountKey}`
-    : GUEST_STORAGE_KEY;
+  const storageKey =
+    signedIn && accountKey ? `${STORAGE_KEY}:${accountKey}` : GUEST_STORAGE_KEY;
 
   useEffect(() => {
     let cancelled = false;
@@ -104,7 +104,7 @@ export function CartProvider({
         try {
           const response = await fetch('/api/cart', { cache: 'no-store' });
           if (response.ok) {
-            const result = await response.json() as { items?: CartItem[] };
+            const result = (await response.json()) as { items?: CartItem[] };
             next = sanitizeCart(
               [...(result.items ?? []), ...legacy, ...guest],
               catalog,
@@ -125,7 +125,9 @@ export function CartProvider({
       setHydrated(true);
     }
     void hydrate();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [catalog, signedIn, storageKey]);
 
   useEffect(() => {
@@ -296,6 +298,7 @@ export function CartProvider({
     () => ({
       items,
       itemCount,
+      hydrated,
       isCartOpen,
       setCartOpen,
       addItem,
@@ -306,6 +309,7 @@ export function CartProvider({
       signedIn,
     }),
     [
+      hydrated,
       items,
       itemCount,
       isCartOpen,

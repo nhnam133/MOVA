@@ -6,9 +6,11 @@ import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
 import { SiteHeader } from '@/components/store/site-header';
 import { useCart } from '@/components/store/cart-provider';
 import { formatMoney } from '@/lib/catalog';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem, catalog } = useCart();
+  const { items, updateQuantity, removeItem, catalog, hydrated, signedIn } =
+    useCart();
   const rows = items.flatMap((item) => {
     const product = catalog.find((entry) => entry.slug === item.productSlug);
     const variant = product?.variants.find((entry) => entry.sku === item.sku);
@@ -36,7 +38,29 @@ export default function CartPage() {
         <h1 className="text-5xl font-black uppercase tracking-[-0.065em] sm:text-7xl">
           Giỏ hàng
         </h1>
-        {rows.length === 0 ? (
+        {!hydrated ? (
+          <div
+            className="mt-10 grid gap-8 lg:grid-cols-[1fr_380px]"
+            aria-busy="true"
+          >
+            <span className="sr-only" aria-live="polite">
+              Đang tải giỏ hàng
+            </span>
+            <div className="space-y-6 border border-black bg-white p-5 sm:p-7">
+              {[1, 2].map((item) => (
+                <div key={item} className="grid grid-cols-[96px_1fr] gap-5">
+                  <Skeleton className="aspect-[3/4] rounded-none bg-black/10 motion-reduce:animate-none" />
+                  <div className="space-y-4 py-2">
+                    <Skeleton className="h-5 w-3/4 bg-black/10 motion-reduce:animate-none" />
+                    <Skeleton className="h-4 w-1/3 bg-black/10 motion-reduce:animate-none" />
+                    <Skeleton className="h-11 w-32 bg-black/10 motion-reduce:animate-none" />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Skeleton className="h-72 rounded-none bg-black/15 motion-reduce:animate-none" />
+          </div>
+        ) : rows.length === 0 ? (
           <div className="mt-10 flex min-h-80 flex-col items-center justify-center border border-black bg-white text-center">
             <ShoppingBag className="mb-5 h-10 w-10" />
             <p className="text-xl font-black uppercase">Giỏ hàng đang trống</p>
@@ -86,30 +110,33 @@ export default function CartPage() {
                       <button
                         onClick={() => removeItem(item.sku)}
                         aria-label={`Xóa ${product.name}`}
+                        className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </div>
                     <div className="flex items-end justify-between gap-3">
                       <div className="flex items-center border border-black">
                         <button
-                          className="p-2.5"
+                          className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center transition hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2"
                           onClick={() =>
                             updateQuantity(item.sku, item.quantity - 1)
                           }
+                          aria-label={`Giảm số lượng ${product.name}`}
                         >
-                          <Minus className="h-3 w-3" />
+                          <Minus className="h-3 w-3" aria-hidden="true" />
                         </button>
                         <span className="min-w-7 text-center text-xs font-bold">
                           {item.quantity}
                         </span>
                         <button
-                          className="p-2.5"
+                          className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center transition hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2"
                           onClick={() =>
                             updateQuantity(item.sku, item.quantity + 1)
                           }
+                          aria-label={`Tăng số lượng ${product.name}`}
                         >
-                          <Plus className="h-3 w-3" />
+                          <Plus className="h-3 w-3" aria-hidden="true" />
                         </button>
                       </div>
                       <p className="font-black">
@@ -144,8 +171,10 @@ export default function CartPage() {
               >
                 Tiến hành thanh toán
               </Link>
-              <p className="mt-4 text-center text-xs text-white/45">
-                Bạn cần đăng nhập để đặt hàng
+              <p className="mt-4 text-center text-xs text-white/70">
+                {signedIn
+                  ? 'Đơn hàng được lưu trong tài khoản HAUVIE của bạn.'
+                  : 'Bạn sẽ đăng nhập trước khi xác nhận đơn hàng.'}
               </p>
             </aside>
           </div>

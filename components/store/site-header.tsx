@@ -41,6 +41,7 @@ export function SiteHeader() {
   const {
     items,
     itemCount,
+    hydrated,
     isCartOpen,
     setCartOpen,
     updateQuantity,
@@ -61,10 +62,15 @@ export function SiteHeader() {
   const categoryLinks = Array.from(
     new Map(catalog.map((product) => [product.categorySlug, product.category])),
   ).map(([slug, name]) => [name, `/san-pham?danh-muc=${slug}`]);
-  const navigation = [
-    ['Sản phẩm', '/san-pham'],
+  const utilityNavigation = [
+    ['Tất cả sản phẩm', '/san-pham'],
+    ['HAUVIE Club', '/#hauvie-club'],
+    ['Liên hệ', '/lien-he'],
+  ];
+  const mobileNavigation = [
+    ['Tất cả sản phẩm', '/san-pham'],
     ...categoryLinks,
-    ['HAUVIE Club', '/#mova-club'],
+    ['HAUVIE Club', '/#hauvie-club'],
     ['Liên hệ', '/lien-he'],
   ];
 
@@ -81,7 +87,7 @@ export function SiteHeader() {
           </button>
           <Link
             href="/"
-            className="group flex shrink-0 items-end gap-2"
+            className="group flex min-h-11 shrink-0 items-center gap-2 px-1 focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-2"
             aria-label="HAUVIE - Trang chủ"
           >
             <span className="text-[31px] font-black italic leading-none tracking-[-0.09em]">
@@ -132,12 +138,22 @@ export function SiteHeader() {
           className="hidden border-t border-black/5 lg:block"
           aria-label="Điều hướng chính"
         >
-          <div className="mx-auto flex max-w-[1480px] items-center gap-8 overflow-x-auto px-12">
-            {navigation.map(([label, href]) => (
+          <div className="mx-auto flex max-w-[1480px] flex-wrap items-center justify-center gap-x-8 gap-y-1 px-12 py-1">
+            {utilityNavigation.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
-                className="shrink-0 py-3 text-sm font-semibold underline-offset-8 transition hover:underline"
+                className="shrink-0 py-2.5 text-sm font-semibold underline-offset-8 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+              >
+                {label}
+              </Link>
+            ))}
+            <span className="h-5 w-px bg-black/15" aria-hidden="true" />
+            {categoryLinks.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className="shrink-0 py-2.5 text-sm font-semibold underline-offset-8 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 {label}
               </Link>
@@ -149,19 +165,19 @@ export function SiteHeader() {
       <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
         <SheetContent
           side="left"
-          className="w-[88%] max-w-sm border-r border-black bg-white p-0 [&>button]:hidden"
+          className="h-dvh max-h-dvh w-[88%] max-w-sm gap-0 overflow-hidden border-r border-black bg-white p-0 [&>button]:hidden"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Menu HAUVIE</SheetTitle>
             <SheetDescription>Danh mục sản phẩm và tài khoản</SheetDescription>
           </SheetHeader>
-          <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
+          <div className="flex shrink-0 items-center justify-between border-b border-black/10 px-6 py-5">
             <span className="text-2xl font-black italic tracking-[-0.08em]">
               HAUVIE
             </span>
             <button
               onClick={() => setMenuOpen(false)}
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black text-white"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-black text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#dfff00]"
               aria-label="Đóng menu"
             >
               <X className="h-5 w-5" />
@@ -169,39 +185,41 @@ export function SiteHeader() {
           </div>
           <form
             action="/san-pham"
-            className="m-6 flex h-12 items-center rounded-full border border-black/15 bg-[#f4f4f0] px-4"
+            className="m-6 mb-4 flex h-12 shrink-0 items-center rounded-full border border-black/15 bg-[#f4f4f0] px-4 focus-within:border-black"
           >
             <Search className="h-4 w-4" />
             <input
               name="q"
               aria-label="Tìm sản phẩm"
               placeholder="Tìm sản phẩm"
-              className="min-w-0 flex-1 bg-transparent px-3 text-sm outline-none"
+              className="min-w-0 flex-1 bg-transparent px-3 text-base outline-none"
             />
           </form>
-          <nav
-            className="divide-y divide-black/10 border-y border-black/10"
-            aria-label="Menu di động"
-          >
-            {navigation.map(([label, href]) => (
-              <Link
-                onClick={() => setMenuOpen(false)}
-                key={href}
-                href={href}
-                className="block px-6 py-4 text-lg font-bold transition hover:bg-[#dfff00]"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-          <Link
-            onClick={() => setMenuOpen(false)}
-            href="/tai-khoan"
-            className="mx-6 mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-black text-sm font-bold text-white"
-          >
-            <UserRound className="h-4 w-4" />
-            Tài khoản của tôi
-          </Link>
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+            <nav
+              className="divide-y divide-black/10 border-y border-black/10"
+              aria-label="Menu di động"
+            >
+              {mobileNavigation.map(([label, href]) => (
+                <Link
+                  onClick={() => setMenuOpen(false)}
+                  key={href}
+                  href={href}
+                  className="block min-h-14 px-6 py-4 text-lg font-bold transition hover:bg-[#dfff00] focus-visible:bg-[#dfff00] focus-visible:outline-none"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              href="/tai-khoan"
+              className="mx-6 mt-6 flex h-12 items-center justify-center gap-2 rounded-full bg-black text-sm font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#dfff00]"
+            >
+              <UserRound className="h-4 w-4" aria-hidden="true" />
+              {signedIn ? 'Tài khoản của tôi' : 'Đăng nhập / Đăng ký'}
+            </Link>
+          </div>
         </SheetContent>
       </Sheet>
 
@@ -216,7 +234,22 @@ export function SiteHeader() {
             </SheetDescription>
           </SheetHeader>
           <div className="flex-1 overflow-y-auto px-6">
-            {rows.length === 0 ? (
+            {!hydrated ? (
+              <div className="space-y-5 py-6" aria-busy="true">
+                <span className="sr-only" aria-live="polite">
+                  Đang tải giỏ hàng
+                </span>
+                {[1, 2].map((item) => (
+                  <div key={item} className="grid grid-cols-[82px_1fr] gap-4">
+                    <div className="aspect-[3/4] animate-pulse rounded-lg bg-black/10 motion-reduce:animate-none" />
+                    <div className="space-y-3 py-1">
+                      <div className="h-4 w-4/5 animate-pulse rounded bg-black/10 motion-reduce:animate-none" />
+                      <div className="h-3 w-2/5 animate-pulse rounded bg-black/10 motion-reduce:animate-none" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : rows.length === 0 ? (
               <div className="flex h-full min-h-72 flex-col items-center justify-center text-center">
                 <ShoppingBag className="mb-4 h-9 w-9" />
                 <p className="font-bold">Giỏ hàng đang trống</p>

@@ -94,7 +94,7 @@ select,
 textarea {
   font-size: 1rem;
 }
-.mova-grid {
+.hauvie-grid {
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px);

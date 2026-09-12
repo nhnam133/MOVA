@@ -12,10 +12,7 @@ import {
 import { ProductCard } from '@/components/store/product-card';
 import { AnnouncementBar, SiteHeader } from '@/components/store/site-header';
 import { SiteFooter } from '@/components/store/site-footer';
-import {
-  getCatalogCategories,
-  getCatalogProducts,
-} from '@/lib/catalog-server';
+import { getCatalogCategories, getCatalogProducts } from '@/lib/catalog-server';
 
 export default async function Home() {
   const [products, visibleCategories] = await Promise.all([
@@ -197,7 +194,7 @@ export default async function Home() {
       </section>
 
       <section
-        id="mova-club"
+        id="hauvie-club"
         className="mx-auto max-w-[1480px] px-4 py-20 sm:px-8 lg:px-12 lg:py-28"
       >
         <div className="grid overflow-hidden rounded-[26px] bg-black text-white lg:grid-cols-[1.05fr_0.95fr]">
@@ -211,7 +208,7 @@ export default async function Home() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
           </div>
-          <div className="mova-grid flex flex-col justify-between p-7 sm:p-12 lg:p-16">
+          <div className="hauvie-grid flex flex-col justify-between p-7 sm:p-12 lg:p-16">
             <div>
               <p className="section-kicker text-[#dfff00]">
                 Dành riêng cho bạn

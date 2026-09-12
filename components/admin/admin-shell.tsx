@@ -23,10 +23,23 @@ const links = [
 ];
 
 export function AdminHeader({ email }: { email?: string }) {
+  const navLinks = links.map(({ href, label, icon: Icon }) => (
+    <Link
+      key={href}
+      href={href}
+      className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 px-4 text-sm font-bold transition hover:border-[#dfff00] hover:bg-[#dfff00] hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#dfff00]"
+    >
+      <Icon className="h-4 w-4" aria-hidden="true" />
+      {label}
+    </Link>
+  ));
   return (
     <header className="border-b border-white/15 bg-black text-white">
       <div className="mx-auto flex max-w-[1480px] items-center justify-between gap-4 px-4 py-4 sm:px-8 lg:px-12">
-        <Link href="/" className="shrink-0 text-2xl font-black italic tracking-[-0.07em]">
+        <Link
+          href="/"
+          className="shrink-0 text-2xl font-black italic tracking-[-0.07em]"
+        >
           HAUVIE<span className="text-[#dfff00]">.</span>
         </Link>
         <div className="min-w-0 text-right">
@@ -34,20 +47,28 @@ export function AdminHeader({ email }: { email?: string }) {
           {email && <p className="truncate text-xs text-white/55">{email}</p>}
         </div>
       </div>
+      <details className="group mx-4 mb-4 lg:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-xl border border-white/25 px-4 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#dfff00]">
+          Menu quản trị
+          <span
+            className="text-[#dfff00] transition group-open:rotate-45"
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </summary>
+        <nav
+          aria-label="Điều hướng quản trị trên điện thoại"
+          className="mt-2 grid grid-cols-2 gap-2 rounded-2xl bg-white/5 p-2 sm:grid-cols-3"
+        >
+          {navLinks}
+        </nav>
+      </details>
       <nav
         aria-label="Điều hướng quản trị"
-        className="mx-auto flex max-w-[1480px] gap-2 overflow-x-auto px-4 pb-4 sm:px-8 lg:px-12"
+        className="mx-auto hidden max-w-[1480px] flex-wrap gap-2 px-12 pb-4 lg:flex"
       >
-        {links.map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-white/20 px-4 text-sm font-bold transition hover:border-[#dfff00] hover:bg-[#dfff00] hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#dfff00]"
-          >
-            <Icon className="h-4 w-4" aria-hidden="true" />
-            {label}
-          </Link>
-        ))}
+        {navLinks}
       </nav>
     </header>
   );

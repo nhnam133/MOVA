@@ -19,9 +19,28 @@ import { getDb } from '@/db';
 import { reviews, users } from '@/db/schema';
 import { products } from '@/lib/catalog';
 import { findCatalogProduct } from '@/lib/catalog-server';
+import type { Metadata } from 'next';
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const product = await findCatalogProduct((await params).slug);
+  if (!product) return { title: 'Không tìm thấy sản phẩm — HAUVIE' };
+  return {
+    title: `${product.name} — HAUVIE`,
+    description: product.description,
+    openGraph: {
+      title: `${product.name} — HAUVIE`,
+      description: product.description,
+      images: product.image ? [{ url: product.image, alt: product.name }] : [],
+    },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -154,8 +173,8 @@ export default async function ProductDetailPage({
           <div className="space-y-4">
             {reviewRows.length === 0 ? (
               <p className="rounded-2xl border border-black/10 p-6 text-sm text-neutral-500">
-                Sản phẩm chưa có đánh giá. HAUVIE không tạo số liệu hoặc bình luận
-                giả.
+                Sản phẩm chưa có đánh giá. HAUVIE không tạo số liệu hoặc bình
+                luận giả.
               </p>
             ) : (
               reviewRows.map((review) => (
@@ -185,7 +204,9 @@ export default async function ProductDetailPage({
                   {review.adminReply && (
                     <div className="mt-4 border-l-4 border-[#dfff00] bg-neutral-50 p-4 text-sm leading-6">
                       <p className="font-black">HAUVIE phản hồi</p>
-                      <p className="mt-1 text-neutral-600">{review.adminReply}</p>
+                      <p className="mt-1 text-neutral-600">
+                        {review.adminReply}
+                      </p>
                     </div>
                   )}
                 </article>

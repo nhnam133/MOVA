@@ -68,6 +68,12 @@ const productDetails: Record<
   },
 };
 
+function productColorPhrase(color: string) {
+  const normalized = color.trim().replace(/^màu\s+/i, '');
+  if (!normalized || /demo|theo ảnh/i.test(normalized)) return 'trung tính';
+  return normalized.toLocaleLowerCase('vi-VN');
+}
+
 type ProductCopyInput = {
   categorySlug: string;
   gender: string;
@@ -83,11 +89,12 @@ export function productCopy(input: ProductCopyInput) {
         ? 'nữ'
         : 'unisex';
   const details = productDetails[input.categorySlug];
+  const color = productColorPhrase(input.color);
   return {
     material: details?.material ?? 'Chất liệu thể thao co giãn',
     description:
-      details?.description(audience, input.color) ??
-      `${brandText(input.name)} màu ${input.color.toLowerCase()}, được thiết kế cho nhịp sống năng động và vận động hằng ngày.`,
+      details?.description(audience, color) ??
+      `${brandText(input.name)} màu ${color}, được thiết kế cho nhịp sống năng động và vận động hằng ngày.`,
   };
 }
 
