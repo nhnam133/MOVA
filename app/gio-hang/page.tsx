@@ -73,11 +73,11 @@ export default function CartPage() {
           </div>
         ) : (
           <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_380px]">
-            <div className="border border-black bg-white px-5 sm:px-7">
+            <div className="min-w-0 border border-black bg-white px-4 sm:px-7">
               {rows.map(({ item, product, variant }) => (
                 <div
                   key={item.sku}
-                  className="grid grid-cols-[96px_1fr] gap-5 border-b border-black/15 py-6 last:border-0 sm:grid-cols-[120px_1fr]"
+                  className="grid min-w-0 grid-cols-[80px_minmax(0,1fr)] gap-3 border-b border-black/15 py-6 last:border-0 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-5"
                 >
                   <Link
                     href={`/san-pham/${product.slug}`}
@@ -91,15 +91,15 @@ export default function CartPage() {
                       sizes="120px"
                     />
                   </Link>
-                  <div className="flex flex-col justify-between">
-                    <div className="flex justify-between gap-4">
-                      <div>
+                  <div className="flex min-w-0 flex-col justify-between">
+                    <div className="flex min-w-0 justify-between gap-2 sm:gap-4">
+                      <div className="min-w-0">
                         <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-500">
                           {product.category}
                         </p>
                         <Link
                           href={`/san-pham/${product.slug}`}
-                          className="mt-1 block font-bold hover:underline"
+                          className="mt-1 block [overflow-wrap:anywhere] font-bold hover:underline"
                         >
                           {product.name}
                         </Link>
@@ -110,13 +110,13 @@ export default function CartPage() {
                       <button
                         onClick={() => removeItem(item.sku)}
                         aria-label={`Xóa ${product.name}`}
-                        className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-full transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2"
+                        className="inline-flex min-h-11 min-w-11 flex-none cursor-pointer items-center justify-center rounded-full transition hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2"
                       >
                         <Trash2 className="h-4 w-4" aria-hidden="true" />
                       </button>
                     </div>
-                    <div className="flex items-end justify-between gap-3">
-                      <div className="flex items-center border border-black">
+                    <div className="mt-4 flex min-w-0 flex-col items-start gap-3 sm:mt-0 sm:flex-row sm:items-end sm:justify-between">
+                      <div className="flex max-w-full items-center border border-black">
                         <button
                           className="inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center transition hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2"
                           onClick={() =>
@@ -139,7 +139,7 @@ export default function CartPage() {
                           <Plus className="h-3 w-3" aria-hidden="true" />
                         </button>
                       </div>
-                      <p className="font-black">
+                      <p className="max-w-full font-black tabular-nums">
                         {formatMoney(product.price * item.quantity)}
                       </p>
                     </div>
