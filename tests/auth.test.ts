@@ -26,7 +26,15 @@ test('auth redirects reject external, escaped, and reserved destinations', () =>
 test('cookie-auth mutations require matching origin, rejecting missing origin and cross-site fetch', () => {
   const origin = 'https://mova.example';
   assert.equal(
-    isSameOriginMutation(new Request(origin, { headers: { origin } }), origin),
+    isSameOriginMutation(new Request(origin, { headers: { origin } })),
+    true,
+  );
+  assert.equal(
+    isSameOriginMutation(
+      new Request('https://hauvie.example/api/auth/login', {
+        headers: { origin: 'https://hauvie.example' },
+      }),
+    ),
     true,
   );
   const invalidHeaders: Record<string, string>[] = [
@@ -37,7 +45,7 @@ test('cookie-auth mutations require matching origin, rejecting missing origin an
   ];
   for (const headers of invalidHeaders)
     assert.equal(
-      isSameOriginMutation(new Request(origin, { headers }), origin),
+      isSameOriginMutation(new Request(origin, { headers })),
       false,
     );
 });

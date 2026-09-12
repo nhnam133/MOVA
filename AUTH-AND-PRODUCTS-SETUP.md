@@ -10,7 +10,7 @@ Chưa phát hành thay đổi này lên website công khai. Không phát hành t
 
 1. Tạo/chọn một dự án Supabase do chủ HAUVIE quản lý. Bật Email/password và cho phép đăng ký.
 2. Lấy Project URL và publishable key. Đây là thông tin công khai; không dùng `service_role`, secret key hay mật khẩu cơ sở dữ liệu trong ứng dụng.
-3. Thiết lập Site URL là `https://mova-sport-store.nam1303.chatgpt.site`. Cho phép Redirect URL `https://mova-sport-store.nam1303.chatgpt.site/auth/confirm`. Khi kiểm tra cục bộ, thêm `http://localhost:3000/auth/confirm`.
+3. Thiết lập Site URL là `https://hauvie-sport.nam1303.chatgpt.site`. Cho phép Redirect URL `https://hauvie-sport.nam1303.chatgpt.site/auth/confirm`. Khi kiểm tra cục bộ, thêm `http://localhost:3000/auth/confirm`.
 4. Khuyến nghị giữ xác nhận email. Cấu hình SMTP riêng trước khi cho người ngoài nhóm dự án đăng ký: SMTP mặc định của Supabase chỉ gửi cho địa chỉ được cho phép và không phù hợp để mở đăng ký công khai. Không tự động tắt xác nhận email để vượt giới hạn gửi thư. Nếu chọn chế độ demo không xác nhận email, cần được chủ dự án đồng ý và ghi rõ giới hạn xác minh danh tính.
 5. Tự tạo tài khoản quản trị trong Supabase Authentication và xác nhận quyền sở hữu email. Lấy User UID của tài khoản này làm `MOVA_ADMIN_AUTH_ID`. Không gửi mật khẩu trong hội thoại.
 6. Cấu hình runtime cloud qua Sites: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `MOVA_ADMIN_AUTH_ID`, `SITE_URL`. Giữ `MOVA_ADMIN_EMAIL` đã có nếu cần giữ hồ sơ quản trị cũ. Không lưu bí mật trong Git. File local `.dev.vars` được bỏ qua bởi Git.

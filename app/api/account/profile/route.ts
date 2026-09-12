@@ -1,4 +1,3 @@
-import { env } from 'cloudflare:workers';
 import { eq } from 'drizzle-orm';
 import { getDb } from '@/db';
 import { users } from '@/db/schema';
@@ -9,7 +8,7 @@ import { isSameOriginMutation } from '@/lib/auth-validation';
 export async function POST(request: Request) {
   const user = await getMovaUser();
   if (!user) return Response.json({ error: 'Bạn cần đăng nhập.' }, { status: 401 });
-  if (!isSameOriginMutation(request, env.SITE_URL)) return Response.json({ error: 'Yêu cầu không hợp lệ. Vui lòng tải lại trang.' }, { status: 403 });
+  if (!isSameOriginMutation(request)) return Response.json({ error: 'Yêu cầu không hợp lệ. Vui lòng tải lại trang.' }, { status: 403 });
   let body: { action?: string; fullName?: string; phone?: string; password?: string; confirmPassword?: string };
   try { body = await request.json(); } catch { return Response.json({ error: 'Dữ liệu không hợp lệ.' }, { status: 400 }); }
   const { client, json } = await authResponseClient();

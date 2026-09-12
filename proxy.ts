@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { env } from 'cloudflare:workers';
 import { authConfigured, createAuthClient } from '@/lib/supabase-server';
 import { isSameOriginMutation } from '@/lib/auth-validation';
 
@@ -17,7 +16,7 @@ export async function proxy(request: NextRequest) {
     !['GET', 'HEAD', 'OPTIONS'].includes(request.method) &&
     path !== '/api/momo/ipn'
   ) {
-    if (!isSameOriginMutation(request, env.SITE_URL))
+    if (!isSameOriginMutation(request))
       return NextResponse.json(
         { error: 'Yêu cầu không hợp lệ. Vui lòng tải lại trang và thử lại.' },
         { status: 403 },

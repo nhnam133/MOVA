@@ -24,7 +24,7 @@ export async function POST(
     );
   if (!['login', 'register', 'logout'].includes(action))
     return fail('Không tìm thấy chức năng.', 404);
-  if (!isSameOriginMutation(request, env.SITE_URL))
+  if (!isSameOriginMutation(request))
     return fail('Yêu cầu không hợp lệ. Vui lòng tải lại trang.', 403);
   if (!authConfigured())
     return fail(

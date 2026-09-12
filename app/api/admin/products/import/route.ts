@@ -4,7 +4,7 @@ import { isSameOriginMutation } from '@/lib/auth-validation';
 import { productImportCommands } from '@/lib/product-import';
 
 export async function POST(request: Request) {
-  if (!isSameOriginMutation(request, env.SITE_URL))
+  if (!isSameOriginMutation(request))
     return Response.json({ error: 'Yêu cầu không hợp lệ.' }, { status: 403 });
   if (!(await getAdminUser()))
     return Response.json(

@@ -55,13 +55,15 @@ export function safeAuthReturnPath(value: unknown): string {
 
 export function isSameOriginMutation(
   request: Request,
-  configuredOrigin?: string,
 ): boolean {
   const origin = request.headers.get('origin');
   if (!origin || origin === 'null') return false;
   try {
     return (
-      origin === new URL(configuredOrigin || request.url).origin &&
+      // The incoming request URL is the canonical origin for this request.
+      // Comparing against a configured public URL makes every form mutation
+      // fail after a legitimate Sites slug or custom-domain change.
+      origin === new URL(request.url).origin &&
       request.headers.get('sec-fetch-site') !== 'cross-site'
     );
   } catch {
